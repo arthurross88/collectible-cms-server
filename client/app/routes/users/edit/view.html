@@ -1,0 +1,78 @@
+<div class="cc-routes-users-edit landing-page">
+	<div class="inner landing-page-inner">
+		<div class="container-fluid">
+			<div class="row errors">
+				<div class="col-xs-12">
+					<cc-site-alert [alerts]="alerts"></cc-site-alert>
+				</div>
+			</div>
+			<div *ngIf="loaded == true" class="loaded">
+				<div class="row id">
+					<div class="col-xs-12 col-sm-4">
+						<input type="text" value="{{ user._id }}" disabled="true" class="form-control">
+						<span class="subscript">ID</span>
+					</div>
+					<div class="col-xs-12 col-sm-4">
+						<input type="text" [(ngModel)]="user.email" class="form-control">
+						<span class="subscript">Email / Login</span>
+					</div>
+					<div class="col-xs-12 col-sm-4">
+						<input type="password" [(ngModel)]="user.password" class="form-control">
+						<span class="subscript">Password</span>
+					</div>
+				</div>
+				<div class="row name">
+					<div class="col-xs-12 col-sm-4">
+						<input type="text" [(ngModel)]="user.name.first" placeholder="First Name" class="form-control">
+						<span class="subscript">Name</span>
+					</div>
+					<div class="col-xs-12 col-sm-4">
+						<input type="text" [(ngModel)]="user.name.middle" placeholder="Middle Name" class="form-control">
+						<span class="subscript">Middle</span>
+					</div>
+					<div class="col-xs-12 col-sm-4">
+						<input type="text" [(ngModel)]="user.name.last" placeholder="Last Name" class="form-control">
+						<span class="subscript">Last</span>
+					</div>
+				</div>
+				<div class="row image">
+					<div class="col-xs-8">
+						<cc-site-upload (onFileUpload)="onFileUpload($event)" [alerts]="alerts"></cc-site-upload>
+						<input type="text" [(ngModel)]="user.image" placeholder="Upload file above, or paste in url here." class="form-control">
+					</div>
+					<div class="col-xs-2">
+						<img src="{{ user.image }}" />
+					</div>
+				</div>
+				<div *ngIf="currentUser.user.isAdmin()" class="row roles">
+					<div class="col-xs-1">
+						<input type="checkbox" class="form-control"
+							[checked]="user.roles.indexOf('admin') > -1"
+							(change)="changePermission('admin')" />
+						<br />
+						<span class="subscript">Admin</span>
+					</div>
+					<div class="col-xs-1">
+						<input type="checkbox" class="form-control"
+							[checked]="user.roles.indexOf('user') > -1"
+							(change)="changePermission('user')" />
+						<br />
+						<span class="subscript">User</span>
+					</div>
+					<div class="col-xs-1">
+						<input type="checkbox" class="form-control"
+							[checked]="user.roles.indexOf('anonymous') > -1"
+							(change)="changePermission('anonymous')" />
+						<br />
+						<span class="subscript">Anonymous</span>
+					</div>
+				</div>
+				<div *ngIf="!currentUser.user.isAnonymous()" class="row submit">
+					<div class="col-xs-3">
+						<button class="btn btn-success form-control" (click)="save()">Save Changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

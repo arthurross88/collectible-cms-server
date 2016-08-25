@@ -1,0 +1,14 @@
+<div class="cc-users-lists-all component widget">
+	<div class="inner component-inner widget-inner">
+	    <div class="users row">
+	        <div class="col-xs-12">
+	            <ul>
+	                <li *ngFor="let user of users">
+	                	<a routerLink="/u/{{ user._id }}">{{ user.email }}</a>
+	                	[<a href="#" (click)="deleteUser(user)">X</a>]
+	                </li>
+	            </ul>
+	        </div>
+	    </div>
+	</div>
+</div>

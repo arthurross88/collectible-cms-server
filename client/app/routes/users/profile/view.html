@@ -1,0 +1,18 @@
+<div class="cc-routes-users-profile landing-page">
+	<div class="inner landing-page-inner">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12"><cc-site-alert [alerts]='alerts'></cc-site-alert></div>
+			</div>
+			<div *ngIf="loaded == true" class="row">
+				<div class="col-xs-4">
+					<img src="{{ user.image }}" />
+				</div>
+				<div class="col-xs-8">
+					<h1>{{ userId }}</h1>
+					<p>{{ user.email }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

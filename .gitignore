@@ -1,0 +1,9 @@
+/config.js
+node_modules
+typings
+/apidoc
+apidoc.json
+/client/app/**/*.js
+/client/app/**/*.map
+.log
+/uploads

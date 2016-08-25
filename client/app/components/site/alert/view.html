@@ -1,0 +1,11 @@
+<div class="cc-site-alert component">
+	<div class="inner component-inner">
+		<div *ngFor="let alert of alerts; let i=index" 
+			class="alert {{ (alert.type == 'success') ? 'alert-success' : 'alert-danger' }}">
+			<div class="close-button">
+				<button (click)="close(i)">X</button>
+			</div>
+			{{ alert.message }}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,35 @@
+{
+  "name": "collectible-cms",
+  "version": "0.0.1",
+  "description": "API backend for the Collectible Content Management System",
+  "main": "server.js",
+  "scripts": {
+    "postinstall": "npm run doc_install && npm run client_install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc_install": "apidoc -i server/ -o apidoc/v1/",
+    "doc_update": "apidoc -i server/ -o apidoc/v1/ -t templates/apidoc",
+    "client_install": "cd client && npm install",
+    "client_dev": "cd client && npm run dev",
+    "server_dev": "nodemon server.js",
+    "dev": "concurrent \"npm run client_dev\" \"npm run server_dev\" \"npm run doc_update\" ",
+    "prod": "cd client && npm run tsc && cd .. && npm run doc_update && node server.js"
+  },
+  "author": "Bryan Hazelbaker",
+  "license": "MIT",
+  "dependencies": {
+    "apidoc": "^0.16.1",
+    "body-parser": "~1.15.2",
+    "busboy": "^0.2.13",
+    "connect-busboy": "0.0.2",
+    "crypto": "0.0.3",
+    "express": "~4.14.0",
+    "fs": "0.0.2",
+    "jsonwebtoken": "~7.1.7",
+    "mongoose": "~4.5.8",
+    "morgan": "~1.7.0"
+  },
+  "devDependencies": {
+    "concurrently": "^2.2.0",
+    "nodemon": "^1.10.2"
+  }
+}

@@ -1,0 +1,25 @@
+.cc-site-upload {
+	
+}
+.cc-site-upload .container-fluid {
+	padding-left: 0;
+	padding-right: 0;
+}
+input.form-control::-webkit-file-upload-button {
+  visibility: hidden;
+}
+input.form-control::before {
+  content: 'Choose File';
+  color: black;
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #eee, #999);
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 6px 10px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+}

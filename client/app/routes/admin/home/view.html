@@ -1,0 +1,40 @@
+<div class="cc-routes-admin-home landing-page">
+	<div class="inner landing-page-inner">
+		<div class="container-fluid">
+			<div class="row alerts">
+				<div class="col-xs-12">
+					<cc-site-alert [alerts]='alerts'></cc-site-alert>
+				</div>
+			</div>
+			<div class="row alerts">
+				<div class="col-xs-12">
+					<h1>Administration</h1>
+				</div>
+			</div>
+			<div class="row welcome">
+				<div class="col-xs-12">
+					<div *ngIf="currentUser.user.isRegistered()">
+						Welcome {{ currentUser.user.name.first }}
+					</div>
+				</div>
+			</div>
+			<div class="row main">
+				<div class="col-xs-4">
+					<div class="row">
+						<div class="col-xs-12">
+							<cc-users-create-quick [alerts]='alerts'></cc-users-create-quick>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<cc-site-config [alerts]='alerts'></cc-site-config>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-8">
+					<cc-users-lists-all [alerts]='alerts'></cc-users-lists-all>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

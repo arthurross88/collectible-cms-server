@@ -1,0 +1,20 @@
+.cc-site-alert {
+	
+}
+.cc-site-alert .close-button {
+	float: right;
+}
+.cc-site-alert .alert-danger .close-button button {
+	font-size: 0.9em;
+	background: linear-gradient(to bottom, #ffe0e0, #ffb0b0);
+	border: 1px solid #ffa0a0;
+	border-radius: 2px;
+	color: #ff0000;
+}
+.cc-site-alert .alert-success .close-button button {
+	font-size: 0.9em;
+	background: linear-gradient(to bottom, #d0f0d0, #a0f0a0);
+	border: 1px solid #09f009;
+	border-radius: 2px;
+	color: #00a000;
+}

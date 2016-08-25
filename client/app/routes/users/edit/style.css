@@ -1,0 +1,35 @@
+.cc-routes-users-edit {
+	
+}
+.cc-routes-users-edit .subscript {
+	font-size: 0.75em;
+	line-height: 0.8em;
+	padding-left: 0.2em;
+	padding-bottom: 0.5em;
+}
+.cc-routes-users-edit input.form-control[type="checkbox"] {
+	max-width: 2em;
+	display: inline-block;
+}
+
+.cc-routes-users-edit .row.id,
+.cc-routes-users-edit .row.name,
+.cc-routes-users-edit .row.image,
+.cc-routes-users-edit .row.roles,
+.cc-routes-users-edit .row.submit {
+	margin-top: 2em;
+}
+
+.cc-routes-users-edit .row.roles input {
+	margin-left: 2em;
+}
+.cc-routes-users-edit .row.roles input:first-child {
+	margin-left: 0;
+}
+
+/**
+ * Image
+ */
+ .cc-routes-users-edit .row.image img {
+ 	width: 100%;
+ }

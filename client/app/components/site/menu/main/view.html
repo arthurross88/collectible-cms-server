@@ -1,0 +1,85 @@
+<div class="cc-site-menu-main component">
+	<div class="inner component-inner">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-6 left">
+					<div class="menu">
+						<div class="menu-item home">
+							<span class="fa fa-home" aria-hidden="true"></span>
+							<a routerLink="/">Home</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 right">
+					<div class="menu">
+						<div class="menu-item profile">
+							<div class="dropdown">
+  							    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+	  							    <span *ngIf="currentUser.user.isRegistered()" class="fa fa-user" aria-hidden="true"></span>
+							        <span *ngIf="currentUser.user.isRegistered()">{{ currentUser.user.email }}</span>
+	  							    <span *ngIf="!currentUser.user.isRegistered()" class="fa fa-user-secret" aria-hidden="true"></span>
+							        <span *ngIf="!currentUser.user.isRegistered()">Anonymous</span>
+									<span><span class="caret"></span></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li *ngIf="currentUser.user.isAdmin()">
+										<a routerLink="/admin">
+											<span class="fa fa-gears" aria-hidden="true"></span>
+											<span class="text">Site Administration</span>
+										</a>
+									</li>
+									<li *ngIf="currentUser.user.isRegistered()">
+										<a routerLink="/u/{{ currentUser.user._id }}">
+											<span class="fa fa-user" aria-hidden="true"></span>
+											<span class="text">Public Profile</span>
+										</a>
+									</li>
+									<li *ngIf="currentUser.user.isRegistered()">
+										<a routerLink="/u/{{ currentUser.user._id }}/edit">
+											<span class="fa fa-cog" aria-hidden="true"></span>
+											<span class="text">Profile Settings</span>
+										</a>
+									</li>
+									<li *ngIf="currentUser.user.isRegistered()">
+										<a (click)="logout()">
+											<span class="fa fa-user-times" aria-hidden="true"></span>
+											<span class="text">Logout</span>
+										</a>
+									</li>
+									<li *ngIf="!currentUser.user.isRegistered()">
+										<a data-toggle="modal" data-target="#loginModal">
+											<span class="fa fa-user-plus" aria-hidden="true"></span>
+											<span class="text">Login</span>
+										</a>
+									</li>
+								</ul>
+							</div>						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div id="loginModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Please enter your credentials</h4>
+				</div>
+				<div class="modal-body">
+					<cc-site-alert [alerts]='alerts'></cc-site-alert>
+					<cc-login [alerts]="alerts"></cc-login>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default cc-el-login" (click)="login()">Login</button>
+					<button type="button" class="btn btn-default cc-el-close" data-dismiss="modal" (click)="closeModal()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+</div>

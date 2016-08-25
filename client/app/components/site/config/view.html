@@ -1,0 +1,35 @@
+<div class="cc-site-config component widget">
+	<div class="inner component-inner widget-inner">
+		<div *ngIf="configContainer != null" class="container-fluid">
+			<div class="row title">
+				<div class="col-xs-4">
+					Site Title
+				</div>
+				<div class="col-xs-8">
+					<input type="text" [(ngModel)]="configContainer.config.siteTitle" class="form-control" />
+				</div>
+			</div>
+			<div class="row domain">
+				<div class="col-xs-4">
+					Domain
+				</div>
+				<div class="col-xs-8">
+					<input type="text" placeholder="www.collectiblecms.com" [(ngModel)]="configContainer.config.siteDomain" class="form-control" />
+				</div>
+			</div>
+			<div class="row motd">
+				<div class="col-xs-4">
+					MOTD
+				</div>
+				<div class="col-xs-8">
+					<textarea [(ngModel)]="configContainer.config.motd" class="form-control"></textarea>
+				</div>
+			</div>
+			<div class="row save">
+				<div class="col-xs-12">
+					<button (click)="save()" class="btn btn-success form-control">Save Site Configuration</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
