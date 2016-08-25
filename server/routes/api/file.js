@@ -27,6 +27,50 @@ var config = require('../../../config');
 
 module.exports = function(app, router) {
     /**
+     * @api {get} /file Read All
+     * @apiPermission apiPermissionPublic
+     * @apiGroup apiGroupFile
+     * @apiName ReadAll
+     * @apiDescription 
+     *     Read details for all files. Files owned by the requestor will always
+     *     be returned. If role is <code>Admin</code> then all files will be returned, 
+     *     otherwise only files marked public will be returned. Results are sorted in
+     *     descending order of creation time (most recent first).
+     * @apiParam {Number} [offset=1] The number of records to skip.
+     * @apiParam {Number} [limit=10] The number of records to retrieve.
+     * @apiUse apiSuccessStatus
+     * @apiSuccess {String} data An array of file objects.
+     * @apiSuccessExample One File Found
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "status": true,
+     *         "data": [ 
+     *             <a href="#fileObject">File Object</a> 
+     *         ]
+     *     }
+     * @apiSuccessExample No Files Found
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "status": true,
+     *         "data": []
+     *     }
+     */
+    router.get('/file', function(req, res) {
+        var offset = parseInt(req.query.offset || 0);
+        var limit  = parseInt(req.query.limit  || 10);
+        var search = { };
+        if (!req.user.isAdmin()) {
+            search.$or = [ { userId: req.user._id }, { public: true } ];
+        }
+        // Sort by creation time, descending order.
+        File.find(search, function(err, files) {
+            res.json({
+                "status": true,
+                "data": files
+            });
+        }).skip(offset).limit(limit).sort( [['_id', -1]] );
+    });
+    /**
      * @api {get} /user/:id/file Read All From User
      * @apiPermission apiPermissionPublic
      * @apiGroup apiGroupFile
@@ -34,7 +78,8 @@ module.exports = function(app, router) {
      * @apiDescription 
      *     Read details for all of user's uploaded files. Files owned by the requestor will
      *     always be returned. If role is <code>Admin</code> then all files will be returned, 
-     *     otherwise only files marked public will be returned.
+     *     otherwise only files marked public will be returned. Results are sorted in
+     *     descending order of creation time (most recent first).
      * @apiParam {Number} id The unique user identifier.
      * @apiParam {Number} [offset=1] The number of records to skip.
      * @apiParam {Number} [limit=10] The number of records to retrieve.
@@ -64,12 +109,13 @@ module.exports = function(app, router) {
         if (!req.user.isAdmin()) {
             search.$or = [ { userId: req.user._id }, { public: true } ];
         }
+        // Sort by creation time, descending order.
         File.find(search, function(err, files) {
             res.json({
                 "status": true,
                 "data": files
             });
-        }).skip(offset).limit(limit);
+        }).skip(offset).limit(limit).sort( [['_id', -1]] );
     });
     /**
      * @api {get} /file/:id Read One
