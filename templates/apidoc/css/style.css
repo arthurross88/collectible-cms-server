@@ -531,6 +531,7 @@ ul.nav-tabs {
 
 } /* /@media print */
 
+
 /**
  * Collectible CMS Overrides.
  */
@@ -564,4 +565,7 @@ article h1 {
   padding-right: 40px;
   border-radius: 4px;
   box-shadow: 4px 4px 6px #333333;
+}
+table.param-fields td > p {
+  display: inline-block;
 }

@@ -169,7 +169,7 @@
   {{#if params}}
     {{#each params.fields}}
       <h2>{{__ @key}}</h2>
-      <table>
+      <table class="param-fields">
         <thead>
           <tr>
           <th style="width: 30%">{{#if ../../_col1}}{{__ ../../_col1}}{{else}}{{__ "Field"}}{{/if}}</th>
@@ -188,7 +188,7 @@
             {{/if}}
             <td>
             {{{nl2br description}}}
-            {{#if defaultValue}}<p class="default-value">{{__ "Example:"}} <code>{{{defaultValue}}}</code></p>{{/if}}
+            {{#if defaultValue}}<p class="default-value">{{__ "Default: "}} <code>{{{defaultValue}}}</code></p>{{/if}}
             {{#if size}}<p class="type-size">{{__ "Size range:"}} <code>{{{size}}}</code></p>{{/if}}
             {{#if allowedValues}}<p class="type-size">{{__ "Allowed values:"}}
               {{#each allowedValues}}

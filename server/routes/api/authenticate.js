@@ -24,7 +24,7 @@ var crypto = require('crypto');
 
 module.exports = function(app, router) {
     /**
-     * @api {post} /api/v1/authenticate Request access token
+     * @api {post} /authenticate Request access token
      * @apiGroup apiGroupAuthentication
      * @apiName Authenticate
      * @apiDescription After authenticating with an email address and password
@@ -47,7 +47,6 @@ module.exports = function(app, router) {
 eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9.
 yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
      *     }
-     * @apiUse apiErrorGeneric
      * @apiErrorExample {JSON} User Not Found
      *     HTTP/1.1 404 Not Found
      *     {
