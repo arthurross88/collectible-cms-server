@@ -1,25 +1,35 @@
 .cc-site-upload {
-	
 }
 .cc-site-upload .container-fluid {
 	padding-left: 0;
 	padding-right: 0;
 }
-input.form-control::-webkit-file-upload-button {
-  visibility: hidden;
+input.form-control {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
-input.form-control::before {
-  content: 'Choose File';
-  color: black;
-  display: inline-block;
-  background: -webkit-linear-gradient(top, #eee, #999);
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  padding: 6px 10px;
-  outline: none;
-  white-space: nowrap;
-  -webkit-user-select: none;
+input.form-control + label {
+    font-size: 1.25em;
+    color: #888888;
+    background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    display: inline-block;
+    padding-left: 3em;
+    padding-right: 3em;
+}
+input.form-control:focus + label,
+input.form-control + label:hover {
+    background: linear-gradient(to bottom: #f0f0f0, #a0f0a0);
+}
+input.form-control + label {
   cursor: pointer;
-  text-shadow: 1px 1px #fff;
-  font-weight: 700;
+}
+input.form-control:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
 }

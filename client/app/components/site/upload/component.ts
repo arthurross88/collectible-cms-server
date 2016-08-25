@@ -18,8 +18,10 @@ import { FileService }                   from '../../../services/file/file.servi
 export class SiteUploadComponent implements OnInit {
     @Input() alerts: AlertMessage[];
     @Output() onFileUpload = new EventEmitter<File>();
-    file: File;
 	currentUser: CurrentUser;
+    unique: string = "SiteUpload" + Math.floor(Math.random() * 1000);
+    file: any;
+    selectButtonText: string = "Select a File";
     working: boolean = false;
     loaded: boolean = false;
     constructor(private authService: AuthenticateService, private fileService: FileService) { 
@@ -27,6 +29,7 @@ export class SiteUploadComponent implements OnInit {
     }
     fileChange(fileInput: any) {
         this.file = fileInput.target.files[0];
+        this.selectButtonText = this.file.name;
     }
     save() {
         this.working = true;

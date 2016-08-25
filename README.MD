@@ -33,7 +33,7 @@ Edit config.js and apidoc.js, replacing the default values with more appropriate
 By visiting http://localhost:8080 for the first time the default admin user
 will be created. Remember these credentials.
 
-### Create and view the documentation
+## Create and view the documentation
 
 * `npm run doc_update`
 

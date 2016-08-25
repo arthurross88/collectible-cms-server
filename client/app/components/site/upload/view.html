@@ -3,10 +3,11 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-8">
-					<input type="file" (change)="fileChange($event)" class="form-control" />
+					<input type="file" id="File" (change)="fileChange($event)" class="form-control" />
+					<label for="File">{{ selectButtonText }}</label>
 				</div>
 				<div class="col-xs-4">
-					<button (click)="save()" class="btn btn-success form-control">Upload</button>
+					<button (click)="save()" class="btn btn-success form-control" [disabled]="!file">Upload</button>
 				</div>
 			</div>
 		</div>
