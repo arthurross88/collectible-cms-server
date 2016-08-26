@@ -173,4 +173,14 @@ export class HttpService {
         }
         return Observable.throw(message);
     }
+    /**
+     * Transform object properties into a url query string.
+     */
+    makeQueryString(data: any) : string
+    {
+       var ret = [];
+       for (var d in data)
+          ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+       return ret.join("&");
+    }    
 }

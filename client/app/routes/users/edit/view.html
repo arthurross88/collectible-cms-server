@@ -37,11 +37,12 @@
 				</div>
 				<div class="row image">
 					<div class="col-xs-8">
-						<cc-site-upload (onFileUpload)="onFileUpload($event)" [alerts]="alerts"></cc-site-upload>
+						<cc-files-upload (onFileUpload)="onFileUpload($event)" [alerts]="alerts"></cc-files-upload>
 						<input type="text" [(ngModel)]="user.image" placeholder="Upload file above, or paste in url here." class="form-control">
 					</div>
 					<div class="col-xs-2">
-						<img src="{{ user.image }}" />
+						<cc-files-views-images-thumbnail [alerts]="alerts" [file]="file" (onFileDelete)="onFileDelete($event)">
+						</cc-files-views-images-thumbnail>
 					</div>
 				</div>
 				<div *ngIf="currentUser.user.isAdmin()" class="row roles">

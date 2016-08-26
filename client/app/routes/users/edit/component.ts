@@ -7,16 +7,19 @@ import { Config, ConfigContainer }       from '../../../models/config';
 import { ConfigService }                 from '../../../services/config/config.service';
 import { UserService }                   from '../../../services/user/user.service';
 import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
-import { SiteUploadComponent }           from '../../../components/site/upload/component';
+import { FilesUploadComponent }          from '../../../components/files/upload/upload.component';
+import { FilesViewsImagesThumbnailComponent } from '../../../components/files/views/images/thumbnail/thumbnail.component';
 
 @Component({
     moduleId: module.id,
     selector: 'cc-routes-users-edit',
     templateUrl: 'view.html',
     styleUrls: ['style.css'],
-    directives: [ SiteUploadComponent ]
+    directives: [ 
+        FilesUploadComponent,
+        FilesViewsImagesThumbnailComponent
+    ]
 })
-
 export class RoutesUsersEditComponent implements OnInit {
 	alerts: AlertMessage[] = [];
     currentUser: CurrentUser;
@@ -25,6 +28,7 @@ export class RoutesUsersEditComponent implements OnInit {
     loaded: boolean = false;
     userId: string;
     user : User;
+    file: File = new File();
     constructor(private route: ActivatedRoute, private userService: UserService, 
                 private authService: AuthenticateService, private configService: ConfigService) {
         this.userId = route.snapshot.params['id'];        
@@ -52,7 +56,12 @@ export class RoutesUsersEditComponent implements OnInit {
     }
     // Event listener for sub-component.
     onFileUpload(file: File) {
+        this.file = file;
         this.user.image = this.configContainer.config.siteDomain + '/' + file.url;
+    }
+    // Event listener for sub-component.
+    onFileDelete(file: File) {
+        console.log('Deleting File!');
     }
     ngOnInit() {
         this.working = true;
@@ -61,6 +70,7 @@ export class RoutesUsersEditComponent implements OnInit {
                 user => {
                     this.user = user;
                     this.loaded = true;
+                    this.file.url = this.user.image;
                 },
                 err => this.alerts.push({ type: 'error', message: err }),
                 () => this.working = false

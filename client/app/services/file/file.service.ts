@@ -11,8 +11,13 @@ export class FileService {
     /**
      * Retrieve all files, or all files of a specified user.
      */
-	readAll(id?: string): Observable<File[]> {
+	readAll(id?: string, offset?: number, limit?: number): Observable<File[]> {
         let url: string = (id == null)  ? '/api/v1/file' : '/api/v1/user/' + id + '/file';
+        let query: string = this.httpService.makeQueryString({
+            "offset": offset,
+            "limit": limit
+        });
+console.log(query);
 		return this.httpService.getSimple(url, this.authService.getToken())
             .map( (json) => { 
                 if (!json.status)

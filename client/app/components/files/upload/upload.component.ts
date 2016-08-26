@@ -10,16 +10,16 @@ import { FileService }                   from '../../../services/file/file.servi
 
 @Component({
 	moduleId: module.id,
-    selector: 'cc-site-upload',
-    templateUrl: 'view.html',
-    styleUrls: ['style.css'],
+    selector: 'cc-files-upload',
+    templateUrl: 'upload.html',
+    styleUrls: ['upload.css'],
     providers: [ FileService ]
 })
-export class SiteUploadComponent implements OnInit {
+export class FilesUploadComponent implements OnInit {
     @Input() alerts: AlertMessage[];
     @Output() onFileUpload = new EventEmitter<File>();
 	currentUser: CurrentUser;
-    unique: string = "SiteUpload" + Math.floor(Math.random() * 1000);
+    unique: string = "FilesUpload" + Math.floor(Math.random() * 1000);
     file: any;
     selectButtonText: string = "Select a File";
     working: boolean = false;

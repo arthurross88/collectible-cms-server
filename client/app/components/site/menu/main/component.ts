@@ -12,7 +12,6 @@ import { LoginComponent }                from '../../../../components/login/comp
     templateUrl: 'view.html',
     styleUrls: ['style.css'],
 })
-
 export class SiteMenuMainComponent implements OnInit {
     @ViewChild(LoginComponent) loginComponent:LoginComponent;
 	currentUser: CurrentUser;
