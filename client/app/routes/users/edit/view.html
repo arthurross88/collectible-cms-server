@@ -41,8 +41,12 @@
 						<input type="text" [(ngModel)]="user.image" placeholder="Upload file above, or paste in url here." class="form-control">
 					</div>
 					<div class="col-xs-2">
-						<cc-files-views-images-thumbnail [alerts]="alerts" [file]="file" (onFileDelete)="onFileDelete($event)">
-						</cc-files-views-images-thumbnail>
+						<cc-thumbnail 
+							[options]="thumbnailOptions" 
+							[file]="file" 
+							(onAlert)="onAlert($event)"
+							(onFileDelete)="onFileDelete($event)">
+						</cc-thumbnail>
 					</div>
 				</div>
 				<div *ngIf="currentUser.user.isAdmin()" class="row roles">

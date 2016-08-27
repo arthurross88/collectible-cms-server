@@ -2,7 +2,7 @@ import { Component, OnInit }        from '@angular/core';
 import { ActivatedRoute }           from '@angular/router';
 import { User }                     from '../../../models/user';
 import { File }                     from '../../../models/file';
-import { FilesViewsImagesTableComponent } from '../../../components/files/views/images/table/table.component';
+import { ImagesTable }              from '../../../components/files/views/images/table/table.component';
 import { AlertMessage }             from '../../../models/alertMessage';
 import { UserService }              from '../../../services/user/user.service';
 import { FileService }              from '../../../services/file/file.service';
@@ -16,7 +16,7 @@ import { FileService }              from '../../../services/file/file.service';
         FileService
     ],
     directives: [
-        FilesViewsImagesTableComponent
+        ImagesTable
     ]
 })
 export class RoutesUsersProfileComponent implements OnInit {

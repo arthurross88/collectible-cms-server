@@ -3,22 +3,23 @@ import { OnInit, EventEmitter }         from '@angular/core';
 import { ViewChild }                    from '@angular/core';
 import { File }                         from '../../../../../models/file';
 import { AlertMessage }                 from '../../../../../models/alertMessage';
-import { SitePaginationComponent as Pagination,
+import { Pagination, 
          Options as PaginationOptions } from '../../../../../components/site/pagination/pagination.component';
+import { Options as ThumbnailOptions }  from '../../../../../components/files/views/images/thumbnail/thumbnail.component';
 
 /**
- *  <cc-files-views-images-table [alerts]="alerts" [files]="files"></cc-files-views-images-table>
+ *  <cc-images-table [alerts]="alerts" [files]="files"></cc-images-table>
  */
 @Component({
     moduleId: module.id,
-    selector: 'cc-files-views-images-table',
+    selector: 'cc-images-table',
     templateUrl: 'table.html',
     styleUrls: ['table.css'],
     directives: [
         Pagination
     ]
 })
-export class FilesViewsImagesTableComponent implements OnInit {
+export class ImagesTable implements OnInit {
     @ViewChild(Pagination) pagination: Pagination;
     @Input() alerts: AlertMessage[];
     @Input() files: File[];
@@ -30,8 +31,12 @@ export class FilesViewsImagesTableComponent implements OnInit {
     paginationOptions: PaginationOptions = {
         pageCurrent: 1,
         maxPageButtons: 5,
-        itemsPerPage: 1,
+        itemsPerPage: 2,
         items: this.files
+    }
+    thumbnailOptions: ThumbnailOptions = {
+        width: '4em',
+        height: '4em'
     }
     constructor() { }
     ngOnInit() { }

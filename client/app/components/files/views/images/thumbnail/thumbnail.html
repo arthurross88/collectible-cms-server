@@ -1,5 +1,5 @@
 <div class="cc-files-views-images-thumbnail component">
-    <div class="inner component-inner">
+    <div class="inner component-inner e2e-trusted-style" [style]="getStyle()">
         <div *ngIf="working == true && loaded == false" class="loading">
             <span class="fa fa-spinner fa-spin"></span>
         </div>

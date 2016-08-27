@@ -1,29 +1,51 @@
 import { Component, Input, Output }     from '@angular/core';
 import { OnInit, EventEmitter }         from '@angular/core';
+import { DomSanitizationService }       from '@angular/platform-browser';
 import { File }                         from '../../../../../models/file';
 import { AlertMessage }                 from '../../../../../models/alertMessage';
 
 /**
- *  <cc-files-views-images-thumbnail [alerts]="alerts" [file]="file" (onFileDelete)="onDelete($event)">
- *  </cc-files-views-images-thumbnail>
+ *  <cc-thumbnail 
+ *      [options]="thumbnailOptions" 
+ *      [file]="file"
+ *      (onAlert)="onAlert($event)" 
+ *      (onFileDelete)="onDelete($event)">
+ *  </cc-thumbnail>
  */
 @Component({
     moduleId: module.id,
-    selector: 'cc-files-views-images-thumbnail',
+    selector: 'cc-thumbnail',
     templateUrl: 'thumbnail.html',
     styleUrls: ['thumbnail.css'],
 })
-export class FilesViewsImagesThumbnailComponent implements OnInit {
-    @Input() alerts: AlertMessage[];
+export class Thumbnail implements OnInit {
+    @Input() options: Options;
     @Input() file: File;
+    @Output() onAlert = new EventEmitter<AlertMessage>();
     @Output() onFileDelete = new EventEmitter<File>();
     working: boolean = false;
     loaded: boolean = false;
-    constructor() { }
-    delete() {
-        this.onFileDelete.emit(this.file);
-    }
+    constructor(private sanitizer: DomSanitizationService) { }
     ngOnInit() {
         this.loaded = true;
     }
+    getStyle() {
+        return this.sanitizer.bypassSecurityTrustStyle(
+            'width:' + this.options.width + ';' + 
+            'height:' + this.options.height + ';'
+        );
+    }
+    delete() {
+        this.onFileDelete.emit(this.file);
+    }
 };
+
+/**
+ * Support Classes.
+ */
+export class Options {
+    // Width constraint of image. e.g. '2em'
+    width: string;
+    // Height constaint of image. e.g. '2em'
+    height: string;
+}

@@ -8,7 +8,8 @@ import { ConfigService }                 from '../../../services/config/config.s
 import { UserService }                   from '../../../services/user/user.service';
 import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
 import { FilesUploadComponent }          from '../../../components/files/upload/upload.component';
-import { FilesViewsImagesThumbnailComponent } from '../../../components/files/views/images/thumbnail/thumbnail.component';
+import { Thumbnail, 
+         Options as ThumbnailOptions }   from '../../../components/files/views/images/thumbnail/thumbnail.component';
 
 @Component({
     moduleId: module.id,
@@ -17,7 +18,7 @@ import { FilesViewsImagesThumbnailComponent } from '../../../components/files/vi
     styleUrls: ['style.css'],
     directives: [ 
         FilesUploadComponent,
-        FilesViewsImagesThumbnailComponent
+        Thumbnail
     ]
 })
 export class RoutesUsersEditComponent implements OnInit {
@@ -29,6 +30,10 @@ export class RoutesUsersEditComponent implements OnInit {
     userId: string;
     user : User;
     file: File = new File();
+    thumbnailOptions: ThumbnailOptions = {
+        width: '2em',
+        height: '2em'
+    }
     constructor(private route: ActivatedRoute, private userService: UserService, 
                 private authService: AuthenticateService, private configService: ConfigService) {
         this.userId = route.snapshot.params['id'];        
@@ -58,6 +63,10 @@ export class RoutesUsersEditComponent implements OnInit {
     onFileUpload(file: File) {
         this.file = file;
         this.user.image = this.configContainer.config.siteDomain + '/' + file.url;
+    }
+    // Event listener for sub-component.
+    onAlert(alert: AlertMessage) {
+        this.alerts.push(alert);
     }
     // Event listener for sub-component.
     onFileDelete(file: File) {

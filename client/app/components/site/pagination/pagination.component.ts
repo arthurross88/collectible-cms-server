@@ -3,22 +3,22 @@ import { OnInit, EventEmitter }         from '@angular/core';
 import { AlertMessage }                 from '../../../models/alertMessage';
 
 /**
- *  <cc-site-pagination 
+ *  <cc-pagination 
  *      [options]="paginationOptions"
  *      (onError)="onError($event)" 
  *      (onPageChange)="onPageChange($event)">
- *  </cc-site-pagination>
+ *  </cc-pagination>
  */
 @Component({
     moduleId: module.id,
-    selector: 'cc-site-pagination',
+    selector: 'cc-pagination',
     templateUrl: 'pagination.html',
     styleUrls: ['pagination.css']
 })
-export class SitePaginationComponent implements OnInit {
+export class Pagination implements OnInit {
+    @Input()  options: Options;
     @Output() onAlert = new EventEmitter<AlertMessage>();
     @Output() onPageChange = new EventEmitter<number>();
-    @Input()  options: Options;
     working: boolean = false;
     loaded: boolean = false;
     pageCurrent: number = 1;
