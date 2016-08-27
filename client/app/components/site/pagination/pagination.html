@@ -1,0 +1,9 @@
+<div class="site-pagination component">
+    <div class="inner component inner">
+        <ul class="pagination">
+          <li class="previous"><span (click)="setPage(pageCurrent - 1)" class="btn">Back</span></li>
+          <li *ngFor="let button of buttons"><span (click)="setPage(button)" class="btn">{{ button }}</span></li>
+          <li class="next"><span (click)="setPage(pageCurrent + 1)" class="btn">Next</span></li>
+        </ul>            
+    </div>
+</div>

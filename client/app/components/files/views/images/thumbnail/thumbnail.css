@@ -4,11 +4,9 @@
 .cc-files-views-images-thumbnail .inner {
     height: 8em;
     width: 8em;
-    padding: 0.15em;
     border: 1px solid #cccccc;
     border-radius: 2px;
     overflow: hidden;
-    background-color: #000000;
 }
 .cc-files-views-images-thumbnail .fail span {
     display: inline-block;
@@ -30,10 +28,19 @@
     opacity: 0.5;
 }
 .cc-files-views-images-thumbnail .loaded .btn {
+    padding: 0;
+    font-size: 0.5em;
+    line-height: 1.5em;
+    width: 2em;
+    height: 1.8em;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 0.4em;
+    right: 0.4em;
     opacity: 0.05;
+    border-radius: 2px;
+}
+.cc-files-views-images-thumbnail .loaded .btn span {
+    line-height: 1.5em;
 }
 .cc-files-views-images-thumbnail .loaded .btn:hover {
     opacity: 1;
