@@ -1,31 +1,31 @@
-.cc-files-views-images-thumbnail {
+.cc-thumbnail {
 
 }
-.cc-files-views-images-thumbnail .inner {
+.cc-thumbnail .inner {
     border: 1px solid #cccccc;
-    border-radius: 2px;
+    border-radius: 4px;
     overflow: hidden;
 }
-.cc-files-views-images-thumbnail .fail span {
+.cc-thumbnail .fail span {
     display: inline-block;
     padding-top: 0.05em;
     color: #000000;
     font-size: 6.9em;
     opacity: 0.05;
 }
-.cc-files-views-images-thumbnail .loaded {
+.cc-thumbnail .loaded {
     position: relative;
     height: 100%;
     width: 100%;
 }
-.cc-files-views-images-thumbnail .loaded img {
+.cc-thumbnail .loaded img {
     height: 100%;
     width: 100%;
 }
-.cc-files-views-images-thumbnail .loaded img:hover + .btn {
+.cc-thumbnail .loaded img:hover + .btn {
     opacity: 0.5;
 }
-.cc-files-views-images-thumbnail .loaded .btn {
+.cc-thumbnail .loaded .btn {
     padding: 0;
     font-size: 0.5em;
     line-height: 1.5em;
@@ -37,9 +37,9 @@
     opacity: 0.05;
     border-radius: 2px;
 }
-.cc-files-views-images-thumbnail .loaded .btn span {
+.cc-thumbnail .loaded .btn span {
     line-height: 1.5em;
 }
-.cc-files-views-images-thumbnail .loaded .btn:hover {
+.cc-thumbnail .loaded .btn:hover {
     opacity: 1;
 }

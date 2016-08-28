@@ -31,7 +31,7 @@ export class ImagesTable implements OnInit {
     paginationOptions: PaginationOptions = {
         pageCurrent: 1,
         maxPageButtons: 5,
-        itemsPerPage: 2,
+        itemsPerPage: 10,
         items: this.files
     }
     thumbnailOptions: ThumbnailOptions = {

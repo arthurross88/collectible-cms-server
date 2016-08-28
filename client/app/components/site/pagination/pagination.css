@@ -1,9 +1,9 @@
-.cc-site-pagination {
+.cc-pagination {
     
 }
-.cc-site-pagination ul.pagination {
+.cc-pagination ul.pagination {
     margin: 0;
 }
-.cc-site-pagination ul.pagination li a:hover {
+.cc-pagination ul.pagination li a:hover {
     cursor: pointer;
 }
