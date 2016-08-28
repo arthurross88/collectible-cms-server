@@ -16,6 +16,7 @@
 .cc-routes-users-edit .row.name,
 .cc-routes-users-edit .row.image,
 .cc-routes-users-edit .row.roles,
+.cc-routes-users-edit .row.alias,
 .cc-routes-users-edit .row.submit {
 	margin-top: 2em;
 }

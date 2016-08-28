@@ -26,8 +26,11 @@ export class Thumbnail implements OnInit {
     working: boolean = false;
     loaded: boolean = false;
     constructor(private sanitizer: DomSanitizationService) { }
-    ngOnInit() {
-        this.loaded = true;
+    ngOnInit() { }
+    ngOnChanges(changes: Map<string, any>): void {
+        if (changes["file"] !== undefined && changes["file"].currentValue !== undefined) {
+            this.loaded = true;
+        }
     }
     getStyle() {
         return this.sanitizer.bypassSecurityTrustStyle(

@@ -3,9 +3,10 @@ import { Name }	from './name';
 export class User {
 	_id: string;
 	name: Name;
+	alias: string;
 	email: string;
 	password: string;
-	image: string;
+	imageId: string;
 	roles: [ string ];
 	constructor(user?: User) {
 		this.name = new Name();
@@ -14,12 +15,13 @@ export class User {
 		}
 	}
 	map(user: User): User {
-		this._id = (typeof(user._id) == 'undefined') ? this._id : user._id;
-		this.email = (typeof(user.email) == 'undefined') ? this.email : user.email;
+		this._id      = (typeof(user._id)      == 'undefined') ? this._id      : user._id;
+		this.email    = (typeof(user.email)    == 'undefined') ? this.email    : user.email;
 		this.password = (typeof(user.password) == 'undefined') ? this.password : user.password;
-		this.roles = (typeof(user.roles) == 'undefined') ? this.roles : user.roles;
-		this.name = (typeof(user.name) == 'undefined') ? this.name : user.name;
-		this.image = (typeof(user.image) == 'undefined') ? this.image : user.image;
+		this.roles    = (typeof(user.roles)    == 'undefined') ? this.roles    : user.roles;
+		this.name     = (typeof(user.name)     == 'undefined') ? this.name     : user.name;
+		this.alias    = (typeof(user.alias)    == 'undefined') ? this.alias    : user.alias;
+		this.imageId  = (typeof(user.imageId)  == 'undefined') ? this.imageId  : user.imageId;
 		return this
 	}
 	isRegistered(): boolean {

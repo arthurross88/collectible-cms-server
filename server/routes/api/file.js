@@ -144,10 +144,11 @@ module.exports = function(app, router) {
         if (!req.user.isAdmin()) {
             search.$or = [ { userId: req.user._id }, { public: true } ];
         }
-        File.find(search, function(err, file) {
+        File.find(search, function(err, files) {
             if (err) {
-                req.notFound();
+                res.notFound();
             } else {
+                var file = files.pop();
                 res.json({
                     "status": true,
                     "data": file

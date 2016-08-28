@@ -6,6 +6,7 @@ import { File }                          from '../../../models/file';
 import { Config, ConfigContainer }       from '../../../models/config';
 import { ConfigService }                 from '../../../services/config/config.service';
 import { UserService }                   from '../../../services/user/user.service';
+import { FileService }                   from '../../../services/file/file.service';
 import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
 import { FilesUploadComponent }          from '../../../components/files/upload/upload.component';
 import { Thumbnail, 
@@ -16,6 +17,9 @@ import { Thumbnail,
     selector: 'cc-routes-users-edit',
     templateUrl: 'view.html',
     styleUrls: ['style.css'],
+    providers: [
+        FileService
+    ],
     directives: [ 
         FilesUploadComponent,
         Thumbnail
@@ -28,17 +32,32 @@ export class RoutesUsersEditComponent implements OnInit {
     working: boolean = false;
     loaded: boolean = false;
     userId: string;
-    user : User;
-    file: File = new File();
+    user: User;
+    file: File;
     thumbnailOptions: ThumbnailOptions = {
         width: '2em',
         height: '2em'
     }
     constructor(private route: ActivatedRoute, private userService: UserService, 
-                private authService: AuthenticateService, private configService: ConfigService) {
+                private authService: AuthenticateService, private configService: ConfigService,
+                private fileService: FileService) {
         this.userId = route.snapshot.params['id'];        
         this.currentUser = authService.getCurrentUser();
         this.configContainer = configService.configContainer;
+    }
+    ngOnInit() {
+        this.working = true;
+        this.userService.read(this.userId).subscribe(
+            user => {
+                this.user = user;
+                this.fileService.read(this.user.imageId).subscribe(
+                    file => { this.file = file; },
+                    err => this.alerts.push({ type: 'error', message: err }),
+                    () => { this.loaded = true; this.working = false; }
+                );
+            },
+            err => this.alerts.push({ type: 'error', message: err })
+        );
     }
     changePermission(role: string) {
         var index: number = this.user.roles.indexOf(role);
@@ -62,7 +81,7 @@ export class RoutesUsersEditComponent implements OnInit {
     // Event listener for sub-component.
     onFileUpload(file: File) {
         this.file = file;
-        this.user.image = this.configContainer.config.siteDomain + '/' + file.url;
+        this.user.imageId = file._id;
     }
     // Event listener for sub-component.
     onAlert(alert: AlertMessage) {
@@ -71,18 +90,5 @@ export class RoutesUsersEditComponent implements OnInit {
     // Event listener for sub-component.
     onFileDelete(file: File) {
         console.log('Deleting File!');
-    }
-    ngOnInit() {
-        this.working = true;
-        this.userService.read(this.userId)
-            .subscribe(
-                user => {
-                    this.user = user;
-                    this.loaded = true;
-                    this.file.url = this.user.image;
-                },
-                err => this.alerts.push({ type: 'error', message: err }),
-                () => this.working = false
-            );
     }
 };

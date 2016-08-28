@@ -11,10 +11,12 @@ var userSchema = new Schema({
         last: String,
         suffix: String
     },
+    // Public facing name of the user.
+    alias: { type: String, unique: true, dropDups: true, minlength: 3, maxlength: 23 },
     email: { type: String, unique: true, required: true, dropDups: true },
     password: { type: String, required: true },
-    image: { type: String },
-    roles: [{ type: String, enum: ['admin', 'user'] }]
+    imageId: { type: Schema.Types.ObjectId, ref: 'File' },
+    roles: [{ type: String, enum: ['admin', 'user', 'anonymous'] }]
 });
 // Forst plain text passwords to be hashed.
 userSchema.pre('save', function(next) {

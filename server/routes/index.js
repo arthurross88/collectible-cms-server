@@ -99,11 +99,15 @@ module.exports = function(app, router) {
                 "message": "Current user does not posses correct authorization role."
             });
         };
-        res.notFound = function() {
+        res.notFound = function(err) {
+            var message = "The requested item could not be located.";
+            if (err !== undefined) {
+                message = message + ' ' + err.message;
+            }
             this.status(404).json({
                 "status": false,
                 "error": "NotFound",
-                "message": "The requested item could not be located."
+                "message": message
             });
         };
         res.failure = function(err) {

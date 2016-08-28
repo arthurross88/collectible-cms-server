@@ -13,8 +13,11 @@
  *         "last": "",<br />
  *         "suffix": "",<br />
  *     },<br />
+ *     // Public facing name of the user.<br />
+ *     "alias": { type: String, unique: true, dropDups: true },<br />
  *     "email": "admin@localhost",<br />
  *     "password": "password",<br />
+ *     "imageId": { type: Schema.Types.ObjectId, ref: 'File' }<br />
  *     "roles": [<br />
  *         "admin",<br />
  *         "user"<br />
@@ -42,21 +45,9 @@ module.exports = function(app, router) {
      *     HTTP/1.1 200 OK
      *     {
      *         "status": true,
-     *         "data": [{
-     *             "_id": "57aacc69fb7e90e81aa5d5d4",
-     *             "name": {
-     *                 "first": "admin",
-     *                 "middle": "",
-     *                 "last": "",
-     *                 "suffix": "",
-     *             },
-     *             "email": "admin@localhost",
-     *             "password": "password",
-     *             "roles": [
-     *                 "admin",
-     *                 "user"
-     *             ]
-     *         }]
+     *         "data": [
+     *             <a href="#userObject" class="object-link">User Object</a> 
+     *         ]
      *     }
      * @apiSuccessExample No Users Found
      *     HTTP/1.1 200 OK
@@ -64,7 +55,6 @@ module.exports = function(app, router) {
      *         "status": true,
      *         "data": []
      *     }
-     * @apiUse apiErrorGeneric
      * @apiUse apiErrorExampleAccessToken
      * @apiUse apiErrorExampleNotAuthorized
      */
@@ -91,30 +81,15 @@ module.exports = function(app, router) {
      * @apiName ReadSingle
      * @apiDescription Read details for a single user account.
      * @apiUse apiHeaderAccessToken
-     * @apiParam {Int} id The unique user identifier.
+     * @apiParam {String} id The unique user identifier or unique user alias.
      * @apiUse apiSuccessStatus
      * @apiSuccess {String} data A single user object.
      * @apiSuccessExample User Found
      *     HTTP/1.1 200 OK
      *     {
      *         "status": true,
-     *         "data": {
-     *             "_id": "57aacc69fb7e90e81aa5d5d4",
-     *             "name": {
-     *                 "first": "admin",
-     *                 "middle": "",
-     *                 "last": "",
-     *                 "suffix": "",
-     *             },
-     *             "email": "admin@localhost",
-     *             "password": "password",
-     *             "roles": [
-     *                 "admin",
-     *                 "user"
-     *             ]
-     *         }
+     *         "data": <a href="#userObject" class="object-link">User Object</a> 
      *     }
-     * @apiUse apiErrorGeneric
      * @apiUse apiErrorExampleAccessToken
      * @apiUse apiErrorExampleNotAuthorized
      * @apiUse apiErrorExampleNotFound
@@ -123,9 +98,14 @@ module.exports = function(app, router) {
         if (!req.user.isAdmin()) {
             res.notAuthorized();
         } else {
-            User.findById(req.params.id, function(err, user) {
+            var search = (req.params.id.length >= 24) ? { "_id": req.params.id } : { 'alias': req.params.id };
+            User.find(search, function(err, users) {
+                var user;
+                if (users !== undefined && users.length) {
+                    user = users.pop();
+                }
                 if (err) {
-                    req.notFound();
+                    res.notFound(err);
                 } else {
                     res.json({
                         "status": true,
@@ -149,9 +129,6 @@ module.exports = function(app, router) {
      *     {
      *         "name": {
      *             "first": "John",
-     *             "middle": "",
-     *             "last": "Lee",
-     *             "suffix": "IV",
      *         },
      *         "email": "john.lee@localhost",
      *         "password": "password",
@@ -165,22 +142,8 @@ module.exports = function(app, router) {
      *     HTTP/1.1 200 OK
      *     {
      *         "status": true,
-     *         "data": {
-     *             "_id": "57aacc69fb7e90e81aa5d5d5",
-     *             "name": {
-     *                 "first": "John",
-     *                 "middle": "",
-     *                 "last": "Lee",
-     *                 "suffix": "IV",
-     *             },
-     *             "email": "john.lee@localhost",
-     *             "password": "password",
-     *             "roles": [
-     *                 "user"
-     *             ]
-     *         }
+     *         "data": <a href="#userObject" class="object-link">User Object</a>
      *     }
-     * @apiUse apiErrorGeneric
      * @apiUse apiErrorExampleAccessToken
      * @apiUse apiErrorExampleNotAuthorized
      * @apiUse apiErrorExampleFailure
@@ -215,7 +178,7 @@ module.exports = function(app, router) {
      * @apiUse apiHeaderAccessToken
      * @apiUse apiHeaderJson
      * @apiParam {Int} id The unique identifier for user to update.
-     * @apiParamExample {JSON} Update Full Record
+     * @apiParamExample {JSON} Update Many Fields
      *     {
      *         "name": {
      *             "first": "John 2",
@@ -229,7 +192,7 @@ module.exports = function(app, router) {
      *             "user"
      *         ]
      *     }
-     * @apiParamExample {JSON} Update Partial Record
+     * @apiParamExample {JSON} Update Single Field
      *     {
      *         "name": {
      *             "first": "John 2",
@@ -241,22 +204,8 @@ module.exports = function(app, router) {
      *     HTTP/1.1 200 OK
      *     {
      *         "status": true,
-     *         "data": {
-     *             "_id": "57aacc69fb7e90e81aa5d5d5",
-     *             "name": {
-     *                 "first": "John 2",
-     *                 "middle": "",
-     *                 "last": "Lee",
-     *                 "suffix": "IV",
-     *             },
-     *             "email": "john.lee@localhost",
-     *             "password": "password",
-     *             "roles": [
-     *                 "user"
-     *             ]
-     *         }
+     *         "data": <a href="#userObject" class="object-link">User Object</a> 
      *     }
-     * @apiUse apiErrorGeneric
      * @apiUse apiErrorExampleAccessToken
      * @apiUse apiErrorExampleNotAuthorized
      * @apiUse apiErrorExampleFailure
@@ -276,7 +225,8 @@ module.exports = function(app, router) {
                     user.name.middle = (userPatch.name.middle != null) ? userPatch.name.middle : user.name.middle;
                     user.name.last   = (userPatch.name.last != null)   ? userPatch.name.last   : user.name.last;
                 }
-                user.image    = (userPatch.image != null)    ? userPatch.image    : user.image;
+                user.alias    = (userPatch.alias != null)    ? userPatch.alias    : user.alias;
+                user.imageId  = (userPatch.imageId != null)  ? userPatch.imageId  : user.imageId;
                 user.password = (userPatch.password != null) ? userPatch.password : user.password;
                 user.email    = (userPatch.email != null)    ? userPatch.email    : user.email;
                 if (req.user.isAdmin()) {
@@ -312,7 +262,6 @@ module.exports = function(app, router) {
      *     {
      *         "status": true,
      *     }
-     * @apiUse apiErrorGeneric
      * @apiUse apiErrorExampleAccessToken
      * @apiUse apiErrorExampleNotAuthorized
      * @apiUse apiErrorExampleFailure

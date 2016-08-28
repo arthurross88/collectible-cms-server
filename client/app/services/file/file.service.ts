@@ -17,7 +17,6 @@ export class FileService {
             "offset": offset,
             "limit": limit
         });
-console.log(query);
 		return this.httpService.getSimple(url, this.authService.getToken())
             .map( (json) => { 
                 if (!json.status)

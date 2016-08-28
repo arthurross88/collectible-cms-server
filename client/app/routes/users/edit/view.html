@@ -35,6 +35,12 @@
 						<span class="subscript">Last</span>
 					</div>
 				</div>
+				<div class="row alias">
+					<div class="col-xs-12 col-sm-4">
+						<input type="text" [(ngModel)]="user.alias" placeholder="Public Name" class="form-control">
+						<span class="subscript">Public Name</span>
+					</div>
+				</div>
 				<div class="row image">
 					<div class="col-xs-8">
 						<cc-files-upload (onFileUpload)="onFileUpload($event)" [alerts]="alerts"></cc-files-upload>
