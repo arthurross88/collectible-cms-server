@@ -83,6 +83,7 @@ yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
                         "name": {
                             "first": user.name.first
                         },
+                        "alias": user.alias,
                         "roles": user._doc.roles
                     };
                     var token = jwt.sign(payload, app.get('tokenSignature'), {

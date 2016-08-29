@@ -29,7 +29,7 @@
 										</a>
 									</li>
 									<li *ngIf="currentUser.user.isRegistered()">
-										<a routerLink="/u/{{ currentUser.user._id }}">
+										<a routerLink="/u/{{ currentUser.user.alias || currentUser.user._id }}">
 											<span class="fa fa-user" aria-hidden="true"></span>
 											<span class="text">Public Profile</span>
 										</a>
@@ -37,7 +37,7 @@
 									<li *ngIf="currentUser.user.isRegistered()">
 										<a routerLink="/u/{{ currentUser.user._id }}/edit">
 											<span class="fa fa-cog" aria-hidden="true"></span>
-											<span class="text">Profile Settings</span>
+											<span class="text">Settings</span>
 										</a>
 									</li>
 									<li *ngIf="currentUser.user.isRegistered()">

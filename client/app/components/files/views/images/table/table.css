@@ -5,12 +5,6 @@
     display: inline-block;
     margin: 0.25em;
 }
-.cc-images-table .files:first-child {
-    margin-left: 0;
-}
-.cc-images-table .files:last-child {
-    margin-right: 0;
-}
-.cc-images-table .cc-pagination {
-    margin-top: 0.1em;
+.cc-images-table .files {
+    margin-bottom: 0.5em;
 }

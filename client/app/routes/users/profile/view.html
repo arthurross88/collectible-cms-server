@@ -4,7 +4,13 @@
 			<div class="row">
 				<div class="col-xs-12"><cc-site-alert [alerts]='alerts'></cc-site-alert></div>
 			</div>
-			<div *ngIf="loaded == true" class="loaded">
+	        <div *ngIf="working == true && loaded == false" class="loading">
+	            <span class="fa fa-spinner fa-spin"></span>
+	        </div>
+	        <div *ngIf="working == false && loaded == false" class="fail">
+	            <span class="fa fa-picture-o"></span>
+	        </div>
+	        <div *ngIf="working == false && loaded == true" class="loaded">
 				<div class="row">
 					<div class="col-xs-4">
 						<img src="{{ user.image }}" />
@@ -15,10 +21,9 @@
 					</div>
 				</div>
 				<div class="row">
-					<h1>Recent Files</h1>
-                    <cc-images-table [alerts]="alerts" [files]="files"></cc-images-table>
+					<cc-user-images [user]="user" [options]="userImagesOptions" (onAlert)="onDoAlert($event)"></cc-user-images>
 				</div>
-			</div>
+	        </div>
 		</div>
 	</div>
 </div>

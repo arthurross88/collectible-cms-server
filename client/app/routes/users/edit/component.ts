@@ -35,8 +35,8 @@ export class RoutesUsersEditComponent implements OnInit {
     user: User;
     file: File;
     thumbnailOptions: ThumbnailOptions = {
-        width: '2em',
-        height: '2em'
+        width: '4em',
+        height: '4em'
     }
     constructor(private route: ActivatedRoute, private userService: UserService, 
                 private authService: AuthenticateService, private configService: ConfigService,

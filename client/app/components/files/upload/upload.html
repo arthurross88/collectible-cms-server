@@ -2,11 +2,9 @@
 	<div class="inner component-inner">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-xs-8">
+				<div class="col-xs-12">
 					<input type="file" id="File" (change)="fileChange($event)" class="form-control" />
 					<label for="File">{{ selectButtonText }}</label>
-				</div>
-				<div class="col-xs-4">
 					<button (click)="save()" class="btn btn-success form-control" [disabled]="!file">Upload</button>
 				</div>
 			</div>

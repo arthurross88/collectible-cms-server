@@ -42,11 +42,10 @@
 					</div>
 				</div>
 				<div class="row image">
-					<div class="col-xs-8">
+					<div class="col-xs-12 col-sm-4">
 						<cc-files-upload (onFileUpload)="onFileUpload($event)" [alerts]="alerts"></cc-files-upload>
-						<input type="text" [(ngModel)]="user.image" placeholder="Upload file above, or paste in url here." class="form-control">
 					</div>
-					<div class="col-xs-2">
+					<div class="col-xs-12 col-sm-4">
 						<cc-thumbnail 
 							[options]="thumbnailOptions" 
 							[file]="file" 

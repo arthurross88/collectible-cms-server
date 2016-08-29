@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
 			token => {
                 this.authService.setToken(token).updateCurrentUser();
                 this.alerts.push({ type: 'success', message: 'Your are now logged in.' });
+                window.location.reload();
             },
 		    err => { this.alerts.push({ type: 'error', message: err }); },
 		    () => { this.working = false; }

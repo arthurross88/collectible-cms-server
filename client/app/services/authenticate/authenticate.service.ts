@@ -54,6 +54,7 @@ export class AuthenticateService {
             user._id = decoded._id;
             user.email = decoded.email;
             user.name = decoded.name;
+            user.alias = decoded.alias;
             user.roles = decoded.roles;
         }
         this.currentUser.user = user;

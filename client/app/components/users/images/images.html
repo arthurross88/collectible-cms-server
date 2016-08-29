@@ -1,0 +1,16 @@
+<div class="cc-user-images component widget">
+    <div class="component-title widget-title">
+        <span>{{ options.title }}</span>
+    </div>
+    <div class="inner component-inner widget-inner">
+        <div *ngIf="working == true && loaded == false" class="loading">
+            <span class="fa fa-spinner fa-spin"></span>
+        </div>
+        <div *ngIf="working == false && loaded == false" class="fail">
+            <span class="fa fa-picture-o"></span>
+        </div>
+        <div *ngIf="working == false && loaded == true" class="loaded">
+            <cc-images-table [files]="files" [options]="options.table" (onAlert)="onDoAlert($event)"></cc-images-table>
+        </div>
+    </div>
+</div>
