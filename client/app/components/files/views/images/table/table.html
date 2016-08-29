@@ -14,14 +14,15 @@
                 <cc-thumbnail 
                     [file]="file"
                     [options]="options.thumbnail"
-                    (onAlert)="onDoAlert($event)">
+                    (onFileDelete)="doOnFileDelete($event)"
+                    (onAlert)="doOnAlert($event)">
                 </cc-thumbnail>
             </div>
             <cc-pagination 
                 [items]="files"
                 [options]="options.pagination" 
-                (onAlert)="onDoAlert($event)" 
-                (onPageChange)="onDoPageChange($event)">
+                (onAlert)="doOnAlert($event)" 
+                (onPageChange)="doOnPageChange($event)">
             </cc-pagination>
         </div>
     </div>

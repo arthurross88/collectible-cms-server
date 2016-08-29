@@ -7,9 +7,18 @@
             <span class="fa fa-picture-o"></span>
         </div>
         <div *ngIf="working == false && loaded == true" class="loaded">
-            <img src="{{ file.url }}" />
+            <img src="{{ file.url }}" (click)="showModal()" />
             <div class="btn btn-danger delete">
                 <span class="fa fa-close" (click)="delete()"></span>
+            </div>
+            <div class="modal fade modal-{{ unique }}" tabindex="-1" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <img src="{{ file.url }}" class="img-responsive">
+                    </div>
+                </div>
+              </div>
             </div>
         </div>
     </div>

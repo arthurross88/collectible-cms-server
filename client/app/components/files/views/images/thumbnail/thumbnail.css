@@ -21,6 +21,11 @@
 .cc-thumbnail .loaded img {
     height: 100%;
     width: 100%;
+    cursor: pointer;
+}
+.cc-thumbnail .loaded .modal img {
+    height: initial;
+    width: initial;
 }
 .cc-thumbnail .loaded img:hover + .btn {
     opacity: 0.5;

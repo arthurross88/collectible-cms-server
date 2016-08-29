@@ -4,12 +4,14 @@ import { DomSanitizationService }       from '@angular/platform-browser';
 import { File }                         from '../../../../../models/file';
 import { AlertMessage }                 from '../../../../../models/alertMessage';
 
+declare var jQuery;
+
 /**
  *  <cc-thumbnail 
  *      [options]="thumbnailOptions" 
  *      [file]="file"
- *      (onAlert)="onAlert($event)" 
- *      (onFileDelete)="onDelete($event)">
+ *      (onAlert)="doOnAlert($event)" 
+ *      (onFileDelete)="doOnFileDelete($event)">
  *  </cc-thumbnail>
  */
 @Component({
@@ -23,6 +25,7 @@ export class Thumbnail implements OnInit {
     @Input() file: File;
     @Output() onAlert = new EventEmitter<AlertMessage>();
     @Output() onFileDelete = new EventEmitter<File>();
+    unique: number = Math.floor(Math.random() * 10000);
     working: boolean = false;
     loaded: boolean = false;
     constructor(private sanitizer: DomSanitizationService) { }
@@ -37,6 +40,9 @@ export class Thumbnail implements OnInit {
             'width:' + this.options.width + ';' + 
             'height:' + this.options.height + ';'
         );
+    }
+    showModal() {
+        jQuery('.modal-' + this.unique).modal('show');
     }
     delete() {
         this.onFileDelete.emit(this.file);
