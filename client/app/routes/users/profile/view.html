@@ -13,11 +13,15 @@
 	        <div *ngIf="working == false && loaded == true" class="loaded">
 				<div class="row">
 					<div class="col-xs-4">
-						<img src="{{ user.image }}" />
+						<cc-users-tile
+						    [user]="user" 
+						    [options]="tileOptions"
+						    (onAlert)="doOnAlert($event)">
+						</cc-users-tile>
 					</div>
 					<div class="col-xs-8">
-						<h1>{{ userId }}</h1>
-						<p>{{ user.email }}</p>
+						<h1>{{ user.alias || user.email }}</h1>
+						<p></p>
 					</div>
 				</div>
 				<div class="row">

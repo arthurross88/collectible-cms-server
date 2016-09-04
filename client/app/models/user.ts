@@ -4,6 +4,7 @@ export class User {
 	_id: string;
 	name: Name;
 	alias: string;
+	url: string;
 	email: string;
 	password: string;
 	imageId: string;
@@ -21,6 +22,7 @@ export class User {
 		this.roles    = (typeof(user.roles)    == 'undefined') ? this.roles    : user.roles;
 		this.name     = (typeof(user.name)     == 'undefined') ? this.name     : user.name;
 		this.alias    = (typeof(user.alias)    == 'undefined') ? this.alias    : user.alias;
+		this.url      = (typeof(user.url)      == 'undefined') ? this.url      : user.url;
 		this.imageId  = (typeof(user.imageId)  == 'undefined') ? this.imageId  : user.imageId;
 		return this
 	}

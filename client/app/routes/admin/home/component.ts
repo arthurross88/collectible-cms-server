@@ -29,10 +29,8 @@ export class RoutesAdminHomeComponent implements OnInit {
             itemsPerPage: 10
         },
         thumbnail: {
-            thumbnail: {
-                width: '4em',
-                height: '4em'
-            }
+            width: '4em',
+            height: '4em'
         }
     }
     users: User[];

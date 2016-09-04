@@ -1,5 +1,5 @@
 <div class="cc-users-thumbnail component">
-    <div class="inner component-inner">
+    <div class="inner component-inner" [style]="getStyle()">
         <div *ngIf="working == true && loaded == false" class="loading">
             <span class="fa fa-spinner fa-spin"></span>
         </div>
@@ -7,11 +7,7 @@
             <span class="fa fa-picture-o"></span>
         </div>
         <div *ngIf="working == false && loaded == true" class="loaded">
-            <cc-thumbnail 
-                [options]="options.thumbnail" 
-                [file]="file"
-                (onAlert)="doOnAlert($event)">
-            </cc-thumbnail>
+            <a routerLink="/u/{{ user.url }}"><img src="{{ file.url }}" /></a>
         </div>
     </div>
 </div>

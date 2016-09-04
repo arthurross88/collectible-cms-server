@@ -16,7 +16,9 @@
 							<div class="dropdown">
   							    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 	  							    <span *ngIf="currentUser.user.isRegistered()" class="fa fa-user" aria-hidden="true"></span>
-							        <span *ngIf="currentUser.user.isRegistered()">{{ currentUser.user.email }}</span>
+							        <span *ngIf="currentUser.user.isRegistered()">
+							        	{{ currentUser.user.alias || currentUser.user.email }}
+							        </span>
 	  							    <span *ngIf="!currentUser.user.isRegistered()" class="fa fa-user-secret" aria-hidden="true"></span>
 							        <span *ngIf="!currentUser.user.isRegistered()">Anonymous</span>
 									<span><span class="caret"></span></span>
@@ -28,14 +30,20 @@
 											<span class="text">Site Administration</span>
 										</a>
 									</li>
+									<li *ngIf="currentUser.user.isAdmin()">
+										<a href="/apidoc/v1">
+											<span class="fa fa-files-o" aria-hidden="true"></span>
+											<span class="text">API Documentation</span>
+										</a>
+									</li>
 									<li *ngIf="currentUser.user.isRegistered()">
-										<a routerLink="/u/{{ currentUser.user.alias || currentUser.user._id }}">
+										<a routerLink="/u/{{ currentUser.user.url || currentUser.user._id }}">
 											<span class="fa fa-user" aria-hidden="true"></span>
 											<span class="text">Public Profile</span>
 										</a>
 									</li>
 									<li *ngIf="currentUser.user.isRegistered()">
-										<a routerLink="/u/{{ currentUser.user._id }}/edit">
+										<a routerLink="/u/{{ currentUser.user.url || currentUser.user._id }}/edit">
 											<span class="fa fa-cog" aria-hidden="true"></span>
 											<span class="text">Settings</span>
 										</a>

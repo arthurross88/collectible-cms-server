@@ -4,29 +4,28 @@ import { File } from '../../../models/file';
 import { User } from '../../../models/user';
 import { AlertMessage } from '../../../models/alertMessage';
 import { FileService } from '../../../services/file/file.service';
-import { Options as ImgThumbOptions }  from '../../../components/files/views/images/thumbnail/thumbnail.component';
 
 /**
- *  <cc-users-thumbnail
+ *  <cc-users-tile
  *      [user]="user" 
- *      [options]="thumbnailOptions"
+ *      [options]="tileOptions"
  *      (onAlert)="doOnAlert($event)">
- *  </cc-users-table>
+ *  </cc-users-tile>
  */
 @Component({
     moduleId: module.id,
-    selector: 'cc-users-thumbnail',
-    templateUrl: 'thumbnail.html',
-    styleUrls: ['thumbnail.css'],
+    selector: 'cc-users-tile',
+    templateUrl: 'tile.html',
+    styleUrls: ['tile.css'],
     providers: [
         FileService
     ],
     directives: [
     ]
 })
-export class UsersThumbnail implements OnInit {
+export class UsersTile implements OnInit {
     @Input() user: User;
-    @Input() options: ImgThumbOptions;
+    @Input() options: Options;
     @Output() onAlert = new EventEmitter<AlertMessage>();
     working: boolean = false;
     loaded: boolean = false;
@@ -46,13 +45,17 @@ export class UsersThumbnail implements OnInit {
         }
     }
     getStyle() {
-        return this.sanitizer.bypassSecurityTrustStyle(
-            'width:' + this.options.width + ';' + 
-            'height:' + this.options.height + ';'
-        );
+        // return this.sanitizer.bypassSecurityTrustStyle(
+        //     'width:' + this.options.width + ';' + 
+        //     'height:' + this.options.height + ';'
+        // );
     }    
     // Event listener for child component.
     doOnAlert(alert: AlertMessage) {
         this.onAlert.emit(alert);
     }
 };
+
+export class Options {
+
+}

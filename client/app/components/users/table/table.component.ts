@@ -6,7 +6,6 @@ import { FileService } from '../../../services/file/file.service';
 import { Pagination, Options as PaginationOptions } from '../../../components/site/pagination/pagination.component';
 import { UsersThumbnail }  from '../../../components/users/thumbnail/thumbnail.component';
 import { Options as ImgThumbOptions }  from '../../../components/files/views/images/thumbnail/thumbnail.component';
-import { Options as UsersThumbOptions }  from '../../../components/users/thumbnail/thumbnail.component';
 
 declare var jQuery;
 
@@ -74,5 +73,5 @@ export class UsersTable implements OnInit {
 export class Options {
     rows: number;
     pagination: PaginationOptions;
-    thumbnail: UsersThumbOptions;
+    thumbnail: ImgThumbOptions;
 };

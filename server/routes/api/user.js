@@ -15,6 +15,9 @@
  *     },<br />
  *     // Public facing name of the user.<br />
  *     "alias": { type: String, unique: true, dropDups: true },<br />
+ *     // The alais used as the suffix to /u user profile paths. Automatically<br />
+ *     // generated based on alias, or _id if alias is not set.<br />
+ *     url: { type: String, unique: true },<br />
  *     "email": "admin@localhost",<br />
  *     "password": "password",<br />
  *     "imageId": { type: Schema.Types.ObjectId, ref: 'File' }<br />
@@ -98,7 +101,7 @@ module.exports = function(app, router) {
         if (!req.user.isAdmin()) {
             res.notAuthorized();
         } else {
-            var search = (req.params.id.length >= 24) ? { "_id": req.params.id } : { 'alias': req.params.id };
+            var search = (req.params.id.length >= 24) ? { "_id": req.params.id } : { 'url': req.params.id };
             User.find(search, function(err, users) {
                 var user;
                 if (users !== undefined && users.length) {
@@ -226,6 +229,7 @@ module.exports = function(app, router) {
                     user.name.last   = (userPatch.name.last != null)   ? userPatch.name.last   : user.name.last;
                 }
                 user.alias    = (userPatch.alias != null)    ? userPatch.alias    : user.alias;
+                user.url      = (userPatch.url != null)      ? userPatch.url      : user.url;
                 user.imageId  = (userPatch.imageId != null)  ? userPatch.imageId  : user.imageId;
                 user.password = (userPatch.password != null) ? userPatch.password : user.password;
                 user.email    = (userPatch.email != null)    ? userPatch.email    : user.email;

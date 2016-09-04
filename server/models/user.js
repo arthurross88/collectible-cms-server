@@ -12,8 +12,13 @@ var userSchema = new Schema({
         suffix: String
     },
     // Public facing name of the user.
-    alias: { type: String, unique: true, dropDups: true, minlength: 3, maxlength: 23 },
-    email: { type: String, unique: true, required: true, dropDups: true },
+    alias: { type: String, unique: true, minlength: 3, maxlength: 23 },
+    // The alais used as the suffix to /u user profile paths. Automatically
+    // generated based on alias, or _id if alias is not set.
+    url: { type: String, unique: true },
+    // Login email address.
+    email: { type: String, unique: true, required: true },
+    // Login password.
     password: { type: String, required: true },
     imageId: { type: Schema.Types.ObjectId, ref: 'File' },
     roles: [{ type: String, enum: ['admin', 'user', 'anonymous'] }]
@@ -24,6 +29,14 @@ userSchema.pre('save', function(next) {
     // Only hash the password if it has been modified (or is new)
     if (user.isModified('password')) {
         user.password = crypto.createHash('md5').update(user.password).digest("hex");
+    }
+    if (user.alias == null) {
+        delete user.alias;
+    }
+    if (user.alias !== undefined) {
+        user.url = user.alias.toLowerCase().replace(/[^0-9a-z]/g, "");
+    } else {
+        user.url = user._id;
     }
     next();
 });

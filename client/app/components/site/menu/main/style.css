@@ -72,6 +72,10 @@
 	display: table-cell;
 	vertical-align: middle;
 }
+.menu-item ul.dropdown-menu li a span.text {
+	width: 100%;
+}
 .menu-item ul.dropdown-menu li a span.fa {
+	display: inline-block;
 	width: 1.75em;
 }

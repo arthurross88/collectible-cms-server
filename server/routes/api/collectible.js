@@ -20,8 +20,12 @@
  *     name: String,<br />
  *     // Description of item.<br />
  *     description: String,<br />
- *     // Urls of image.<br />
- *     image: [String],<br />
+ *     // Files associated with collectible.<br />
+ *     fileIds: [ { type: Schema.Types.ObjectId, ref: 'File' } ],<br />
+ *     // Friendly url. Automtaically generated from name. e.g. 'my-special-coin'<br />
+ *     url: { type: String, unique: true },<br />
+ *     // If the collectible is public or private
+ *     public: Boolean,
  *     // How long this item was held.<br />
  *     aquired: {<br />
  *         // Date item was first aquired.<br />
@@ -46,11 +50,16 @@ var Collectible = require('../../models/collectible');
 module.exports = function(app, router) {
     /**
      * @api {get} /collectible Read All
-     * @apiPermission apiPermissionAdmin
+     * @apiPermission apiPermissionPublic
      * @apiGroup apiGroupCollectible
      * @apiName ReadAll
-     * @apiDescription Read details for all collectibles.
-     * @apiUse apiHeaderAccessToken
+     * @apiDescription
+     *     Read details for all collectibles. Collectibles owned by the requestor will always
+     *     be returned. If role is <code>Admin</code> then all collectibles will be returned, 
+     *     otherwise only collectibles marked public will be returned. Results are sorted in
+     *     descending order of creation time (most recent first).
+     * @apiParam {Number} [offset=1] The number of records to skip.
+     * @apiParam {Number} [limit=10] The number of records to retrieve.
      * @apiUse apiSuccessStatus
      * @apiSuccess {Array} data An array of collectible objects.
      * @apiSuccessExample One Collectible Found
@@ -67,81 +76,121 @@ module.exports = function(app, router) {
      *         "status": true,
      *         "data": []
      *     }
-     * @apiUse apiErrorGeneric
-     * @apiUse apiErrorExampleNotAuthorized
      * @apiUse apiErrorExampleFailure
      */
     router.get('/collectible', function(req, res) {
+        var offset = parseInt(req.query.offset || 0);
+        var limit  = parseInt(req.query.limit  || 10);
+        var search = { };
         if (!req.user.isAdmin()) {
-            res.notAuthorized()
-        } else {
-            Collectible.find({}, function(err, collectibles) {
-                if (err) {
-                    res.failure(err);
-                } else {
-                    res.json({
-                        "status": true,
-                        "data": collectibles
-                    });
-                }
-            });
+            search.$or = [ { userId: req.user._id }, { public: true } ];
         }
+        Collectible.find({}, function(err, collectibles) {
+            if (err) {
+                res.failure(err);
+            } else {
+                res.json({
+                    "status": true,
+                    "data": collectibles
+                });
+            }
+        }).skip(offset).limit(limit).sort( [['_id', -1]] );
     });
     /**
-     * @api {get} /collectible/:id Read Single
+     * @api {get} /u/:id/collectible Read All From User
      * @apiPermission apiPermissionPublic
      * @apiGroup apiGroupCollectible
-     * @apiName ReadSingle
-     * @apiDescription Read details for a single collectible.
-     * @apiParam {Int} id The unique collectible identifier.
+     * @apiName ReadAllFromUser
+     * @apiDescription 
+     *     Read details for all of user's collectibles. Collectibles owned by the requestor will
+     *     always be returned. If role is <code>Admin</code> then all collectibles will be returned, 
+     *     otherwise only collectibles marked public will be returned. Results are sorted in
+     *     descending order of creation time (most recent first).
+     * @apiParam {Number} id The unique user identifier.
+     * @apiParam {Number} [offset=1] The number of records to skip.
+     * @apiParam {Number} [limit=10] The number of records to retrieve.
      * @apiUse apiSuccessStatus
-     * @apiSuccess {String} data A single collectible object.
+     * @apiSuccess {String} data An array of collectible objects.
+     * @apiSuccessExample One File Found
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "status": true,
+     *         "data": [ 
+     *             <a href="#collectibleObject" class="object-link">Collectible Object</a>
+     *         ]
+     *     }
+     * @apiSuccessExample No Files Found
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "status": true,
+     *         "data": []
+     *     }
+     */
+    router.get('/u/:id/collectible', function(req, res) {
+        var offset = parseInt(req.query.offset || 0);
+        var limit  = parseInt(req.query.limit  || 10);
+        var search = {
+            userId: req.params.id,
+        }
+        if (!req.user.isAdmin()) {
+            search.$or = [ { userId: req.user._id }, { public: true } ];
+        }
+        // Sort by creation time, descending order.
+        Collectible.find(search, function(err, files) {
+            res.json({
+                "status": true,
+                "data": files
+            });
+        }).skip(offset).limit(limit).sort( [['_id', -1]] );
+    });
+    /**
+     * @api {get} /collectible/:id Read One
+     * @apiPermission apiPermissionPublic
+     * @apiGroup apiGroupFile
+     * @apiName ReadOne
+     * @apiDescription
+     *     Read details for a single Collectible. A Collectible owned by the requestor will
+     *     always be returned. A role of <code>Admin</code> will always have Collectible returned,
+     *     otherwise only if the Collectible is marked public will it be returned.
+     * @apiParam {Number} id The unique Collectible identifier.
+     * @apiUse apiSuccessStatus
+     * @apiSuccess {String} data A single Collectible object.
      * @apiSuccessExample Collectible Found
      *     HTTP/1.1 200 OK
      *     {
      *         "status": true,
-     *         "data": {
-     *             "userId": "8294a895902ee2048b238304",
-     *             "_id": "57aacc69fb7e90e81aa5d5d5",
-     *             "name": "My Lucky Coin",
-     *             "description": "This is the lucky coin that my grandfather gave to me.",
-     *             "images": [
-     *                 "http://www.collectiblecms/u/admin/coin.png"
-     *             ],
-     *             "aquired": {
-     *                 "from": "2016-08-16T01:41:24.482Z",
-     *                 "to": null,
-     *                 "description": "He handed it to me with a smile."
-     *             },
-     *             "meta": {
-     *                 "created": "2016-08-16T01:41:24.482Z",
-     *                 "updated": "2016-08-16T01:41:24.482Z"
-     *             }
-     *         }
+     *         "data": <a href="#collectibleObject" class="object-link">Collectible Object</a>
      *     }
-     * @apiUse apiErrorGeneric
      * @apiUse apiErrorExampleNotFound
      */
     router.get('/collectible/:id', function(req, res) {
-        Collectible.findById(req.params.id, function(err, collectible) {
+        var search = {
+            "_id": req.params.id,
+        }
+        if (!req.user.isAdmin()) {
+            search.$or = [ { userId: req.user._id }, { public: true } ];
+        }
+        File.find(search, function(err, files) {
             if (err) {
                 res.notFound();
             } else {
+                var file = files.pop();
                 res.json({
                     "status": true,
-                    "data": collectible
-                })
+                    "data": file
+                });
             }
         });
     });
     /**
-     * @api {post} /collectible Create
+     * @api {post} /u/:id/collectible Create
      * @apiPermission apiPermissionUser
      * @apiGroup apiGroupCollectible
      * @apiName Create
      * @apiDescription Create an item that has been collected.
      * @apiUse apiHeaderAccessToken
      * @apiUse apiHeaderJson
+     * @apiParam {Number} id The unique user identifier.
      * @apiParamExample {JSON} Request Example
      *     {
      *         "name": "My Lucky Coin",
@@ -161,31 +210,13 @@ module.exports = function(app, router) {
      *     HTTP/1.1 200 OK
      *     {
      *         "status": true,
-     *         "data": {
-     *             "userId": "8294a895902ee2048b238304",
-     *             "_id": "57aacc69fb7e90e81aa5d5d5",
-     *             "name": "My Lucky Coin",
-     *             "description": "This is the lucky coin that my grandfather gave to me.",
-     *             "images": [
-     *                 "http://www.collectiblecms/u/admin/coin.png"
-     *             ],
-     *             "aquired": {
-     *                 "from": "2016-08-16T01:41:24.482Z",
-     *                 "to": null,
-     *                 "description": "He handed it to me with a smile."
-     *             },
-     *             "meta": {
-     *                 "created": "2016-08-16T01:41:24.482Z",
-     *                 "updated": "2016-08-16T01:41:24.482Z"
-     *             }
-     *         }
+     *         "data": <a href="#collectibleObject" class="object-link">Collectible Object</a>
      *     }
-     * @apiUse apiErrorGeneric
      * @apiUse apiErrorExampleAccessToken
      * @apiUse apiErrorExampleNotAuthorized
      * @apiUse apiErrorExampleFailure
      */
-    router.post('/collectible', function(req, res) {
+    router.post('/u/:id/collectible', function(req, res) {
         if (!req.user.isUser()) {
             res.notAuthorized();
         } else {
@@ -225,7 +256,6 @@ module.exports = function(app, router) {
      *     {
      *         "status": true,
      *     }
-     * @apiUse apiErrorGeneric
      * @apiUse apiErrorExampleAccessToken
      * @apiUse apiErrorExampleNotAuthorized
      * @apiUse apiErrorExampleFailure
@@ -285,26 +315,8 @@ module.exports = function(app, router) {
      *     HTTP/1.1 200 OK
      *     {
      *         "status": true,
-     *         "data": {
-     *             "userId": "8294a895902ee2048b238304",
-     *             "_id": "57aacc69fb7e90e81aa5d5d5",
-     *             "name": "Renamed Lucky Coin",
-     *             "description": "This is the lucky coin that my grandfather gave to me.",
-     *             "images": [
-     *                 "http://www.collectiblecms/u/admin/coin.png"
-     *             ],
-     *             "aquired": {
-     *                 "from": "2016-08-16T01:41:24.482Z",
-     *                 "to": null,
-     *                 "description": "He handed it to me with a smile."
-     *             }
-     *             "meta": {
-     *                 "created": "2016-08-16T01:41:24.482Z",
-     *                 "updated": "2016-08-16T01:41:24.482Z"
-     *             }
-     *         }
+     *         "data": <a href="#collectibleObject" class="object-link">Collectible Object</a>
      *     }
-     * @apiUse apiErrorGeneric
      * @apiUse apiErrorExampleAccessToken
      * @apiUse apiErrorExampleNotAuthorized
      * @apiUse apiErrorExampleFailure

@@ -78,13 +78,14 @@ yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
                     // if user is found and password is right
                     // create a token
                     var payload = {
-                        "_id": user._doc._id,
+                        "_id": user._id,
                         "email": user.email,
                         "name": {
                             "first": user.name.first
                         },
                         "alias": user.alias,
-                        "roles": user._doc.roles
+                        "url": user.url,
+                        "roles": user.roles
                     };
                     var token = jwt.sign(payload, app.get('tokenSignature'), {
                         expiresIn: "2h" // expires in 24 hours

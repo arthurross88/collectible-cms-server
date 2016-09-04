@@ -9,6 +9,7 @@ import { UserService } from '../../../services/user/user.service';
 import { FileService } from '../../../services/file/file.service';
 // Components.
 import { UserImages, Options as UserImagesOptions } from '../../../components/users/images/images.component';
+import { UsersTile, Options as UserTileOptions } from '../../../components/users/tile/tile.component';
 
 @Component({
     moduleId: module.id,
@@ -19,7 +20,8 @@ import { UserImages, Options as UserImagesOptions } from '../../../components/us
         FileService
     ],
     directives: [
-        UserImages
+        UserImages,
+        UsersTile
     ]
 })
 export class RoutesUsersProfileComponent implements OnInit {
@@ -43,6 +45,8 @@ export class RoutesUsersProfileComponent implements OnInit {
                 height: '4em'
             }
         }
+    };
+    tileOptions: UserTileOptions = {
     };
     constructor(private route: ActivatedRoute, private userService: UserService,
                 private fileService: FileService) {

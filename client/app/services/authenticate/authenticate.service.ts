@@ -51,11 +51,7 @@ export class AuthenticateService {
         var user: User = new User();
         if (typeof(token) != 'undefined' && token != null) {
             var decoded = jwt_decode(token);
-            user._id = decoded._id;
-            user.email = decoded.email;
-            user.name = decoded.name;
-            user.alias = decoded.alias;
-            user.roles = decoded.roles;
+            user.map(decoded);
         }
         this.currentUser.user = user;
         return this;

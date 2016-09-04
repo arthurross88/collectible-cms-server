@@ -1,0 +1,20 @@
+<div class="cc-users-tile component">
+    <div class="inner component-inner">
+        <div *ngIf="working == true && loaded == false" class="loading">
+            <span class="fa fa-spinner fa-spin"></span>
+        </div>
+        <div *ngIf="working == false && loaded == false" class="fail">
+            <span class="fa fa-picture-o"></span>
+        </div>
+        <div *ngIf="working == false && loaded == true" class="loaded">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a routerLink="/u/{{ user.url }}"><img src="{{ file.url }}" class="img-responsive" /></a>
+                        <p>{{ user.alias || user.email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
