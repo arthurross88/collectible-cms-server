@@ -43,14 +43,17 @@
 				</div>
 				<div class="row image">
 					<div class="col-xs-12 col-sm-4">
-						<cc-files-upload (onFileUpload)="onFileUpload($event)" [alerts]="alerts"></cc-files-upload>
+						<cc-files-upload 
+							(onFileUpload)="doFileUpload($event)" 
+							(onAlert)="doAlert($event)">
+						</cc-files-upload>
 					</div>
 					<div class="col-xs-12 col-sm-4">
 						<cc-thumbnail 
 							[options]="thumbnailOptions" 
 							[file]="file" 
-							(onAlert)="onAlert($event)"
-							(onFileDelete)="onFileDelete($event)">
+							(onAlert)="doAlert($event)"
+							(onFileDelete)="doFileDelete($event)">
 						</cc-thumbnail>
 					</div>
 				</div>
@@ -81,6 +84,13 @@
 					<div class="col-xs-3">
 						<button class="btn btn-success form-control" (click)="save()">Save Changes</button>
 					</div>
+				</div>
+				<div class="row collectibles">
+					<h2>Create Collectible</h2>
+					<cc-collectible-create
+					    [options]="collectibleOptions"
+					    (onAlert)="doAlert($event)">
+					</cc-collectible-create>
 				</div>
 			</div>
 		</div>

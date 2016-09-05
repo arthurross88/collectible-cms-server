@@ -11,6 +11,8 @@ import { AuthenticateService }           from '../../../services/authenticate/au
 import { FilesUploadComponent }          from '../../../components/files/upload/upload.component';
 import { Thumbnail, 
          Options as ThumbnailOptions }   from '../../../components/files/views/images/thumbnail/thumbnail.component';
+import { CollectibleCreate,
+         Options as CollectibleOptions } from '../../../components/collectible/create/create.component';
 
 @Component({
     moduleId: module.id,
@@ -22,6 +24,7 @@ import { Thumbnail,
     ],
     directives: [ 
         FilesUploadComponent,
+        CollectibleCreate,
         Thumbnail
     ]
 })
@@ -37,7 +40,8 @@ export class RoutesUsersEditComponent implements OnInit {
     thumbnailOptions: ThumbnailOptions = {
         width: '4em',
         height: '4em'
-    }
+    };
+    collectibleOptions: CollectibleOptions = { };
     constructor(private route: ActivatedRoute, private userService: UserService, 
                 private authService: AuthenticateService, private configService: ConfigService,
                 private fileService: FileService) {
@@ -79,16 +83,16 @@ export class RoutesUsersEditComponent implements OnInit {
             );
     }
     // Event listener for sub-component.
-    onFileUpload(file: File) {
+    doFileUpload(file: File) {
         this.file = file;
         this.user.imageId = file._id;
     }
     // Event listener for sub-component.
-    onAlert(alert: AlertMessage) {
+    doAlert(alert: AlertMessage) {
         this.alerts.push(alert);
     }
     // Event listener for sub-component.
-    onFileDelete(file: File) {
+    doFileDelete(file: File) {
         console.log('Deleting File!');
     }
 };

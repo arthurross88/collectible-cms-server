@@ -33,13 +33,21 @@ export class ImagesTable implements OnInit {
     @Output() onAlert = new EventEmitter<AlertMessage>();
     working: boolean = false;
     loaded: boolean = false;
+    unique: string = Math.floor(Math.random() * 10000).toString();
     pageCurrent: number = 1;
+    lastFileCount = 0;
     constructor(private fileService: FileService) { }
     ngOnInit() { }
     ngOnChanges(changes: Map<string, any>): void {
         if (changes["files"] !== undefined && changes["files"].currentValue !== undefined) {
             this.loaded = true;
             // This can't be right...
+            var self = this;
+            setTimeout(function() { self.onResize(); });
+        }
+    }
+    ngDoCheck() {
+        if (this.files !== undefined && this.files.length != this.lastFileCount) {
             var self = this;
             setTimeout(function() { self.onResize(); });
         }
@@ -70,9 +78,10 @@ export class ImagesTable implements OnInit {
     // Event listener.
     onResize() {
         if (this.options.rows != null) {
-            var total = jQuery(jQuery('.cc-images-table div.loaded')[0]).innerWidth();
-            var item  = jQuery(jQuery('.cc-images-table div.files')[0]).outerWidth(true);
+            var total = jQuery(jQuery('.cc-images-table.unique-'+this.unique+' div.loaded')[0]).innerWidth();
+            var item  = jQuery(jQuery('.cc-images-table.unique-'+this.unique+' div.files')[0]).outerWidth(true);
             var count = Math.floor(total / item);
+            if (isNaN(count)) { count = 1; }
             this.options.pagination.itemsPerPage = count * this.options.rows;
             this.pagination.recalculate();
         }

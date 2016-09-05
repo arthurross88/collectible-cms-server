@@ -9,25 +9,15 @@ export class Collectible {
     // Description of item.
     description: string;
     // Files associated with collectible.
-    fileIds: [string];
+    fileIds: string [];
     // Friendly url. Automtaically generated from name. e.g. 'my-special-coin'
     url: string;
     // If the file is public or private
     public: boolean;
     // How long this item was held.
-    aquired: {
-        // Date item was first aquired.
-        from: string;
-        // Date item was released.
-        to: string;
-        // Details of item acquisition and release.
-        description: string;
-    };
+    aquired: Aquired;
     // Meta information.
-    meta: {
-        created: string;
-        updated: string;
-    }
+    meta: Meta;
     constructor(c?: Collectible) {
         if (c != null) {
             this.map(c);
@@ -45,4 +35,18 @@ export class Collectible {
         this.meta        = (typeof(c.meta)        == 'undefined') ? this.meta        : c.meta;
         return this
     }
+}
+
+export class Aquired {
+    // Date item was first aquired.
+    from: string;
+    // Date item was released.
+    to: string;
+    // Details of item acquisition and release.
+    description: string;
+}
+
+export class Meta {
+    created: string;
+    updated: string;
 }

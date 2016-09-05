@@ -8,6 +8,12 @@ import { AuthenticateService }           from '../../../services/authenticate/au
 import { HttpService }                   from '../../../services/http/http.service';
 import { FileService }                   from '../../../services/file/file.service';
 
+/**
+ * <cc-files-upload
+ *     (onFileUpload)="doFileUpload($event)"
+ *     (onAlert)="doAlert($event)"
+ * </cc-files-upload>
+ */
 @Component({
 	moduleId: module.id,
     selector: 'cc-files-upload',
@@ -16,7 +22,7 @@ import { FileService }                   from '../../../services/file/file.servi
     providers: [ FileService ]
 })
 export class FilesUploadComponent implements OnInit {
-    @Input() alerts: AlertMessage[];
+    @Output() onAlert = new EventEmitter<AlertMessage>();
     @Output() onFileUpload = new EventEmitter<File>();
 	currentUser: CurrentUser;
     unique: string = "FilesUpload" + Math.floor(Math.random() * 1000);
@@ -27,6 +33,7 @@ export class FilesUploadComponent implements OnInit {
     constructor(private authService: AuthenticateService, private fileService: FileService) { 
         this.currentUser = this.authService.getCurrentUser();
     }
+    ngOnInit() { }
     fileChange(fileInput: any) {
         this.file = fileInput.target.files[0];
         this.selectButtonText = this.file.name;
@@ -37,15 +44,13 @@ export class FilesUploadComponent implements OnInit {
         formData.append("file", this.file);
         this.fileService.create(this.currentUser.user, formData).subscribe(
             file => {
-                this.alerts.push({ type: 'success', message: 'File uploaded.' });              
+                this.onAlert.emit({ type: 'success', message: 'File uploaded.' });              
                 this.onFileUpload.emit(file);
             },
             err => {
-                this.alerts.push({ type: 'error', message: err });
+                this.onAlert.emit({ type: 'error', message: err });
             },
             () => { this.working = false; }
         );
-    }
-    ngOnInit() {
     }
 };
