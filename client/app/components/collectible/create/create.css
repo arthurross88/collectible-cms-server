@@ -1,3 +1,28 @@
 .cc-collectible-create {
-    
+    position: relative;
+}
+.cc-collectible-create .col-xs-12.upload {
+    margin-top: 0.5em;
+}
+.cc-collectible-create .row.save {
+    margin-top: 0.5em;
+}
+/**
+ * Success cover.
+ */
+.cc-collectible-create .success {
+    border: 1px solid #888888;
+    border-radius: 4px;
+    position: absolute;
+    left: -8px;
+    right: -8px;
+    top: -8px;
+    bottom: -8px;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+}
+.cc-collectible-create span.fa.fa-check {
+    font-size: 6em;
+    color: #00ff00;
+    text-shadow: 4px 4px 8px #000000;
 }

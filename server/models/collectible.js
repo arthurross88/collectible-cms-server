@@ -35,7 +35,7 @@ var collectibleSchema = new Schema({
 collectibleSchema.pre('save', function(next) {
     var collectible = this;
     // Generate the collectible url.
-    if (collectbile.isModified('name')) {
+    if (collectible.isModified('name')) {
         collectible.url = collectible.name.toLowerCase().replace(/[^0-9a-z-]/g, "-") + '-' +
                           crypto.randomBytes(6).toString('hex')
     }

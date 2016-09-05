@@ -85,12 +85,20 @@
 						<button class="btn btn-success form-control" (click)="save()">Save Changes</button>
 					</div>
 				</div>
-				<div class="row collectibles">
-					<h2>Create Collectible</h2>
-					<cc-collectible-create
-					    [options]="collectibleOptions"
-					    (onAlert)="doAlert($event)">
-					</cc-collectible-create>
+				<div class="row collectible">
+					<div class="col-xs-12">
+						<div class="widget">
+							<div class="widget-title">
+								<span>Create Collectible</span>
+							</div>
+							<div class="widget-inner">
+								<cc-collectible-create
+								    [options]="collectibleOptions"
+								    (onAlert)="doAlert($event)">
+								</cc-collectible-create>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

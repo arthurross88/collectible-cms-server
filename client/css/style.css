@@ -54,7 +54,7 @@
 /**
  * Generic component widget styling.
  */
-.component.widget .component-title.widget-title {
+.widget .widget-title {
     padding: 0.25em;
     background-color: #f0f0f0;
     border: 1px solid #e0e0e0;
@@ -63,10 +63,12 @@
     border-bottom: 0;
     box-shadow: #c0c0c0 4px 4px 6px;
 }
-.component.widget .component-title.widget-title span {
+.widget .widget-title span {
     padding-left: 0.5em;
+    font-weight: 800;
+    font-size: 1.1em;
 }
-.component.widget .component-inner.widget-inner {
+.widget .widget-inner {
     padding: 1em;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
@@ -74,4 +76,20 @@
     border-top-right-radius: 0;
     background: linear-gradient(to bottom, #ffffff, #f0f0f0);
     box-shadow: #c0c0c0 4px 4px 6px;
+}
+/**
+ * Table hack for vertical align.
+ */
+.cc-table {
+    display: table;
+    vertical-align: center;
+    width: 100%;
+    height: 100%;
+}
+.cc-table-cell {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
 }

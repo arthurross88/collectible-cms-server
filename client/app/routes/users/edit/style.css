@@ -31,6 +31,12 @@
 /**
  * Image
  */
- .cc-routes-users-edit .row.image img {
- 	width: 100%;
- }
+.cc-routes-users-edit .row.image img {
+	width: 100%;
+}
+/**
+ * Collectible
+ */
+.cc-routes-users-edit .row.collectible {
+	margin-top: 2em;
+}

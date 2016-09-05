@@ -27,7 +27,7 @@ export class Collectible {
         this._id         = (typeof(c._id)         == 'undefined') ? this._id         : c._id;
         this.userId      = (typeof(c.userId)      == 'undefined') ? this.userId      : c.userId;
         this.name        = (typeof(c.name)        == 'undefined') ? this.name        : c.name;
-        this.description = (typeof(c.description) == 'undefined') ? this.description : c._id;
+        this.description = (typeof(c.description) == 'undefined') ? this.description : c.description;
         this.fileIds     = (typeof(c.fileIds)     == 'undefined') ? this.fileIds     : c.fileIds;
         this.url         = (typeof(c.url)         == 'undefined') ? this.url         : c.url;
         this.public      = (typeof(c.public)      == 'undefined') ? this.public      : c.public;
