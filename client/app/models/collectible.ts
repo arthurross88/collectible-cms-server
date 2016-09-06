@@ -1,3 +1,4 @@
+var File = require('./file');
 
 export class Collectible {
     // Collectible unique identifier.
@@ -11,6 +12,7 @@ export class Collectible {
     // Files associated with collectible.
     fileIds: string [];
     // Friendly url. Automtaically generated from name. e.g. 'my-special-coin'
+    files: File [];
     url: string;
     // If the file is public or private
     public: boolean;
@@ -29,6 +31,7 @@ export class Collectible {
         this.name        = (typeof(c.name)        == 'undefined') ? this.name        : c.name;
         this.description = (typeof(c.description) == 'undefined') ? this.description : c.description;
         this.fileIds     = (typeof(c.fileIds)     == 'undefined') ? this.fileIds     : c.fileIds;
+        this.files       = (typeof(c.files)       == 'undefined') ? this.files       : c.files;
         this.url         = (typeof(c.url)         == 'undefined') ? this.url         : c.url;
         this.public      = (typeof(c.public)      == 'undefined') ? this.public      : c.public;
         this.aquired     = (typeof(c.aquired)     == 'undefined') ? this.aquired     : c.aquired;

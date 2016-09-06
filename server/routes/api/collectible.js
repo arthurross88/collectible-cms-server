@@ -46,9 +46,10 @@
  * </pre>
  */
 
+var Promise     = require('promise');
 var User        = require('../../models/user');
 var Collectible = require('../../models/collectible');
-var Promise     = require('promise');
+var File        = require('../../models/file');
 
 module.exports = function(app, router) {
     /**
@@ -186,16 +187,20 @@ module.exports = function(app, router) {
             "_id": req.params.id,
         }
         if (!req.user.isAdmin()) {
-            search.$or = [ { userId: req.user._id }, { public: true } ];
+            search['public'] = true;
         }
-        File.find(search, function(err, files) {
+        Collectible.find(search, function(err, collectibles) {
             if (err) {
                 res.notFound();
             } else {
-                var file = files.pop();
-                res.json({
-                    "status": true,
-                    "data": file
+                var dto = collectibles.pop().getDTO();
+                dto.loadFiles().then(function(data) {
+                    res.json({
+                        "status": true,
+                        "data": dto
+                    });
+                }).catch(function(err) {
+                    res.failure(err);
                 });
             }
         });

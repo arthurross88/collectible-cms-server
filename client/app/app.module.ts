@@ -9,6 +9,7 @@ import { RoutesSiteHomeComponent }       from './routes/site/home/component';
 import { RoutesAdminHomeComponent }      from './routes/admin/home/component';
 import { RoutesUsersProfileComponent }   from './routes/users/profile/component';
 import { RoutesUsersEditComponent }      from './routes/users/edit/component';
+import { RoutesCollectibleView }         from './routes/collectible/view/view.component';
 // Components.
 import { SiteAlertComponent }            from './components/site/alert/component';
 import { SiteMenuMainComponent }         from './components/site/menu/main/component';
@@ -22,7 +23,8 @@ const appRoutes: Routes = [
     { path: 'admin', component :RoutesAdminHomeComponent },
     { path: 'password-reset', component: PasswordReset },
     { path: 'u/:id', component: RoutesUsersProfileComponent },
-    { path: 'u/:id/edit', component: RoutesUsersEditComponent }
+    { path: 'u/:id/edit', component: RoutesUsersEditComponent },
+    { path: 'c/:id', component: RoutesCollectibleView }
 ];
 
 @NgModule({

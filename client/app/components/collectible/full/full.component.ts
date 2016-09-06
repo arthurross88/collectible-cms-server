@@ -58,19 +58,7 @@ export class CollectibleFull implements OnInit {
     }
     ngOnChanges(changes: Map<string, any>): void {
         if (changes['collectible'] !== undefined && changes['collectible'].currentValue !== undefined) {
-            if (this.collectible.fileIds !== undefined){
-                this.working = true;
-                this.fileService.read(this.collectible.fileIds.pop()).subscribe(
-                    file => { 
-                        this.files.push(file); 
-                        this.loaded = true;
-                    },
-                    err => { this.onAlert.emit({ type: 'error', message: err }) },
-                    () => { this.working = false; }
-                );
-            } else {
-                this.loaded = true;
-            }
+            this.loaded = true;
         }
     }
     // Event listener for child component.
