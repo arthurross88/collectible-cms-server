@@ -22,6 +22,8 @@
  *     description: String,<br />
  *     // Files associated with collectible.<br />
  *     fileIds: [ { type: Schema.Types.ObjectId, ref: 'File' } ],<br />
+ *     // When requesting details then file objects will also be returned in array.<br />
+ *     files: [ <a href="#fileObject" class="object-link">File Object</a> ]<br />
  *     // Friendly url. Automtaically generated from name. e.g. 'my-special-coin'<br />
  *     url: { type: String, unique: true },<br />
  *     // If the collectible is public or private
@@ -44,8 +46,9 @@
  * </pre>
  */
 
-var User = require('../../models/user');
+var User        = require('../../models/user');
 var Collectible = require('../../models/collectible');
+var Promise     = require('promise');
 
 module.exports = function(app, router) {
     /**
@@ -107,8 +110,10 @@ module.exports = function(app, router) {
      *     otherwise only collectibles marked public will be returned. Results are sorted in
      *     descending order of creation time (most recent first).
      * @apiParam {Number} id The unique user identifier.
+     * @apiUse apiHeaderAccessToken
      * @apiParam {Number} [offset=1] The number of records to skip.
      * @apiParam {Number} [limit=10] The number of records to retrieve.
+     * @apiParam {Boolean} [details=1] Load file objects into <code>files</code> property.
      * @apiUse apiSuccessStatus
      * @apiSuccess {String} data An array of collectible objects.
      * @apiSuccessExample One File Found
@@ -133,13 +138,26 @@ module.exports = function(app, router) {
             userId: req.params.id,
         }
         if (!req.user.isAdmin()) {
-            search.$or = [ { userId: req.user._id }, { public: true } ];
+            search.public = true;
         }
         // Sort by creation time, descending order.
-        Collectible.find(search, function(err, files) {
-            res.json({
-                "status": true,
-                "data": files
+        Collectible.find(search, function(err, collectibles) {
+            var dtos = [];
+            var promises = [];
+            for (var i = 0; i < collectibles.length; i++) {
+                var dto = collectibles[i].getDTO();
+                dtos.push(dto);
+                promises.push(dto.loadFiles());
+            }
+            Promise.all(promises)
+            .then(function(data) {
+                res.json({
+                    "status": true,
+                    "data": dtos
+                });
+            })
+            .catch(function(err) {
+                res.failure(err);
             });
         }).skip(offset).limit(limit).sort( [['_id', -1]] );
     });
