@@ -111,10 +111,14 @@ module.exports = function(app, router) {
             });
         };
         res.failure = function(err) {
+            var message = err;
+            if (err !== undefined && err.message !== undefined) {
+                message = err.message;
+            }
             this.status(500).json({
                 "status": false,
                 "error": "Failure",
-                "message": err.message
+                "message": message
             });
         };
         if (token) {

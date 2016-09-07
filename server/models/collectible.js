@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var crypto   = require("crypto");
 var Schema   = mongoose.Schema;
 var File     = require('./file');
+var User     = require('./user');
 var Promise  = require('promise');
 
 // Set up a mongoose model and pass it using module.exports
@@ -43,19 +44,36 @@ collectibleSchema.pre('save', function(next) {
     }
     next();
 });
-collectibleSchema.methods.loadFiles = function() {
-    var collectible = this;
+collectibleSchema.methods.getFiles = function() {
+    var c = this;
     var promise = new Promise(function (resolve, reject) {
-        if (collectible.fileIds !== undefined) {
+        if (c.fileIds !== undefined) {
             File.find({_id: { 
-                $in: collectible.fileIds.map(function(o) { return mongoose.Types.ObjectId(o); })
+                $in: c.fileIds.map(function(o) { return mongoose.Types.ObjectId(o); })
             }}, function(err, files) {
+                if (err) {
+                    reject(err);
+                }
                 resolve(files);
             });
+        } else {
+            resolve(null);
         }
     });
     return promise;
 };
+collectibleSchema.methods.getUser = function() {
+    var c = this;
+    var promise = new Promise(function (resolve, reject) {
+        User.findById(c.userId, function(err, user) {
+            if (err) {
+                reject(err);
+            }
+            resolve(user);
+        });
+    });
+    return promise;
+}
 collectibleSchema.methods.getDTO = function() {
     var c = this;
     var dto = new function() {
@@ -71,15 +89,52 @@ collectibleSchema.methods.getDTO = function() {
         this.loadFiles = function() {
             var c = this;
             var promise = new Promise(function(resolve, reject) {
-                c.__c.loadFiles().then(function(data) {
+                c.__c.getFiles().then(function(data) {
                     c.files = data;
                     resolve(data);
-                }).catch(function(data) {
-                    reject(data);
+                }).catch(function(err) {
+                    reject(err);
                 });
             });
             return promise;
         };
+        this.loadUser = function() {
+            var c = this;
+            var promise = new Promise(function(resolve, reject) {
+                c.__c.getUser().then(function(data) {
+                    c.user = data;
+                    resolve(data);
+                }).catch(function(err) {
+                    reject(err);
+                });
+            });
+            return promise;
+        };
+        this.loadAbsoluteUrl = function() {
+            var c = this;
+            if (c.user !== undefined) {
+                c.absoluteUrl = '/u/' + c.user.url + '/' + c.url;
+                return true;
+            }
+            return false;
+        }
+        this.loadAll = function() {
+            var c = this;
+            var promises = [];
+            var promise = new Promise(function(resolve, reject) {
+                promises.push(c.loadFiles());
+                promises.push(c.loadUser());
+                Promise.all(promises).then(function(data) {
+                    if (!c.loadAbsoluteUrl()) {
+                        reject('Can not construct absolute URL for collectible.');
+                    }
+                    resolve(c);
+                }).catch(function(err) {
+                    reject(err);
+                });
+            });
+            return promise;
+        }
         this.toJSON = function() {
             var ret = {};
             var exclude = ['__c'];

@@ -99,16 +99,14 @@ module.exports = function(app, router) {
                 for (var i = 0; i < collectibles.length; i++) {
                     var dto = collectibles[i].getDTO();
                     dtos.push(dto);
-                    promises.push(dto.loadFiles());
+                    promises.push(dto.loadAll());
                 }
-                Promise.all(promises)
-                .then(function(data) {
+                Promise.all(promises).then(function(data) {
                     res.json({
                         "status": true,
                         "data": dtos
                     });
-                })
-                .catch(function(err) {
+                }).catch(function(err) {
                     res.failure(err);
                 });
             }
@@ -162,16 +160,14 @@ module.exports = function(app, router) {
             for (var i = 0; i < collectibles.length; i++) {
                 var dto = collectibles[i].getDTO();
                 dtos.push(dto);
-                promises.push(dto.loadFiles());
+                promises.push(dto.loadAll());
             }
-            Promise.all(promises)
-            .then(function(data) {
+            Promise.all(promises).then(function(data) {
                 res.json({
                     "status": true,
                     "data": dtos
                 });
-            })
-            .catch(function(err) {
+            }).catch(function(err) {
                 res.failure(err);
             });
         }).skip(offset).limit(limit).sort( [['_id', -1]] );
@@ -212,7 +208,7 @@ module.exports = function(app, router) {
                 res.notFound(err);
             } else {
                 var dto = collectibles.pop().getDTO();
-                dto.loadFiles().then(function(data) {
+                dto.loadAll().then(function(data) {
                     res.json({
                         "status": true,
                         "data": dto

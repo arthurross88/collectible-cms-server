@@ -10,7 +10,7 @@ import { Pagination, Options as PaginationOptions } from '../../../components/si
  *  <cc-user-collectibles
  *      [user]="user" 
  *      [options]="collectiblesOptions"
- *      (onAlert)="onDoAlert($event)">
+ *      (onAlert)="doOnAlert($event)">
  *  </cc-user-collectibles>
  */
 @Component({

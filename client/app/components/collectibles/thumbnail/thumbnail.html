@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div *ngIf="collectible.files[0] !== undefined">
-                            <a routerLink="{{ collectible.url }}">
+                            <a routerLink="{{ collectible.absoluteUrl }}">
                                 <img src="{{ collectible.files[0].url }}" class="img-responsive" />
                             </a>
                         </div>

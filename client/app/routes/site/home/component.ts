@@ -37,8 +37,7 @@ export class RoutesSiteHomeComponent implements OnInit {
             }
         }
     }
-    constructor(private authService: AuthenticateService, private configService: ConfigService) {
-    }
+    constructor(private authService: AuthenticateService, private configService: ConfigService) { }
     ngOnInit() {
     	this.currentUser = this.authService.getCurrentUser();
         this.configService.read().subscribe(
@@ -49,5 +48,8 @@ export class RoutesSiteHomeComponent implements OnInit {
             err => { this.alerts.push({ type: 'error', message: err }); },
             () => { this.working = false; }
         );
+    }
+    doOnAlert(alert: AlertMessage) {
+        this.alerts.push(alert);
     }
 };
