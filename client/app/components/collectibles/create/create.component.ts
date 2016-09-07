@@ -11,14 +11,14 @@ import { Options as ImgThumbOptions } from '../../../components/files/views/imag
 import { Options as ThumbnailOptions } from '../../../components/files/views/images/thumbnail/thumbnail.component';
 
 /**
- *  <cc-collectible-create
+ *  <cc-collectibles-create
  *      [options]="collectibleOptions"
  *      (onAlert)="doAlert($event)">
- *  </cc-collectible-create>
+ *  </cc-collectibles-create>
  */
 @Component({
     moduleId: module.id,
-    selector: 'cc-collectible-create',
+    selector: 'cc-collectibles-create',
     templateUrl: 'create.html',
     styleUrls: ['create.css'],
     providers: [

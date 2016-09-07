@@ -24,7 +24,8 @@ const appRoutes: Routes = [
     { path: 'password-reset', component: PasswordReset },
     { path: 'u/:id', component: RoutesUsersProfileComponent },
     { path: 'u/:id/edit', component: RoutesUsersEditComponent },
-    { path: 'c/:id', component: RoutesCollectibleView }
+    { path: 'c/:cId', component: RoutesCollectibleView },
+    { path: 'u/:uId/:cId', component: RoutesCollectibleView }
 ];
 
 @NgModule({

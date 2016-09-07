@@ -16,21 +16,16 @@
             </div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xs-4 col-sm-2">Name</div>
-                    <div class="col-xs-8 col-sm-10"><input [(ngModel)]="collectible.name" class="form-control" /></div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-4 col-sm-2">Description</div>
-                    <div class="col-xs-8 col-sm-10"><textarea [(ngModel)]="collectible.description" class="form-control"></textarea></div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-2">Images</div>
-                    <div class="col-xs-12 col-sm-6">
+                    <div class="col-xs-12 col-sm-4 col-md-6">
                         <cc-images-table 
                             [files]="collectible.files" 
                             [options]="tableOptions"
                             (onAlert)="doAlert($event)">
                         </cc-images-table>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-6">
+                        <h1>{{ collectible.name }}</h1>
+                        <p>{{ collectible.description }}</p>
                     </div>
                 </div>
             </div>

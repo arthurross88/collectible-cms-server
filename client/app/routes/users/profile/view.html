@@ -23,8 +23,23 @@
 						<p></p>
 					</div>
 				</div>
-				<div class="row">
-					<cc-user-images [user]="user" [options]="userImagesOptions" (onAlert)="onDoAlert($event)"></cc-user-images>
+				<div class="row files">
+					<div class="col-xs-12">
+						<cc-user-images 
+							[user]="user" 
+							[options]="userImagesOptions" 
+							(onAlert)="onDoAlert($event)">
+						</cc-user-images>
+					</div>
+				</div>
+				<div class="row collectibles">
+					<div class="col-xs-12">
+						<cc-user-collectibles
+						    [user]="user" 
+						    [options]="collectiblesOptions"
+						    (onAlert)="onDoAlert($event)">
+						</cc-user-collectibles>
+					</div>
 				</div>
 	        </div>
 		</div>

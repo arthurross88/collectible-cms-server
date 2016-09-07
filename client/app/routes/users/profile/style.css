@@ -4,3 +4,9 @@
 .cc-routes-users-profile img {
 	max-width: 10em;
 }
+.cc-routes-users-profile .row.files {
+    margin-top: 1em;
+}
+.cc-routes-users-profile .row.collectibles {
+    margin-top: 1em;
+}

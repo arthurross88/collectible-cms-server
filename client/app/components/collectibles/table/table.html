@@ -1,0 +1,29 @@
+<div class="cc-collectibles-table component unique-{{ unique }}">
+    <div class="inner component-inner">
+        <div *ngIf="working == true && loaded == false" class="loading">
+            <span class="fa fa-spinner fa-spin"></span>
+        </div>
+        <div *ngIf="working == false && loaded == false" class="fail">
+            <span class="fa fa-picture-o"></span>
+        </div>
+        <div *ngIf="working == false && loaded == true" class="loaded" (window:resize)="onResize()">
+            <div *ngFor="let collectible of collectibles | slice
+                  :(pageCurrent - 1) * options.pagination.itemsPerPage
+                  :(pageCurrent - 1) * options.pagination.itemsPerPage + options.pagination.itemsPerPage" 
+                 class="collectibles">
+                <cc-collectibles-thumbnail 
+                    [collectible]="collectible"
+                    [options]="options.thumbnail"
+                    (onCollectibleDelete)="doOnCollectibleDelete($event)"
+                    (onAlert)="doOnAlert($event)">
+                </cc-collectibles-thumbnail>
+            </div>
+            <cc-pagination 
+                [items]="collectibles"
+                [options]="options.pagination" 
+                (onAlert)="doOnAlert($event)" 
+                (onPageChange)="doOnPageChange($event)">
+            </cc-pagination>
+        </div>
+    </div>
+</div>

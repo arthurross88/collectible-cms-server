@@ -12,7 +12,7 @@ import { FilesUploadComponent }          from '../../../components/files/upload/
 import { Thumbnail, 
          Options as ThumbnailOptions }   from '../../../components/files/views/images/thumbnail/thumbnail.component';
 import { CollectibleCreate,
-         Options as CollectibleOptions } from '../../../components/collectible/create/create.component';
+         Options as CollectibleOptions } from '../../../components/collectibles/create/create.component';
 
 @Component({
     moduleId: module.id,

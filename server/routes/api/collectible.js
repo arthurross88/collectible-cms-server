@@ -62,6 +62,7 @@ module.exports = function(app, router) {
      *     be returned. If role is <code>Admin</code> then all collectibles will be returned, 
      *     otherwise only collectibles marked public will be returned. Results are sorted in
      *     descending order of creation time (most recent first).
+     * @apiUse apiHeaderAccessToken
      * @apiParam {Number} [offset=1] The number of records to skip.
      * @apiParam {Number} [limit=10] The number of records to retrieve.
      * @apiUse apiSuccessStatus
@@ -89,7 +90,7 @@ module.exports = function(app, router) {
         if (!req.user.isAdmin()) {
             search.$or = [ { userId: req.user._id }, { public: true } ];
         }
-        Collectible.find({}, function(err, collectibles) {
+        Collectible.find(search, function(err, collectibles) {
             if (err) {
                 res.failure(err);
             } else {
@@ -165,13 +166,14 @@ module.exports = function(app, router) {
     /**
      * @api {get} /collectible/:id Read One
      * @apiPermission apiPermissionPublic
-     * @apiGroup apiGroupFile
+     * @apiGroup apiGroupCollectible
      * @apiName ReadOne
      * @apiDescription
      *     Read details for a single Collectible. A Collectible owned by the requestor will
      *     always be returned. A role of <code>Admin</code> will always have Collectible returned,
      *     otherwise only if the Collectible is marked public will it be returned.
-     * @apiParam {Number} id The unique Collectible identifier.
+     * @apiParam {String} id The unique Collectible identifier, or unique collectible url.
+     * @apiUse apiHeaderAccessToken
      * @apiUse apiSuccessStatus
      * @apiSuccess {String} data A single Collectible object.
      * @apiSuccessExample Collectible Found
@@ -183,15 +185,18 @@ module.exports = function(app, router) {
      * @apiUse apiErrorExampleNotFound
      */
     router.get('/collectible/:id', function(req, res) {
-        var search = {
-            "_id": req.params.id,
+        var search = { };
+        if ((new RegExp("^[0-9a-fA-F]{24}$")).test(req.params.id)) {
+            search.$or = [ { _id: req.params.id }, { url: req.params.id } ];
+        } else {
+            search.url = req.params.id;
         }
         if (!req.user.isAdmin()) {
             search['public'] = true;
         }
         Collectible.find(search, function(err, collectibles) {
             if (err) {
-                res.notFound();
+                res.notFound(err);
             } else {
                 var dto = collectibles.pop().getDTO();
                 dto.loadFiles().then(function(data) {

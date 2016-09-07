@@ -8,7 +8,7 @@ import { CollectibleService } from '../../../services/collectible/collectible.se
 // Components.
 import { UserImages, Options as UserImagesOptions } from '../../../components/users/images/images.component';
 import { UsersTile, Options as UserTileOptions } from '../../../components/users/tile/tile.component';
-import { CollectibleFull, Options as CollectibleOptions } from '../../../components/collectible/full/full.component';
+import { CollectibleFull, Options as CollectibleOptions } from '../../../components/collectibles/full/full.component';
 
 @Component({
     moduleId: module.id,
@@ -30,7 +30,7 @@ export class RoutesCollectibleView implements OnInit {
     working: boolean = false;
     loaded: boolean = false;
     constructor(private route: ActivatedRoute, private collectibleService: CollectibleService) {
-        this.collectibleId = route.snapshot.params['id'];        
+        this.collectibleId = route.snapshot.params['cId'];        
     }
     ngOnInit() {
         this.working = true;

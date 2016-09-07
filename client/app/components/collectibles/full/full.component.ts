@@ -12,15 +12,15 @@ import { Options as ImgThumbOptions } from '../../../components/files/views/imag
 import { Options as ThumbnailOptions } from '../../../components/files/views/images/thumbnail/thumbnail.component';
 
 /**
- *  <cc-collectible-full
+ *  <cc-collectibles-full
  *      [collectible]="collectible"
  *      [options]="collectibleOptions"
  *      (onAlert)="doAlert($event)">
- *  </cc-collectible-full>
+ *  </cc-collectibles-full>
  */
 @Component({
     moduleId: module.id,
-    selector: 'cc-collectible-full',
+    selector: 'cc-collectibles-full',
     templateUrl: 'full.html',
     styleUrls: ['full.css'],
     providers: [
@@ -40,15 +40,15 @@ export class CollectibleFull implements OnInit {
     currentUser: CurrentUser;
     files: File[] = [];
     tableOptions: TableOptions = {
-        rows: 1,
+        rows: null,
         pagination: {
             pageCurrent: 1,
             maxPageButtons: 1,
             itemsPerPage: 1
         },
         thumbnail: {
-            width: "6em;",
-            height: "6em;"
+            width: null,
+            height: null
         }
     };
     constructor(private authService: AuthenticateService, private collectibleService: CollectibleService,

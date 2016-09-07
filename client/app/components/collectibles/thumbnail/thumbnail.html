@@ -1,4 +1,4 @@
-<div class="cc-thumbnail component">
+<div class="cc-collectibles-thumbnail component">
     <div class="inner component-inner" [style]="getStyle()">
         <div *ngIf="working == true && loaded == false" class="loading">
             <span class="fa fa-spinner fa-spin"></span>
@@ -10,21 +10,19 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
-                        <img src="{{ file.url }}" (click)="showModal()" class="img-responsive" />
+                        <div *ngIf="collectible.files[0] !== undefined">
+                            <a routerLink="{{ collectible.url }}">
+                                <img src="{{ collectible.files[0].url }}" class="img-responsive" />
+                            </a>
+                        </div>
+                        <div *ngIf="collectible.files[0] === undefined" class="no-files">
+                            <span class="fa fa-picture-o"></span>
+                        </div>
                         <div class="btn btn-danger delete">
                             <span class="fa fa-close" (click)="delete()"></span>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal fade modal-{{ unique }}" tabindex="-1" role="dialog">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <img src="{{ file.url }}" class="img-responsive">
-                    </div>
-                </div>
-              </div>
             </div>
         </div>
     </div>

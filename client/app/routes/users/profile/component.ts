@@ -10,6 +10,7 @@ import { FileService } from '../../../services/file/file.service';
 // Components.
 import { UserImages, Options as UserImagesOptions } from '../../../components/users/images/images.component';
 import { UsersTile, Options as UserTileOptions } from '../../../components/users/tile/tile.component';
+import { UserCollectibles, Options as CollectiblesOptions } from '../../../components/users/collectibles/collectibles.component';
 
 @Component({
     moduleId: module.id,
@@ -21,6 +22,7 @@ import { UsersTile, Options as UserTileOptions } from '../../../components/users
     ],
     directives: [
         UserImages,
+        UserCollectibles,
         UsersTile
     ]
 })
@@ -31,6 +33,21 @@ export class RoutesUsersProfileComponent implements OnInit {
     loaded: boolean = false;
     userId: string;
     user : User;
+    collectiblesOptions: CollectiblesOptions = {
+        title: "",
+        table: {
+            rows: null,
+            pagination: {
+                pageCurrent: 1,
+                maxPageButtons: 5,
+                itemsPerPage: 10
+            },
+            thumbnail: {
+                width: '8em',
+                height: '8em'
+            }
+        }
+    };
     userImagesOptions: UserImagesOptions = {
         title: "",
         table: {
@@ -58,6 +75,7 @@ export class RoutesUsersProfileComponent implements OnInit {
             user => {
                 this.user = user;
                 this.userImagesOptions.title = this.user.alias + '\'s Recent Images';
+                this.collectiblesOptions.title = this.user.alias + '\'s Recent Collectibles';
                 this.loaded = true;
             },
             err => this.alerts.push({ type: 'error', message: err }),

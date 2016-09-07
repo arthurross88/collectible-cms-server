@@ -1,37 +1,38 @@
 import { Component, Input, Output }     from '@angular/core';
 import { OnInit, EventEmitter }         from '@angular/core';
 import { DomSanitizationService }       from '@angular/platform-browser';
-import { File }                         from '../../../../../models/file';
-import { AlertMessage }                 from '../../../../../models/alertMessage';
+import { File }                         from '../../../models/file';
+import { Collectible }                  from '../../../models/collectible';
+import { AlertMessage }                 from '../../../models/alertMessage';
 
 declare var jQuery;
 
 /**
- *  <cc-thumbnail 
- *      [options]="thumbnailOptions" 
- *      [file]="file"
+ *  <cc-collectibles-thumbnail 
+ *      [options]="cThumbOptions" 
+ *      [collectible]="collectible"
  *      (onAlert)="doOnAlert($event)" 
- *      (onFileDelete)="doOnFileDelete($event)">
- *  </cc-thumbnail>
+ *      (onCollectibleDelete)="doOnCollectibleDelete($event)">
+ *  </cc-collectibles-thumbnail>
  */
 @Component({
     moduleId: module.id,
-    selector: 'cc-thumbnail',
+    selector: 'cc-collectibles-thumbnail',
     templateUrl: 'thumbnail.html',
     styleUrls: ['thumbnail.css'],
 })
-export class Thumbnail implements OnInit {
+export class CollectiblesThumbnail implements OnInit {
     @Input() options: Options;
-    @Input() file: File;
+    @Input() collectible: Collectible;
     @Output() onAlert = new EventEmitter<AlertMessage>();
-    @Output() onFileDelete = new EventEmitter<File>();
-    unique: number = Math.floor(Math.random() * 10000);
+    @Output() onCollectibleDelete = new EventEmitter<Collectible>();
+    unique: string = Math.floor(Math.random() * 10000).toString();
     working: boolean = false;
     loaded: boolean = false;
     constructor(private sanitizer: DomSanitizationService) { }
     ngOnInit() { }
     ngOnChanges(changes: Map<string, any>): void {
-        if (changes["file"] !== undefined && changes["file"].currentValue !== undefined) {
+        if (changes["collectible"] !== undefined && changes["collectible"].currentValue !== undefined) {
             this.loaded = true;
         }
     }
@@ -43,11 +44,8 @@ export class Thumbnail implements OnInit {
             );
         }
     }
-    showModal() {
-        jQuery('.modal-' + this.unique).modal('show');
-    }
     delete() {
-        this.onFileDelete.emit(this.file);
+        this.onCollectibleDelete.emit(this.collectible);
     }
 };
 

@@ -65,6 +65,7 @@ collectibleSchema.methods.getDTO = function() {
         this.name = c.name;
         this.description = c.description;
         this.fileIds = c.fileIds;
+        this.url = c.url;
         this.meta = c.meta;
         this.aquired = c.aquired;
         this.loadFiles = function() {
