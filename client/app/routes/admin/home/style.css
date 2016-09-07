@@ -6,3 +6,17 @@
 .cc-routes-admin-home .row.main .row {
 	margin-bottom: 1em;
 }
+
+.cc-routes-admin-home .users.widget { }
+.cc-routes-admin-home .users.widget h3 {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.cc-routes-admin-home .collectibles.widget {
+    margin-top: 2em;
+}
+.cc-routes-admin-home .collectibles.widget h3 {
+    padding-top: 0;
+    margin-top: 0;
+}

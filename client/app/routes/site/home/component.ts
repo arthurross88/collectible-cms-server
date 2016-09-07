@@ -5,20 +5,38 @@ import { User, CurrentUser }			 from '../../../models/user';
 import { Config, ConfigContainer }       from '../../../models/config';
 import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
 import { ConfigService }                 from '../../../services/config/config.service';
+import { SiteCollectibles, Options as SiteCollectiblesOptions } from '../../../components/site/collectibles/collectibles.component';
 
 @Component({
     moduleId: module.id,	
     selector: 'cc-routes-site-home',
     templateUrl: 'view.html',
     styleUrls: ['style.css'],
+    directives: [
+        SiteCollectibles
+    ]
 })
-
 export class RoutesSiteHomeComponent implements OnInit {
 	alerts: AlertMessage[] = [];
 	currentUser: CurrentUser = null;
     configContainer: ConfigContainer = new ConfigContainer();
     loaded = false;
     working = false;
+    collectiblesOptions: SiteCollectiblesOptions = {
+        title: "Recent Collectibles",
+        table: {
+            rows: 2,
+            pagination: {
+                pageCurrent: 1,
+                maxPageButtons: 5,
+                itemsPerPage: 10
+            },
+            thumbnail: {
+                width: '12em',
+                height: '12em'
+            }
+        }
+    }
     constructor(private authService: AuthenticateService, private configService: ConfigService) {
     }
     ngOnInit() {

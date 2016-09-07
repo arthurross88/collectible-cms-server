@@ -13,6 +13,7 @@ import { Thumbnail,
          Options as ThumbnailOptions }   from '../../../components/files/views/images/thumbnail/thumbnail.component';
 import { CollectibleCreate,
          Options as CollectibleOptions } from '../../../components/collectibles/create/create.component';
+import 'rxjs/add/operator/finally';
 
 @Component({
     moduleId: module.id,
@@ -54,13 +55,27 @@ export class RoutesUsersEditComponent implements OnInit {
         this.userService.read(this.userId).subscribe(
             user => {
                 this.user = user;
-                this.fileService.read(this.user.imageId).subscribe(
-                    file => { this.file = file; },
-                    err => this.alerts.push({ type: 'error', message: err }),
-                    () => { this.loaded = true; this.working = false; }
-                );
+                if (this.user.imageId !== undefined) {
+                    this.fileService.read(this.user.imageId).subscribe(
+                        file => { 
+                            this.file = file; 
+                            this.working = false;
+                            this.loaded = true;
+                        },
+                        err => { 
+                            this.working = false;
+                            this.loaded = true;
+                            this.alerts.push({ type: 'error', message: err });
+                        }
+                    );
+                } else {
+                    this.working = false;
+                    this.loaded = true;
+                }
             },
-            err => this.alerts.push({ type: 'error', message: err })
+            err => {
+                this.alerts.push({ type: 'error', message: err });
+            }
         );
     }
     changePermission(role: string) {

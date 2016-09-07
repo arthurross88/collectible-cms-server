@@ -1,6 +1,6 @@
 <div class="cc-pagination component">
     <div class="inner component inner">
-        <ul class="pagination">
+        <ul *ngIf="items.length" class="pagination">
           <li class="previous"><span (click)="setPage(pageCurrent - 1)" class="btn">Back</span></li>
           <li *ngFor="let button of buttons">
               <span (click)="setPage(button)" class="btn" [ngClass]="{'active': button == pageCurrent }">{{ button }}</span>

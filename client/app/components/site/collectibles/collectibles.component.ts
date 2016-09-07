@@ -7,15 +7,14 @@ import { CollectiblesTable, Options as TableOptions } from '../../../components/
 import { Pagination, Options as PaginationOptions } from '../../../components/site/pagination/pagination.component';
 
 /**
- *  <cc-user-collectibles
- *      [user]="user" 
+ *  <cc-site-collectibles
  *      [options]="collectiblesOptions"
  *      (onAlert)="onDoAlert($event)">
- *  </cc-user-collectibles>
+ *  </cc-site-collectibles>
  */
 @Component({
     moduleId: module.id,
-    selector: 'cc-user-collectibles',
+    selector: 'cc-site-collectibles',
     templateUrl: 'collectibles.html',
     styleUrls: ['collectibles.css'],
     providers: [
@@ -25,7 +24,7 @@ import { Pagination, Options as PaginationOptions } from '../../../components/si
         CollectiblesTable
     ]
 })
-export class UserCollectibles implements OnInit {
+export class SiteCollectibles implements OnInit {
     @Input() user: User;
     @Input() options: Options;
     @Output() onAlert = new EventEmitter<AlertMessage>();
@@ -33,21 +32,22 @@ export class UserCollectibles implements OnInit {
     loaded: boolean = false;
     collectibles: Collectible[];
     constructor(private collectibleService: CollectibleService) { }
-    ngOnInit() { }
-    ngOnChanges(changes: Map<string, any>): void {
-        if (changes["user"] !== undefined && changes["user"].currentValue !== undefined) {
-            this.getCollectibles();
-        }
+    ngOnInit() { 
+        this.getCollectibles();
     }
     getCollectibles() {
         this.working = true;
-        this.collectibleService.readAll(this.user._id).subscribe(
+        this.collectibleService.readAll().subscribe(
             collectibles => { 
                 this.collectibles = collectibles; 
-                this.loaded = true; 
+                this.loaded = true;
+                this.working = false;
             },
-            err => this.onAlert.emit({ type: 'error', message: err }),
-            () => this.working = false
+            err => {
+                this.working = false;
+                this.loaded = false;
+                this.onAlert.emit({ type: 'error', message: err });
+            }
         );
     }
 };
@@ -56,5 +56,6 @@ export class UserCollectibles implements OnInit {
  * Support Classes.
  */
 export class Options {
+    title: string;
     table: TableOptions;
 }

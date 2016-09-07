@@ -5,6 +5,7 @@ import { User, CurrentUser }             from '../../../models/user';
 import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
 import { UserService } from '../../../services/user/user.service';
 import { UsersTable, Options as UserTableOptions } from '../../../components/users/table/table.component';
+import { SiteCollectibles, Options as SiteCollectiblesOptions } from '../../../components/site/collectibles/collectibles.component';
 
 @Component({
     moduleId: module.id,	
@@ -12,7 +13,8 @@ import { UsersTable, Options as UserTableOptions } from '../../../components/use
     templateUrl: 'view.html',
     styleUrls: ['style.css'],
     directives: [
-        UsersTable
+        UsersTable,
+        SiteCollectibles
     ]
 })
 
@@ -31,6 +33,21 @@ export class RoutesAdminHomeComponent implements OnInit {
         thumbnail: {
             width: '4em',
             height: '4em'
+        }
+    };
+    collectiblesOptions: SiteCollectiblesOptions = {
+        title: "Recent Collectibles",
+        table: {
+            rows: 2,
+            pagination: {
+                pageCurrent: 1,
+                maxPageButtons: 5,
+                itemsPerPage: 10
+            },
+            thumbnail: {
+                width: '10em',
+                height: '10em'
+            }
         }
     }
     users: User[];

@@ -34,7 +34,7 @@ export class FileService {
     /**
      * Retrieve single file.
      */
-    read(id: string) {
+    read(id: string): Observable<File> {
         return this.httpService.getSimple('/api/v1/file/' + id, this.authService.getToken())
             .map( (json) => { 
                 if (!json.status)

@@ -30,18 +30,27 @@
 							<cc-site-config [alerts]='alerts'></cc-site-config>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-xs-12">
-							<a href="/apidoc/v1">API Documentation</a>
-						</div>
-					</div>
 				</div>
 				<div class="col-xs-12 col-sm-8">
-					<cc-users-table 
-					    [users]="users" 
-					    [options]="userTableOptions"
-					    (onAlert)="doOnAlert($event)">
-					</cc-users-table>
+					<div class="users widget">
+						<div class="widget-inner">
+							<h3>Recent Users</h3>
+							<cc-users-table 
+							    [users]="users" 
+							    [options]="userTableOptions"
+							    (onAlert)="doOnAlert($event)">
+							</cc-users-table>
+						</div>
+					</div>
+					<div class="collectibles widget">
+						<div class="widget-inner">
+							<h3>Recent Collectibles</h3>
+							<cc-site-collectibles
+							    [options]="collectiblesOptions"
+							    (onAlert)="onDoAlert($event)">
+							</cc-site-collectibles>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

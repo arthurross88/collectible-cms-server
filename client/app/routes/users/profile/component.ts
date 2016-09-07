@@ -34,7 +34,6 @@ export class RoutesUsersProfileComponent implements OnInit {
     userId: string;
     user : User;
     collectiblesOptions: CollectiblesOptions = {
-        title: "",
         table: {
             rows: null,
             pagination: {
@@ -74,8 +73,7 @@ export class RoutesUsersProfileComponent implements OnInit {
         this.userService.read(this.userId).subscribe(
             user => {
                 this.user = user;
-                this.userImagesOptions.title = this.user.alias + '\'s Recent Images';
-                this.collectiblesOptions.title = this.user.alias + '\'s Recent Collectibles';
+                this.userImagesOptions.title = (this.user.alias || this.user.email) + '\'s Recent Images';
                 this.loaded = true;
             },
             err => this.alerts.push({ type: 'error', message: err }),

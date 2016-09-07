@@ -7,6 +7,9 @@
             <span class="fa fa-picture-o"></span>
         </div>
         <div *ngIf="working == false && loaded == true" class="loaded" (window:resize)="onResize()">
+            <div *ngIf="collectibles.length == 0" class="empty">
+                <span>Nothing here yet!</span>
+            </div>
             <div *ngFor="let collectible of collectibles | slice
                   :(pageCurrent - 1) * options.pagination.itemsPerPage
                   :(pageCurrent - 1) * options.pagination.itemsPerPage + options.pagination.itemsPerPage" 

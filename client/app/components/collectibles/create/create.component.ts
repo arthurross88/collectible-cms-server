@@ -52,6 +52,7 @@ export class CollectibleCreate implements OnInit {
     ngOnInit() {
         this.loaded = true;
         this.currentUser = this.authService.getCurrentUser();
+        this.collectible.public = true;
     }
     // Event listener for child component.
     doAlert(alert: AlertMessage) {

@@ -34,11 +34,16 @@
 				</div>
 				<div class="row collectibles">
 					<div class="col-xs-12">
-						<cc-user-collectibles
-						    [user]="user" 
-						    [options]="collectiblesOptions"
-						    (onAlert)="onDoAlert($event)">
-						</cc-user-collectibles>
+						<div class="widget">
+							<div class="widget-inner">
+								<h3>{{ (this.user.alias || this.user.email) + '\'s Recent Collectibles' }}:</h3>
+								<cc-user-collectibles
+								    [user]="user" 
+								    [options]="collectiblesOptions"
+								    (onAlert)="onDoAlert($event)">
+								</cc-user-collectibles>
+							</div>
+						</div>
 					</div>
 				</div>
 	        </div>

@@ -8,5 +8,9 @@
     margin-top: 1em;
 }
 .cc-routes-users-profile .row.collectibles {
-    margin-top: 1em;
+    margin-top: 2em;
+}
+.cc-routes-users-profile .row.collectibles h3 {
+    margin-top: 0;
+    padding-top: 0;
 }

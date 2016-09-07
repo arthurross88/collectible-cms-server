@@ -94,9 +94,22 @@ module.exports = function(app, router) {
             if (err) {
                 res.failure(err);
             } else {
-                res.json({
-                    "status": true,
-                    "data": collectibles
+                var dtos = [];
+                var promises = [];
+                for (var i = 0; i < collectibles.length; i++) {
+                    var dto = collectibles[i].getDTO();
+                    dtos.push(dto);
+                    promises.push(dto.loadFiles());
+                }
+                Promise.all(promises)
+                .then(function(data) {
+                    res.json({
+                        "status": true,
+                        "data": dtos
+                    });
+                })
+                .catch(function(err) {
+                    res.failure(err);
                 });
             }
         }).skip(offset).limit(limit).sort( [['_id', -1]] );
