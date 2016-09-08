@@ -2,8 +2,6 @@
 
 }
 .cc-thumbnail .inner {
-    border: 1px solid #cccccc;
-    border-radius: 4px;
     overflow: hidden;
 }
 .cc-thumbnail .fail span {

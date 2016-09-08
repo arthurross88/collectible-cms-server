@@ -51,7 +51,12 @@ export class AuthenticateService {
         var user: User = new User();
         if (typeof(token) != 'undefined' && token != null) {
             var decoded = jwt_decode(token);
-            user.map(decoded);
+            // Remove token and current user is token is expired.
+            if (Math.floor(Date.now() / 1000) <= decoded.exp) {
+                user.map(decoded);
+            } else {
+                this.deleteToken();
+            }
         }
         this.currentUser.user = user;
         return this;

@@ -4,3 +4,18 @@
 .cc-collectible-full h1 {
     text-transform: capitalize;
 }
+.cc-collectible-full .media-left {
+    text-align: center;
+    min-width: 10em;
+    width: 40%;
+}
+@media screen and (max-width: 480px) {
+    .cc-collectible-full .media-left {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .cc-collectible-full .media-body {
+        padding-top: 1em;
+    }
+}

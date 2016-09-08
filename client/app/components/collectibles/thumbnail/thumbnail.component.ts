@@ -1,6 +1,6 @@
 import { Component, Input, Output }     from '@angular/core';
 import { OnInit, EventEmitter }         from '@angular/core';
-import { DomSanitizationService }       from '@angular/platform-browser';
+import { DomSanitizationService, SafeStyle }       from '@angular/platform-browser';
 import { File }                         from '../../../models/file';
 import { Collectible }                  from '../../../models/collectible';
 import { AlertMessage }                 from '../../../models/alertMessage';
@@ -29,6 +29,7 @@ export class CollectiblesThumbnail implements OnInit {
     unique: string = Math.floor(Math.random() * 10000).toString();
     working: boolean = false;
     loaded: boolean = false;
+    style: SafeStyle;
     constructor(private sanitizer: DomSanitizationService) { }
     ngOnInit() { }
     ngOnChanges(changes: Map<string, any>): void {
@@ -38,7 +39,7 @@ export class CollectiblesThumbnail implements OnInit {
     }
     getStyle() {
         if (this.options.width) {
-            return this.sanitizer.bypassSecurityTrustStyle(
+            this.style = this.sanitizer.bypassSecurityTrustStyle(
                 'max-width:' + this.options.width + ';' + 
                 'max-height:' + this.options.height + ';'
             );

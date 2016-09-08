@@ -40,7 +40,7 @@ collectibleSchema.pre('save', function(next) {
     // Generate the collectible url.
     if (collectible.isModified('name')) {
         collectible.url = collectible.name.toLowerCase().replace(/[^0-9a-z-]/g, "-") + '-' +
-                          crypto.randomBytes(6).toString('hex')
+                          crypto.randomBytes(3).toString('hex')
     }
     next();
 });
