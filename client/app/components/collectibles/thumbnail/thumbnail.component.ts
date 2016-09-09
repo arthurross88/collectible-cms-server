@@ -1,6 +1,6 @@
 import { Component, Input, Output }     from '@angular/core';
 import { OnInit, EventEmitter }         from '@angular/core';
-import { DomSanitizationService, SafeStyle }       from '@angular/platform-browser';
+import { SafeStyle }       from '@angular/platform-browser';
 import { File }                         from '../../../models/file';
 import { Collectible }                  from '../../../models/collectible';
 import { AlertMessage }                 from '../../../models/alertMessage';
@@ -30,19 +30,11 @@ export class CollectiblesThumbnail implements OnInit {
     working: boolean = false;
     loaded: boolean = false;
     style: SafeStyle;
-    constructor(private sanitizer: DomSanitizationService) { }
+    constructor() { }
     ngOnInit() { }
     ngOnChanges(changes: Map<string, any>): void {
         if (changes["collectible"] !== undefined && changes["collectible"].currentValue !== undefined) {
             this.loaded = true;
-        }
-    }
-    getStyle() {
-        if (this.options.width) {
-            this.style = this.sanitizer.bypassSecurityTrustStyle(
-                'max-width:' + this.options.width + ';' + 
-                'max-height:' + this.options.height + ';'
-            );
         }
     }
     delete() {
@@ -54,8 +46,5 @@ export class CollectiblesThumbnail implements OnInit {
  * Support Classes.
  */
 export class Options {
-    // Width constraint of image. e.g. '2em'
-    width: string;
-    // Height constaint of image. e.g. '2em'
-    height: string;
+    style: SafeStyle
 }

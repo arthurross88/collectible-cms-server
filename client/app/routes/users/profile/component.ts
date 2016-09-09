@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizationService, SafeStyle } from '@angular/platform-browser';
 // Models.
 import { User } from '../../../models/user';
 import { File } from '../../../models/file';
@@ -42,8 +43,7 @@ export class RoutesUsersProfileComponent implements OnInit {
                 itemsPerPage: 10
             },
             thumbnail: {
-                width: '8em',
-                height: '8em'
+                style: this.sanitizer.bypassSecurityTrustStyle('width: 8em; height: 8em;')
             }
         }
     };
@@ -65,7 +65,7 @@ export class RoutesUsersProfileComponent implements OnInit {
     tileOptions: UserTileOptions = {
     };
     constructor(private route: ActivatedRoute, private userService: UserService,
-                private fileService: FileService) {
+                private fileService: FileService, private sanitizer: DomSanitizationService) {
         this.userId = route.snapshot.params['id'];        
     }
     ngOnInit() {

@@ -1,5 +1,6 @@
 import { Component }	                 from '@angular/core';
 import { OnInit }		                 from '@angular/core';
+import { DomSanitizationService, SafeStyle } from '@angular/platform-browser';
 import { AlertMessage }                  from '../../../models/alertMessage';
 import { User, CurrentUser }			 from '../../../models/user';
 import { Config, ConfigContainer }       from '../../../models/config';
@@ -32,12 +33,12 @@ export class RoutesSiteHomeComponent implements OnInit {
                 itemsPerPage: 10
             },
             thumbnail: {
-                width: '12em',
-                height: '12em'
+                style: this.sanitizer.bypassSecurityTrustStyle('width: 12em; height: 12em;')
             }
         }
     }
-    constructor(private authService: AuthenticateService, private configService: ConfigService) { }
+    constructor(private authService: AuthenticateService, private configService: ConfigService,
+                private sanitizer: DomSanitizationService) { }
     ngOnInit() {
     	this.currentUser = this.authService.getCurrentUser();
         this.configService.read().subscribe(
