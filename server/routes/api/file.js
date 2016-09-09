@@ -216,7 +216,7 @@ module.exports = function(app, router) {
                     // Generate unique filename.
                     filename = crypto.randomBytes(5).toString('hex') + '-' + filename;
                     var dirUpload = config.rootPath + '/' + config.uploadPath;
-                    var dirUser = dirUpload '/' + req.params.id;
+                    var dirUser = dirUpload + '/' + req.params.id;
                     var path = dirUser + '/' + filename;
                     // Ignore errors EEXIST and ENOENT.
                     fs.mkdir(dirUpload, 0777, function(err) { });
