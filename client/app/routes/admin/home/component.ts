@@ -1,5 +1,6 @@
 import { Component }	                 from '@angular/core';
 import { OnInit }		                 from '@angular/core';
+import { DomSanitizationService, SafeStyle } from '@angular/platform-browser';
 import { AlertMessage }                  from '../../../models/alertMessage';
 import { User, CurrentUser }             from '../../../models/user';
 import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
@@ -45,14 +46,13 @@ export class RoutesAdminHomeComponent implements OnInit {
                 itemsPerPage: 10
             },
             thumbnail: {
-                width: '10em',
-                height: '10em'
+                style: this.sanitizer.bypassSecurityTrustStyle('width: 10em; height: 10em;')
             }
         }
     }
     users: User[];
-    constructor(private authService: AuthenticateService, private userService: UserService) {
-    }
+    constructor(private authService: AuthenticateService, private userService: UserService,
+                private sanitizer: DomSanitizationService) { }
     ngOnInit() {
     	this.currentUser = this.authService.getCurrentUser();
         this.userService.readAll().subscribe(
