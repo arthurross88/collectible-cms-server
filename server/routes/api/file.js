@@ -215,19 +215,13 @@ module.exports = function(app, router) {
                     };
                     // Generate unique filename.
                     filename = crypto.randomBytes(5).toString('hex') + '-' + filename;
-                    var dir = config.rootPath + '/' + config.uploadPath + '/' + req.params.id;
-                    var path = dir + '/' + filename;
-                    fs.mkdir(dir, 0777, function(err) {
-                        if (err) {
-                            // Ignore the error if the folder already exists.
-                            if (err.code == 'EEXIST')
-                                saveFile(path, fileData, filename) 
-                            else
-                                reportErr(err);
-                        } else {
-                            saveFile(path, fileData, filename);
-                        }
-                    });
+                    var dirUpload = config.rootPath + '/' + config.uploadPath;
+                    var dirUser = dirUpload '/' + req.params.id;
+                    var path = dirUser + '/' + filename;
+                    // Ignore errors EEXIST and ENOENT.
+                    fs.mkdir(dirUpload, 0777, function(err) { });
+                    fs.mkdir(dirUser, 0777, function(err) { });
+                    saveFile(path, fileData, filename);
                 });
             }
         }
