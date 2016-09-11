@@ -18,6 +18,8 @@
 }
 .cc-thumbnail .loaded img {
     cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 2px 2px 6px #888888;
 }
 .cc-thumbnail .loaded .modal img {
     height: initial;

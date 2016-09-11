@@ -1,10 +1,14 @@
 .cc-collectibles-table {
     
 }
-.cc-collectibles-table .collectibles {
-    display: inline-block;
-    margin: 0.25em;
+.cc-collectibles-table .loaded-inner {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
 }
 .cc-collectibles-table .collectibles {
+    display: inline-block;
+    margin: auto;
+    margin-top: 0.5em;
     margin-bottom: 0.5em;
 }
