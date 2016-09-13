@@ -20,9 +20,6 @@ import { Pagination, Options as PaginationOptions } from '../../../components/si
     styleUrls: ['collectibles.css'],
     providers: [
         CollectibleService
-    ],
-    directives: [
-        CollectiblesTable
     ]
 })
 export class UserCollectibles implements OnInit {

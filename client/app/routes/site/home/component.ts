@@ -1,6 +1,6 @@
 import { Component }	                 from '@angular/core';
 import { OnInit }		                 from '@angular/core';
-import { DomSanitizationService, SafeStyle } from '@angular/platform-browser';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { AlertMessage }                  from '../../../models/alertMessage';
 import { User, CurrentUser }			 from '../../../models/user';
 import { Config, ConfigContainer }       from '../../../models/config';
@@ -10,12 +10,8 @@ import { SiteCollectibles, Options as SiteCollectiblesOptions } from '../../../c
 
 @Component({
     moduleId: module.id,	
-    selector: 'cc-routes-site-home',
     templateUrl: 'view.html',
-    styleUrls: ['style.css'],
-    directives: [
-        SiteCollectibles
-    ]
+    styleUrls: ['style.css']
 })
 export class RoutesSiteHomeComponent implements OnInit {
 	alerts: AlertMessage[] = [];
@@ -38,7 +34,7 @@ export class RoutesSiteHomeComponent implements OnInit {
         }
     }
     constructor(private authService: AuthenticateService, private configService: ConfigService,
-                private sanitizer: DomSanitizationService) { }
+                private sanitizer: DomSanitizer) { }
     ngOnInit() {
     	this.currentUser = this.authService.getCurrentUser();
         this.configService.read().subscribe(

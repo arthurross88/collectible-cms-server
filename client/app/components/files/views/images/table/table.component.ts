@@ -21,9 +21,6 @@ declare var jQuery;
     styleUrls: ['table.css'],
     providers: [
         FileService
-    ],
-    directives: [
-        Pagination
     ]
 })
 export class ImagesTable implements OnInit {

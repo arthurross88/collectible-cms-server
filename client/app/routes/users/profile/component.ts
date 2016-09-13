@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DomSanitizationService, SafeStyle } from '@angular/platform-browser';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 // Models.
 import { User } from '../../../models/user';
 import { File } from '../../../models/file';
@@ -20,11 +20,6 @@ import { UserCollectibles, Options as CollectiblesOptions } from '../../../compo
     styleUrls: ['style.css'],
     providers: [
         FileService
-    ],
-    directives: [
-        UserImages,
-        UserCollectibles,
-        UsersTile
     ]
 })
 export class RoutesUsersProfileComponent implements OnInit {
@@ -65,7 +60,7 @@ export class RoutesUsersProfileComponent implements OnInit {
     tileOptions: UserTileOptions = {
     };
     constructor(private route: ActivatedRoute, private userService: UserService,
-                private fileService: FileService, private sanitizer: DomSanitizationService) {
+                private fileService: FileService, private sanitizer: DomSanitizer) {
         this.userId = route.snapshot.params['id'];        
     }
     ngOnInit() {

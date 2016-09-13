@@ -1,5 +1,4 @@
 import { Injectable }	                from '@angular/core';
-import { Headers }		                from '@angular/http';
 import { User, CurrentUser }            from '../../models/user';
 import { HttpService }	                from '../http/http.service';
 

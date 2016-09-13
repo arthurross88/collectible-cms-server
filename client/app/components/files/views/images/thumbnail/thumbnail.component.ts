@@ -1,6 +1,6 @@
 import { Component, Input, Output }     from '@angular/core';
 import { OnInit, EventEmitter }         from '@angular/core';
-import { DomSanitizationService }       from '@angular/platform-browser';
+import { DomSanitizer }                 from '@angular/platform-browser';
 import { File }                         from '../../../../../models/file';
 import { AlertMessage }                 from '../../../../../models/alertMessage';
 
@@ -28,7 +28,7 @@ export class Thumbnail implements OnInit {
     unique: number = Math.floor(Math.random() * 10000);
     working: boolean = false;
     loaded: boolean = false;
-    constructor(private sanitizer: DomSanitizationService) { }
+    constructor(private sanitizer: DomSanitizer) { }
     ngOnInit() { }
     ngOnChanges(changes: Map<string, any>): void {
         if (changes["file"] !== undefined && changes["file"].currentValue !== undefined) {

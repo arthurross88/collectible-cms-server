@@ -1,7 +1,6 @@
 ﻿import { Component }                     from '@angular/core';
 import { OnInit }                        from '@angular/core';
 import { Title }                         from '@angular/platform-browser';
-import { HTTP_PROVIDERS }                from '@angular/http';
 import { Config, ConfigContainer }       from './models/config';
 import { HttpService }                   from './services/http/http.service';
 import { UserService }                   from './services/user/user.service';
@@ -32,7 +31,6 @@ import { ConfigService }                 from './services/config/config.service'
     `],
     providers: [
         Title,
-        HTTP_PROVIDERS,
         HttpService,
         UserService,
         AuthenticateService,

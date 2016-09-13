@@ -21,9 +21,6 @@ import { CollectibleFull, Options as CollectibleOptions } from '../../../compone
         CollectibleService,
         Title,
         Meta
-    ],
-    directives: [
-        CollectibleFull
     ]
 })
 export class RoutesCollectibleView implements OnInit {

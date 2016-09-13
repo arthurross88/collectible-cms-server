@@ -4,7 +4,6 @@ import { User } from '../../../models/user';
 import { AlertMessage } from '../../../models/alertMessage';
 import { FileService } from '../../../services/file/file.service';
 import { Pagination, Options as PaginationOptions } from '../../../components/site/pagination/pagination.component';
-import { UsersThumbnail }  from '../../../components/users/thumbnail/thumbnail.component';
 import { Options as ImgThumbOptions }  from '../../../components/files/views/images/thumbnail/thumbnail.component';
 
 declare var jQuery;
@@ -23,10 +22,6 @@ declare var jQuery;
     styleUrls: ['table.css'],
     providers: [
         FileService
-    ],
-    directives: [
-        Pagination,
-        UsersThumbnail
     ]
 })
 export class UsersTable implements OnInit {

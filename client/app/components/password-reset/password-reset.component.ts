@@ -5,8 +5,7 @@ import { Http, Headers, Response } from '@angular/http';
 @Component({
     selector: 'password-reset',
     templateUrl: 'app/components/password-reset/password-reset.html',
-    styleUrls: ['app/components/password-reset/password-reset.css'],
-    directives: []
+    styleUrls: ['app/components/password-reset/password-reset.css']
 })
 
 export class PasswordReset implements OnInit {

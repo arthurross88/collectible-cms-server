@@ -1,5 +1,5 @@
 import { Component, Input, Output, ViewChild, OnInit, EventEmitter } from '@angular/core';
-import { DomSanitizationService } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { File } from '../../../models/file';
 import { User } from '../../../models/user';
 import { AlertMessage } from '../../../models/alertMessage';
@@ -19,8 +19,6 @@ import { FileService } from '../../../services/file/file.service';
     styleUrls: ['tile.css'],
     providers: [
         FileService
-    ],
-    directives: [
     ]
 })
 export class UsersTile implements OnInit {
@@ -30,7 +28,7 @@ export class UsersTile implements OnInit {
     working: boolean = false;
     loaded: boolean = false;
     file: File;
-    constructor(private fileService: FileService, private sanitizer: DomSanitizationService) { }
+    constructor(private fileService: FileService, private sanitizer: DomSanitizer) { }
     ngOnInit() { }
     ngOnChanges(changes: Map<string, any>): void {
         if (changes['user'] !== undefined && changes['user'].currentValue !== undefined) {

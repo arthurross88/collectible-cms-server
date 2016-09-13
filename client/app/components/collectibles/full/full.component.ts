@@ -1,5 +1,4 @@
 import { Component, Input, Output, ViewChild, OnInit, EventEmitter } from '@angular/core';
-import { DomSanitizationService } from '@angular/platform-browser';
 import { Collectible } from '../../../models/collectible';
 import { User, CurrentUser } from '../../../models/user';
 import { File } from '../../../models/file';
@@ -26,8 +25,6 @@ import { Options as ThumbnailOptions } from '../../../components/files/views/ima
     providers: [
         CollectibleService,
         FileService
-    ],
-    directives: [
     ]
 })
 export class CollectibleFull implements OnInit {

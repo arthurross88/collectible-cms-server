@@ -22,10 +22,6 @@ declare var jQuery;
     styleUrls: ['table.css'],
     providers: [
         CollectibleService
-    ],
-    directives: [
-        CollectiblesThumbnail,
-        Pagination
     ]
 })
 export class CollectiblesTable implements OnInit {

@@ -14,9 +14,6 @@ import { Options as ThumbnailOptions } from '../../../components/files/views/ima
     styleUrls: ['images.css'],
     providers: [
         FileService
-    ],
-    directives: [
-        ImagesTable
     ]
 })
 export class UserImages implements OnInit {

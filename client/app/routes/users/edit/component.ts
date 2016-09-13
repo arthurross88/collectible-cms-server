@@ -22,11 +22,6 @@ import 'rxjs/add/operator/finally';
     styleUrls: ['style.css'],
     providers: [
         FileService
-    ],
-    directives: [ 
-        FilesUploadComponent,
-        CollectibleCreate,
-        Thumbnail
     ]
 })
 export class RoutesUsersEditComponent implements OnInit {
