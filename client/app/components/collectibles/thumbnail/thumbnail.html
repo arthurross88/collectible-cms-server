@@ -9,7 +9,7 @@
         <div *ngIf="working == false && loaded == true" class="loaded">
             <div *ngIf="collectible.files[0] !== undefined">
                 <a routerLink="{{ collectible.absoluteUrl }}">
-                    <img src="{{ collectible.files[0].url }}" class="img-responsive" />
+                    <img src="{{ collectible.files[0].baseUrl + '/thumb/' + collectible.files[0].name }}" class="img-responsive" />
                 </a>
             </div>
             <div *ngIf="collectible.files[0] === undefined" class="no-files">

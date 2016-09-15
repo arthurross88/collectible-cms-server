@@ -89,9 +89,15 @@ collectibleSchema.methods.getDTO = function() {
         this.loadFiles = function() {
             var c = this;
             var promise = new Promise(function(resolve, reject) {
-                c.__c.getFiles().then(function(data) {
-                    c.files = data;
-                    resolve(data);
+                c.__c.getFiles().then(function(files) {
+                    var filePromises = [];
+                    for (var i = 0; i < files.length; i++) {
+                        filePromises.push(files[i].getDTO().loadAll());
+                    }
+                    Promise.all(filePromises).then(function(fileDtos) {
+                        c.files = fileDtos
+                        resolve(fileDtos);
+                    });
                 }).catch(function(err) {
                     reject(err);
                 });

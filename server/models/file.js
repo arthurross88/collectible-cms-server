@@ -14,6 +14,16 @@ var fileSchema = new Schema({
     // If the file is public or private
     public: Boolean,
 });
+// Remove physical files assocaited with this object.
+fileSchema.pre('remove', function(next) {
+    var orig = this.getPathBase() + '/' + this.name;
+    var full = this.getPathBase() + '/full/' + this.name;
+    var thumb = this.getPathBase() + '/thumb/' + this.name;
+    fs.unlink(orig);
+    fs.unlink(full);
+    fs.unlink(thumb);
+    next();
+});
 fileSchema.methods.getUser = function() {
     var f = this;
     var promise = new Promise(function (resolve, reject) {
