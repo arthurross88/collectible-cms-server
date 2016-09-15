@@ -44,6 +44,15 @@ collectibleSchema.pre('save', function(next) {
     }
     next();
 });
+// Remove physical files assocaited with this object.
+collectibleSchema.pre('remove', function(next) {
+    for (var i = 0; i < this.fileIds; i++) {
+        File.findOneAndRemove({ _id: this.fileIds[i] }, function(err) { 
+            // Ignore errors?
+        });
+    }
+    next();
+});
 collectibleSchema.methods.getFiles = function() {
     var c = this;
     var promise = new Promise(function (resolve, reject) {

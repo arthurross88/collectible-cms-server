@@ -54,7 +54,7 @@ export class CollectiblesTable implements OnInit {
     doOnAlert(alert: AlertMessage) {
         this.onAlert.emit(alert);
     }
-    doOnCollectbileDelete(c: Collectible) {
+    doOnCollectibleDelete(c: Collectible) {
         for (var i = 0; i < this.collectibles.length; i++) {
             if (this.collectibles[i]._id == c._id) {
                 this.working = true;
