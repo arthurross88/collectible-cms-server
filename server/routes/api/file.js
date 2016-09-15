@@ -4,6 +4,8 @@ var crypto = require("crypto");
 var User   = require('../../models/user');
 var File   = require('../../models/file');
 var config = require('../../../config');
+var Jimp   = require('jimp');
+var Promise = require('promise');
 
 /**
  * @apiDefine apiGroupFile File
@@ -11,16 +13,14 @@ var config = require('../../../config');
  * <h4 id="fileObject" class="object-anchor">File Object</h4>
  * <pre>
  * {<br />
- *     // User id that owns the file.<br />
- *     userId: { type: Schema.Types.ObjectId, ref: 'User' },<br />
- *     // File name image was uploaded with.<br />
- *     name: String<br />
- *     // Absolute url to image.<br />
- *     url: { type: String, unique: true, dropDups: true },<br />
- *     // If the file is public or private.<br />
- *     public: Boolean,<br />
- *     // Aboslute path on file system.<br />
- *     path: String<br />
+    // User id that owns the file.<br />
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },<br />
+    // Name of file on disk.<br />
+    name: String,<br />
+    // If the file is public or private<br />
+    public: Boolean<br />
+    // Base url to access file, does not include trailing slash.<br />
+    baseUrl: String<br />
  * }
  * </pre>
  */
@@ -64,10 +64,19 @@ module.exports = function(app, router) {
         }
         // Sort by creation time, descending order.
         File.find(search, function(err, files) {
-            res.json({
-                "status": true,
-                "data": files
-            });
+            if (err) res.notFound(err);
+            var promises = [];
+            for (var i = 0; i < files.length; i++) {
+                promises.push(files[i].getDTO().loadAll());
+            }
+            Promise.all(promises).then(function(dtos) {
+                res.json({
+                    "status": true,
+                    "data": dtos
+                });
+            }).catch(function(err) {
+                res.failure(err);
+            })
         }).skip(offset).limit(limit).sort( [['_id', -1]] );
     });
     /**
@@ -111,10 +120,19 @@ module.exports = function(app, router) {
         }
         // Sort by creation time, descending order.
         File.find(search, function(err, files) {
-            res.json({
-                "status": true,
-                "data": files
-            });
+            if (err) res.notFound(err);
+            var promises = [];
+            for (var i = 0; i < files.length; i++) {
+                promises.push(files[i].getDTO().loadAll());
+            }
+            Promise.all(promises).then(function(dtos) {
+                res.json({
+                    "status": true,
+                    "data": dtos
+                });
+            }).catch(function(err) {
+                res.failure(err);
+            })
         }).skip(offset).limit(limit).sort( [['_id', -1]] );
     });
     /**
@@ -149,9 +167,10 @@ module.exports = function(app, router) {
                 res.notFound();
             } else {
                 var file = files.pop();
+                var dto = (file == null) ? null : file.getDTO();
                 res.json({
                     "status": true,
-                    "data": file
+                    "data": dto
                 });
             }
         });
@@ -184,44 +203,20 @@ module.exports = function(app, router) {
             if (req.busboy) {
                 req.pipe(req.busboy);       
                 req.busboy.on('file', function (fieldname, fileData, filename) {
-                    var reportErr = function(err) {
-                        res.failure(err)
-                    };
-                    var saveFile = function(path, fileData, filename) {
-                        fstream = fs.createWriteStream(path);
-                        fileData.pipe(fstream);
-                        fstream.on('close', function () {
-                            // Save file reference to database.
-                            var file = new File();
-                            file.name = filename;
-                            file.path = path;
-                            file.userId = req.params.id;
-                            file.public = true;
-                            file.url  = config.uploadPath + '/' + req.params.id + '/' + filename;
-                            file.save(function(err) {
-                                if (err) {
-                                    reportErr(err);
-                                } else {
-                                    res.json({
-                                        "status": true,
-                                        "data": file
-                                    });
-                                }
+                    var file = new File();
+                    file.userId = req.params.id;
+                    file.name = crypto.randomBytes(5).toString('hex') + '-' + filename;                    
+                    file.public = true;
+                    file.saveFile(fileData).then(function() {
+                        file.getDTO().loadAll().then(function(dto) {
+                            res.json({
+                                "status": true,
+                                "data": dto
                             });
                         });
-                        fstream.on('error', function(err) {
-                            reportErr(err);
-                        });
-                    };
-                    // Generate unique filename.
-                    filename = crypto.randomBytes(5).toString('hex') + '-' + filename;
-                    var dirUpload = config.rootPath + '/' + config.uploadPath;
-                    var dirUser = dirUpload + '/' + req.params.id;
-                    var path = dirUser + '/' + filename;
-                    // Ignore errors EEXIST and ENOENT.
-                    fs.mkdir(dirUpload, 0777, function(err) { });
-                    fs.mkdir(dirUser, 0777, function(err) { });
-                    saveFile(path, fileData, filename);
+                    }).catch(function(err) {
+                        res.failure(err);
+                    });
                 });
             }
         }

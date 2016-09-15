@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
-                        <img src="{{ file.url }}" (click)="showModal()" class="img-responsive" />
+                        <img src="{{ file.baseUrl }}/thumb/{{ file.name }}" (click)="showModal()" class="img-responsive" />
                         <div class="btn btn-danger delete">
                             <span class="fa fa-close" (click)="delete()"></span>
                         </div>
@@ -21,7 +21,7 @@
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <img src="{{ file.url }}" class="img-responsive">
+                        <img src="{{ file.baseUrl }}/thumb/{{ file.name }}" class="img-responsive">
                     </div>
                 </div>
               </div>
