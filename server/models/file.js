@@ -19,9 +19,13 @@ fileSchema.pre('remove', function(next) {
     var orig = this.getPathBase() + '/' + this.name;
     var full = this.getPathBase() + '/full/' + this.name;
     var thumb = this.getPathBase() + '/thumb/' + this.name;
-    fs.unlink(orig);
-    fs.unlink(full);
-    fs.unlink(thumb);
+    try {
+        fs.unlink(orig);
+        fs.unlink(full);
+        fs.unlink(thumb);
+    } catch(e) {
+        // Ignore all errors for now.
+    }
     next();
 });
 fileSchema.methods.getUser = function() {

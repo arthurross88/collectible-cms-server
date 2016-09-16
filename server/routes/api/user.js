@@ -30,6 +30,7 @@
  */
 
 var User = require('../../models/user');
+var Promise = require('promise');
 
 module.exports = function(app, router) {
     /**
@@ -70,10 +71,19 @@ module.exports = function(app, router) {
                 search = { _id: req.user._id };
             }
             User.find(search, function(err, users) {
-                res.json({
-                    "status": true,
-                    "data": users
-                });
+                var promises = [];
+                for (var i = 0; i < users.length; i++) {
+                    promises.push(users[i].getDTO().loadAll());
+                }
+                Promise.all(promises).then(function(dtos) {
+                    if (dtos == null) dtos = [];
+                    res.json({
+                        "status": true,
+                        "data": dtos
+                    });
+                }).catch(function(err) {
+                    res.failure(err);
+                })
             });
         }
     });
@@ -110,9 +120,13 @@ module.exports = function(app, router) {
                 if (err) {
                     res.notFound(err);
                 } else {
-                    res.json({
-                        "status": true,
-                        "data": user
+                    user.getDTO().loadAll().then(function(dto) {
+                        res.json({
+                            "status": true,
+                            "data": dto
+                        });
+                    }).catch(function(err) {
+                        res.failure(err);
                     });
                 }
             });
@@ -161,9 +175,13 @@ module.exports = function(app, router) {
                 if (err) {
                     res.failure(err);
                 } else {
-                    res.json({
-                        "status": true,
-                        "data": user
+                    user.getDTO().loadAll().then(function(dto) {
+                        res.json({
+                            "status": true,
+                            "data": dto
+                        });
+                    }).catch(function(err) {
+                        res.failure(err);
                     });
                 }
             });
@@ -240,9 +258,13 @@ module.exports = function(app, router) {
                     if (err) {
                         res.failure(err);
                     } else {
-                        res.json({
-                            "status": true,
-                            "data": user
+                        user.getDTO().loadAll().then(function(dto) {
+                            res.json({
+                                "status": true,
+                                "data": dto
+                            });
+                        }).catch(function(err) {
+                            res.failure(err);
                         });
                     }
                 });

@@ -63,5 +63,36 @@ userSchema.methods.isRegistered = function() {
 userSchema.methods.isAnonymous = function() {
     return (this._id == 0);
 };
+userSchema.methods.getDTO = function() {
+    var u = this;
+    var dto = new function() {
+        this.__user = u;
+        this._id = u._id;
+        this.name = u.name;
+        this.alias = u.alias;
+        this.url = u.url;
+        this.email = u.email;
+        this.imageId = u.imageId;
+        this.roles = u.roles;
+        this.loadAll = function() {
+            var dto = this;
+            var promise = new Promise(function(resolve, reject) {
+                resolve(dto);
+            });
+            return promise;
+        }
+        this.toJSON = function() {
+            var ret = {};
+            var exclude = ['__user'];
+            for (var property in this) {
+                if (this.hasOwnProperty(property) && exclude.indexOf(property) == -1) {
+                    ret[property] = this[property];
+                }
+            }
+            return ret;
+        }
+    }
+    return dto;
+}
 
 module.exports = mongoose.model('User', userSchema);

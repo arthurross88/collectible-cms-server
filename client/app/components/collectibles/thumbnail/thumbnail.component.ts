@@ -1,11 +1,10 @@
 import { Component, Input, Output }     from '@angular/core';
 import { OnInit, EventEmitter }         from '@angular/core';
-import { SafeStyle }       from '@angular/platform-browser';
-import { File }                         from '../../../models/file';
+import { CurrentUser }                  from '../../../models/user';
+import { SafeStyle }                    from '@angular/platform-browser';
 import { Collectible }                  from '../../../models/collectible';
 import { AlertMessage }                 from '../../../models/alertMessage';
-
-declare var jQuery;
+import { AuthenticateService }          from '../../../services/authenticate/authenticate.service';
 
 /**
  *  <cc-collectibles-thumbnail 
@@ -26,15 +25,21 @@ export class CollectiblesThumbnail implements OnInit {
     @Input() collectible: Collectible;
     @Output() onAlert = new EventEmitter<AlertMessage>();
     @Output() onCollectibleDelete = new EventEmitter<Collectible>();
+    currentUser: CurrentUser;
     unique: string = Math.floor(Math.random() * 10000).toString();
+    authorized: boolean = false;
     working: boolean = false;
     loaded: boolean = false;
     style: SafeStyle;
-    constructor() { }
+    constructor(private authService: AuthenticateService) { 
+        this.currentUser = this.authService.getCurrentUser();
+    }
     ngOnInit() { }
     ngOnChanges(changes: Map<string, any>): void {
         if (changes["collectible"] !== undefined && changes["collectible"].currentValue !== undefined) {
             this.loaded = true;
+            this.authorized = (changes['collectible'].currentValue.userId == this.currentUser.user._id) || 
+                              this.currentUser.user.isAdmin();
         }
     }
     delete() {
