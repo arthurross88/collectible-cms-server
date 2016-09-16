@@ -26,7 +26,7 @@ Customize token secret, port, and site domain.
 
 Edit config.js and apidoc.js, replacing the default values with more appropriate domain specific ones. _tokenSignature in config.js must be replaced or the site will NOT be secure_.
 
-### Launch the site in development mode
+## Usage
 
 * `npm run prod` or to launch in development mode: `npm run dev`
 
@@ -52,3 +52,7 @@ In preferences -> Settings -> User
     {
         "file_exclude_patterns": ["collectible-cms/client/**/*.js", "collectible-cms/**/*.map"]
     }
+
+## License
+
+[MIT License][LICENSE.md]
