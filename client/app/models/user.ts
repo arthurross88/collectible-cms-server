@@ -7,6 +7,7 @@ export class User {
 	url: string;
 	email: string;
 	password: string;
+	profile: string;
 	imageId: string;
 	roles: [ string ];
 	constructor(user?: User) {
@@ -15,15 +16,16 @@ export class User {
 			this.map(user);
 		}
 	}
-	map(user: User): User {
-		this._id      = (typeof(user._id)      == 'undefined') ? this._id      : user._id;
-		this.email    = (typeof(user.email)    == 'undefined') ? this.email    : user.email;
-		this.password = (typeof(user.password) == 'undefined') ? this.password : user.password;
-		this.roles    = (typeof(user.roles)    == 'undefined') ? this.roles    : user.roles;
-		this.name     = (typeof(user.name)     == 'undefined') ? this.name     : user.name;
-		this.alias    = (typeof(user.alias)    == 'undefined') ? this.alias    : user.alias;
-		this.url      = (typeof(user.url)      == 'undefined') ? this.url      : user.url;
-		this.imageId  = (typeof(user.imageId)  == 'undefined') ? this.imageId  : user.imageId;
+	map(u: User): User {
+		this._id      = (typeof(u._id)      == 'undefined') ? this._id      : u._id;
+		this.email    = (typeof(u.email)    == 'undefined') ? this.email    : u.email;
+		this.password = (typeof(u.password) == 'undefined') ? this.password : u.password;
+		this.roles    = (typeof(u.roles)    == 'undefined') ? this.roles    : u.roles;
+		this.profile  = (typeof(u.profile)  == 'undefined') ? this.profile  : u.profile;
+		this.name     = (typeof(u.name)     == 'undefined') ? this.name     : u.name;
+		this.alias    = (typeof(u.alias)    == 'undefined') ? this.alias    : u.alias;
+		this.url      = (typeof(u.url)      == 'undefined') ? this.url      : u.url;
+		this.imageId  = (typeof(u.imageId)  == 'undefined') ? this.imageId  : u.imageId;
 		return this
 	}
 	isRegistered(): boolean {

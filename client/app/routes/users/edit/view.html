@@ -55,6 +55,11 @@
 						</cc-thumbnail>
 					</div>
 				</div>
+				<div class="row profile">
+					<div class="col-xs-12">
+						<textarea [(ngModel)]="user.profile" class="form-control"></textarea>
+					</div>
+				</div>
 				<div *ngIf="currentUser.user.isAdmin()" class="row roles">
 					<div class="col-xs-1">
 						<input type="checkbox" class="form-control"

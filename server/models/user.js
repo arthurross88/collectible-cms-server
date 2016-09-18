@@ -20,6 +20,8 @@ var userSchema = new Schema({
     email: { type: String, unique: true, required: true },
     // Login password.
     password: { type: String, required: true },
+    // Self description of who user is.
+    profile: { type: String },
     imageId: { type: Schema.Types.ObjectId, ref: 'File' },
     roles: [{ type: String, enum: ['admin', 'user', 'anonymous'] }]
 });
@@ -73,6 +75,7 @@ userSchema.methods.getDTO = function() {
         this.url = u.url;
         this.email = u.email;
         this.imageId = u.imageId;
+        this.profile = u.profile;
         this.roles = u.roles;
         this.loadAll = function() {
             var dto = this;

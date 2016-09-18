@@ -19,6 +19,8 @@
  *     // generated based on alias, or _id if alias is not set.<br />
  *     url: { type: String, unique: true },<br />
  *     "email": "admin@localhost",<br />
+ *     // Self description of who user is.<br />
+ *     "profile": { type: String },<br />
  *     "password": "password",<br />
  *     "imageId": { type: Schema.Types.ObjectId, ref: 'File' }<br />
  *     "roles": [<br />
@@ -250,6 +252,7 @@ module.exports = function(app, router) {
                 user.url      = (userPatch.url != null)      ? userPatch.url      : user.url;
                 user.imageId  = (userPatch.imageId != null)  ? userPatch.imageId  : user.imageId;
                 user.password = (userPatch.password != null) ? userPatch.password : user.password;
+                user.profile  = (userPatch.profile != null)  ? userPatch.profile  : user.profile;
                 user.email    = (userPatch.email != null)    ? userPatch.email    : user.email;
                 if (req.user.isAdmin()) {
                     user.roles = (userPatch.roles != null && userPatch.roles.length) ? userPatch.roles : user.roles;
