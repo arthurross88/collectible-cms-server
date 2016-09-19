@@ -1,4 +1,5 @@
 import { Component, Input, Output, ViewChild, OnInit, EventEmitter } from '@angular/core';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { Collectible } from '../../../models/collectible';
 import { User, CurrentUser } from '../../../models/user';
 import { File } from '../../../models/file';
@@ -44,12 +45,11 @@ export class CollectibleFull implements OnInit {
             itemsPerPage: 1
         },
         thumbnail: {
-            width: null,
-            height: null
+            style: this.sanitizer.bypassSecurityTrustStyle('width: 100%;')
         }
     };
     constructor(private authService: AuthenticateService, private collectibleService: CollectibleService,
-                private fileService: FileService) { }
+                private fileService: FileService, private sanitizer: DomSanitizer) { }
     ngOnInit() {
         this.currentUser = this.authService.getCurrentUser();
     }

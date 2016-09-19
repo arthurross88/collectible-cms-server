@@ -7,8 +7,11 @@
     margin-bottom: 1em;
 }
 .cc-collectibles-table .collectibles {
-    display: inline-block;
+    display: flex;
     margin: auto;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
+}
+.cc-collectibles-table .collectibles cc-collectibles-thumbnail {
+    margin: auto;
 }

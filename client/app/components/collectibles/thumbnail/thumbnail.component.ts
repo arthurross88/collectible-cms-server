@@ -6,6 +6,8 @@ import { Collectible }                  from '../../../models/collectible';
 import { AlertMessage }                 from '../../../models/alertMessage';
 import { AuthenticateService }          from '../../../services/authenticate/authenticate.service';
 
+declare var jQuery;
+
 /**
  *  <cc-collectibles-thumbnail 
  *      [options]="cThumbOptions" 
@@ -30,6 +32,7 @@ export class CollectiblesThumbnail implements OnInit {
     authorized: boolean = false;
     working: boolean = false;
     loaded: boolean = false;
+    resizedUrl: string = '';
     style: SafeStyle;
     constructor(private authService: AuthenticateService) { 
         this.currentUser = this.authService.getCurrentUser();
@@ -37,9 +40,27 @@ export class CollectiblesThumbnail implements OnInit {
     ngOnInit() { }
     ngOnChanges(changes: Map<string, any>): void {
         if (changes["collectible"] !== undefined && changes["collectible"].currentValue !== undefined) {
+            let c = changes['collectible'].currentValue;
+            let size: number = jQuery('.cc-collectibles-thumbnail.' + this.unique + ' > .inner').css('font-size');
             this.loaded = true;
-            this.authorized = (changes['collectible'].currentValue.userId == this.currentUser.user._id) || 
-                              this.currentUser.user.isAdmin();
+            this.authorized = (c.userId == this.currentUser.user._id) || this.currentUser.user.isAdmin();
+        }
+    }
+    ngAfterContentChecked() {
+        // Automatically load in the most efficiently sized image.
+        if (!this.resizedUrl.length) {
+            let sizePx: string = jQuery('.cc-collectibles-thumbnail.' + this.unique + ' > .inner').css('width');
+            if (sizePx !== undefined) {
+                let size: number = +sizePx.replace(/[^-\d\.]/g, '');
+                let f = this.collectible.files[0];
+                if (size <= 320) {
+                    this.resizedUrl = f.baseUrl + '/thumb/' + f.name;
+                } else if (size <= 1024) {
+                    this.resizedUrl = f.baseUrl + '/full/' + f.name;
+                } else {
+                    this.resizedUrl = f.baseUrl + '/' + f.name;
+                }
+            }
         }
     }
     delete() {
@@ -51,5 +72,5 @@ export class CollectiblesThumbnail implements OnInit {
  * Support Classes.
  */
 export class Options {
-    style: SafeStyle
+    style: SafeStyle;
 }

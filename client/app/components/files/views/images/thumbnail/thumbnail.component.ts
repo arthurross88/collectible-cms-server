@@ -1,6 +1,6 @@
 import { Component, Input, Output }     from '@angular/core';
 import { OnInit, EventEmitter }         from '@angular/core';
-import { DomSanitizer }                 from '@angular/platform-browser';
+import { SafeStyle }                    from '@angular/platform-browser';
 import { File }                         from '../../../../../models/file';
 import { AlertMessage }                 from '../../../../../models/alertMessage';
 import { CurrentUser }                  from '../../../../../models/user';
@@ -28,27 +28,37 @@ export class Thumbnail implements OnInit {
     @Output() onAlert = new EventEmitter<AlertMessage>();
     @Output() onFileDelete = new EventEmitter<File>();
     currentUser: CurrentUser;
-    unique: number = Math.floor(Math.random() * 10000);
+    unique: string = Math.floor(Math.random() * 10000).toString();
     authorized: boolean = false;
     working: boolean = false;
     loaded: boolean = false;
-    constructor(private sanitizer: DomSanitizer, private authService: AuthenticateService) { 
+    resizedUrl: string = '';
+    constructor(private authService: AuthenticateService) { 
         this.currentUser = this.authService.getCurrentUser();
     }
     ngOnInit() { }
     ngOnChanges(changes: Map<string, any>): void {
-        if (changes["file"] !== undefined && changes["file"].currentValue !== undefined) {
+        if (changes['file'] !== undefined && changes['file'].currentValue !== undefined) {
             this.loaded = true;
             this.authorized = (changes['file'].currentValue.userId == this.currentUser.user._id) || 
                               this.currentUser.user.isAdmin();
         }
     }
-    getStyle() {
-        if (this.options.width) {
-            return this.sanitizer.bypassSecurityTrustStyle(
-                'max-width:' + this.options.width + ';' + 
-                'max-height:' + this.options.height + ';'
-            );
+    ngAfterContentChecked() {
+        // Automatically load in the most efficiently sized image.
+        if (!this.resizedUrl.length) {
+            let sizePx: string = jQuery('.cc-thumbnail.' + this.unique + ' > .inner').css('width');
+            if (sizePx !== undefined) {
+                let size: number = +sizePx.replace(/[^-\d\.]/g, '');
+                let f = this.file;
+                if (size <= 320) {
+                    this.resizedUrl = f.baseUrl + '/thumb/' + f.name;
+                } else if (size <= 1024) {
+                    this.resizedUrl = f.baseUrl + '/full/' + f.name;
+                } else {
+                    this.resizedUrl = f.baseUrl + '/' + f.name;
+                }
+            }
         }
     }
     showModal() {
@@ -63,8 +73,5 @@ export class Thumbnail implements OnInit {
  * Support Classes.
  */
 export class Options {
-    // Width constraint of image. e.g. '2em'
-    width: string;
-    // Height constaint of image. e.g. '2em'
-    height: string;
+    style: SafeStyle;
 }

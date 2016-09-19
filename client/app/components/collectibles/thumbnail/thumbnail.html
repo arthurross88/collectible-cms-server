@@ -1,4 +1,4 @@
-<div class="cc-collectibles-thumbnail component">
+<div class="cc-collectibles-thumbnail component {{ unique }}">
     <div class="inner component-inner" [style]="options.style">
         <div *ngIf="working == true && loaded == false" class="loading">
             <span class="fa fa-spinner fa-spin"></span>
@@ -7,9 +7,9 @@
             <span class="fa fa-picture-o"></span>
         </div>
         <div *ngIf="working == false && loaded == true" class="loaded">
-            <div *ngIf="collectible.files[0] !== undefined">
+            <div *ngIf="resizedUrl.length">
                 <a routerLink="{{ collectible.absoluteUrl }}">
-                    <img src="{{ collectible.files[0].baseUrl + '/thumb/' + collectible.files[0].name }}" class="img-responsive" />
+                    <img src="{{ resizedUrl }}" class="img-responsive" />
                 </a>
             </div>
             <div *ngIf="collectible.files[0] === undefined" class="no-files">
