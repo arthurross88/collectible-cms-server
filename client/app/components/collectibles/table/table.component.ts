@@ -1,4 +1,10 @@
-import { Component, Input, Output, ViewChild, OnInit, EventEmitter } from '@angular/core';
+import { Component, 
+         Input, 
+         Output, 
+         ViewChild, 
+         OnInit, 
+         EventEmitter, 
+         HostListener } from '@angular/core';
 import { File } from '../../../models/file';
 import { Collectible } from '../../../models/collectible';
 import { AlertMessage } from '../../../models/alertMessage';
@@ -39,15 +45,15 @@ export class CollectiblesTable implements OnInit {
     ngOnChanges(changes: Map<string, any>): void {
         if (changes["collectibles"] !== undefined && changes["collectibles"].currentValue !== undefined) {
             this.loaded = true;
-            // This can't be right...
             var self = this;
-            setTimeout(function() { self.onResize(); });
+            setTimeout(function() { self.doOnResize(); });
         }
     }
     ngDoCheck() {
         if (this.collectibles !== undefined && this.collectibles.length != this.lastCollectibleCount) {
             var self = this;
-            setTimeout(function() { self.onResize(); });
+            this.lastCollectibleCount = this.collectibles.length;
+            setTimeout(function() { self.doOnResize(); });
         }
     }
     // Event listener for child component.
@@ -73,12 +79,14 @@ export class CollectiblesTable implements OnInit {
     doOnPageChange(page: number) {
         this.pageCurrent = page;
     }
-    // Event listener.
-    onResize() {
+    // Event listener. Calculate new number of items to be displayed by pagination.
+    @HostListener('window:resize', ['$event'])
+    doOnResize() {
         if (this.options.rows != null) {
             var total = jQuery(jQuery('.cc-collectibles-table.unique-'+this.unique+' div.loaded')[0]).innerWidth();
             var item  = jQuery(jQuery('.cc-collectibles-table.unique-'+this.unique+' div.collectibles')[0]).outerWidth(true);
             var count = Math.floor(total / item);
+console.log(total, item, count);
             if (isNaN(count)) { count = 1; }
             this.options.pagination.itemsPerPage = count * this.options.rows;
             this.pagination.recalculate();

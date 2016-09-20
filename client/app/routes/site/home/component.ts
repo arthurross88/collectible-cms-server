@@ -30,7 +30,6 @@ export class RoutesSiteHomeComponent implements OnInit {
             },
             thumbnail: {
                 style: this.sanitizer.bypassSecurityTrustStyle('width: 12em; height: 12em;');
-                size: '/thumb/'
             }
         }
     }

@@ -2,7 +2,7 @@
 
 }
 .cc-collectibles-thumbnail .inner {
-    display: flex;
+    display: table;
     position: relative;
     overflow: hidden;
 }
@@ -14,7 +14,7 @@
     opacity: 0.05;
 }
 .cc-collectibles-thumbnail .loaded {
-    margin: auto;
+    display: table-cell;
     vertical-align: middle;
 }
 .cc-collectibles-thumbnail .loaded img {

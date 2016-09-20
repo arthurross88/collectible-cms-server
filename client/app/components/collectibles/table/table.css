@@ -2,16 +2,19 @@
     
 }
 .cc-collectibles-table .loaded-inner {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 1em;
+    width: 100%;
 }
 .cc-collectibles-table .collectibles {
-    display: flex;
-    margin: auto;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    display: inline-block;
+    margin: 0.2em;
+    padding: 0.2em;
+    border: 1px solid #f8f8f8;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 1px 1px 2px #aaaaaa;
+}
+.cc-collectibles-table .collectibles .thumbnail {
+
 }
 .cc-collectibles-table .collectibles cc-collectibles-thumbnail {
-    margin: auto;
 }
