@@ -49,18 +49,21 @@ export class CollectiblesThumbnail implements OnInit {
     ngAfterContentChecked() {
         // Automatically load in the most efficiently sized image.
         if (!this.resizedUrl.length) {
-            let sizePx: string = jQuery('.cc-collectibles-thumbnail.' + this.unique + ' > .inner').css('width');
-            if (sizePx !== undefined) {
-                let size: number = +sizePx.replace(/[^-\d\.]/g, '');
-                let f = this.collectible.files[0];
-                if (size <= 320) {
-                    this.resizedUrl = f.baseUrl + '/thumb/' + f.name;
-                } else if (size <= 1024) {
-                    this.resizedUrl = f.baseUrl + '/full/' + f.name;
-                } else {
-                    this.resizedUrl = f.baseUrl + '/' + f.name;
+            var self = this;
+            setTimeout(function() {
+                let sizePx: string = jQuery('.cc-collectibles-thumbnail.' + self.unique + ' > .inner').css('width');
+                if (sizePx !== undefined) {
+                    let size: number = +sizePx.replace(/[^-\d\.]/g, '');
+                    let f = self.collectible.files[0];
+                    if (size <= 320) {
+                        self.resizedUrl = f.baseUrl + '/thumb/' + f.name;
+                    } else if (size <= 1024) {
+                        self.resizedUrl = f.baseUrl + '/full/' + f.name;
+                    } else {
+                        self.resizedUrl = f.baseUrl + '/' + f.name;
+                    }
                 }
-            }
+            });
         }
     }
     delete() {

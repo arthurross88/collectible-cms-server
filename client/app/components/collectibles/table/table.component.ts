@@ -86,7 +86,6 @@ export class CollectiblesTable implements OnInit {
             var total = jQuery(jQuery('.cc-collectibles-table.unique-'+this.unique+' div.loaded')[0]).innerWidth();
             var item  = jQuery(jQuery('.cc-collectibles-table.unique-'+this.unique+' div.collectibles')[0]).outerWidth(true);
             var count = Math.floor(total / item);
-console.log(total, item, count);
             if (isNaN(count)) { count = 1; }
             this.options.pagination.itemsPerPage = count * this.options.rows;
             this.pagination.recalculate();

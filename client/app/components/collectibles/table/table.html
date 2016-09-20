@@ -15,12 +15,14 @@
                       :(pageCurrent - 1) * options.pagination.itemsPerPage
                       :(pageCurrent - 1) * options.pagination.itemsPerPage + options.pagination.itemsPerPage" 
                      class="collectibles">
-                    <cc-collectibles-thumbnail 
-                        [collectible]="collectible"
-                        [options]="options.thumbnail"
-                        (onCollectibleDelete)="doOnCollectibleDelete($event)"
-                        (onAlert)="doOnAlert($event)">
-                    </cc-collectibles-thumbnail>
+                    <div class="cc-thumbnail">
+                        <cc-collectibles-thumbnail 
+                            [collectible]="collectible"
+                            [options]="options.thumbnail"
+                            (onCollectibleDelete)="doOnCollectibleDelete($event)"
+                            (onAlert)="doOnAlert($event)">
+                        </cc-collectibles-thumbnail>
+                    </div>
                 </div>
             </div>
             <cc-pagination 

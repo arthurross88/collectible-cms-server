@@ -38,7 +38,6 @@ export class ImagesTable implements OnInit {
     ngOnChanges(changes: Map<string, any>): void {
         if (changes["files"] !== undefined && changes["files"].currentValue !== undefined) {
             this.loaded = true;
-            // This can't be right...
             var self = this;
             setTimeout(function() { self.onResize(); });
         }
@@ -46,6 +45,7 @@ export class ImagesTable implements OnInit {
     ngDoCheck() {
         if (this.files !== undefined && this.files.length != this.lastFileCount) {
             var self = this;
+            this.lastFileCount = this.files.length;
             setTimeout(function() { self.onResize(); });
         }
     }
