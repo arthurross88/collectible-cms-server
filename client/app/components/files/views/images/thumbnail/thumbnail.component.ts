@@ -53,12 +53,16 @@ export class Thumbnail implements OnInit {
             if (sizePx !== undefined) {
                 let size: number = +sizePx.replace(/[^-\d\.]/g, '');
                 let f = this.file;
-                if (size <= 320) {
-                    this.resizedUrl = f.baseUrl + '/thumb/' + f.name;
-                } else if (size <= 1024) {
-                    this.resizedUrl = f.baseUrl + '/full/' + f.name;
+                if (f !== undefined) {
+                    if (size <= 320) {
+                        this.resizedUrl = f.baseUrl + '/thumb/' + f.name;
+                    } else if (size <= 1024) {
+                        this.resizedUrl = f.baseUrl + '/full/' + f.name;
+                    } else {
+                        this.resizedUrl = f.baseUrl + '/' + f.name;
+                    }
                 } else {
-                    this.resizedUrl = f.baseUrl + '/' + f.name;
+                    // Include some default image?
                 }
             }
         }
