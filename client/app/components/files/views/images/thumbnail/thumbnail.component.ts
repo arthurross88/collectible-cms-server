@@ -9,12 +9,13 @@ import { AuthenticateService }          from '../../../../../services/authentica
 declare var jQuery;
 
 /**
- *  <cc-thumbnail 
+ *  <cc-image-thumbnail 
  *      [options]="thumbnailOptions" 
  *      [file]="file"
  *      (onAlert)="doOnAlert($event)" 
- *      (onFileDelete)="doOnFileDelete($event)">
- *  </cc-thumbnail>
+ *      (onFileDelete)="doOnFileDelete($event)"
+ *      (onFileClick)="doOnFileClick($event)">
+ *  </cc-image-thumbnail>
  */
 @Component({
     moduleId: module.id,
@@ -27,6 +28,7 @@ export class Thumbnail implements OnInit {
     @Input() file: File;
     @Output() onAlert = new EventEmitter<AlertMessage>();
     @Output() onFileDelete = new EventEmitter<File>();
+    @Output() onFileClick = new EventEmitter<File>();
     currentUser: CurrentUser;
     unique: string = Math.floor(Math.random() * 10000).toString();
     authorized: boolean = false;
@@ -66,6 +68,9 @@ export class Thumbnail implements OnInit {
     }
     delete() {
         this.onFileDelete.emit(this.file);
+    }
+    click() {
+        this.onFileClick.emit(this.file);
     }
 };
 

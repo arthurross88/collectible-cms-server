@@ -8,9 +8,7 @@
         </div>
         <div *ngIf="working == false && loaded == true" class="loaded">
             <div *ngIf="resizedUrl.length">
-                <a routerLink="{{ file.baseUrl }}/{{ file.name }}">
-                    <img src="{{ resizedUrl }}" class="img-responsive" />
-                </a>
+                <img src="{{ resizedUrl }}" class="img-responsive" (click)="click()" />
             </div>
             <div *ngIf="authorized" class="btn btn-danger delete">
                 <span class="fa fa-close" (click)="delete()"></span>

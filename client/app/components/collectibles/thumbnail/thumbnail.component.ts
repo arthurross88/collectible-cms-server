@@ -1,5 +1,6 @@
 import { Component, Input, Output }     from '@angular/core';
 import { OnInit, EventEmitter }         from '@angular/core';
+import { Router }                       from '@angular/router';
 import { CurrentUser }                  from '../../../models/user';
 import { SafeStyle }                    from '@angular/platform-browser';
 import { Collectible }                  from '../../../models/collectible';
@@ -34,7 +35,7 @@ export class CollectiblesThumbnail implements OnInit {
     loaded: boolean = false;
     resizedUrl: string = '';
     style: SafeStyle;
-    constructor(private authService: AuthenticateService) { 
+    constructor(private authService: AuthenticateService, private router: Router) { 
         this.currentUser = this.authService.getCurrentUser();
     }
     ngOnInit() { }
@@ -66,8 +67,11 @@ export class CollectiblesThumbnail implements OnInit {
             });
         }
     }
-    delete() {
+    doOnFileDelete() {
         this.onCollectibleDelete.emit(this.collectible);
+    }
+    doOnFileClick() {
+        this.router.navigate(['/' + this.collectible.absoluteUrl]);
     }
 };
 

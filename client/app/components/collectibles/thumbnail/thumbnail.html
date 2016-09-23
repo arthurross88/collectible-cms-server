@@ -7,17 +7,13 @@
             <span class="fa fa-picture-o"></span>
         </div>
         <div *ngIf="working == false && loaded == true" class="loaded">
-            <div *ngIf="resizedUrl.length">
-                <a routerLink="{{ collectible.absoluteUrl }}">
-                    <img src="{{ resizedUrl }}" class="img-responsive" />
-                </a>
-            </div>
-            <div *ngIf="collectible.files[0] === undefined" class="no-files">
-                <span class="fa fa-picture-o"></span>
-            </div>
-            <div *ngIf="authorized" class="btn btn-danger delete">
-                <span class="fa fa-close" (click)="delete()"></span>
-            </div>
+            <cc-thumbnail 
+                [options]="options" 
+                [file]="collectible.files[0]"
+                (onAlert)="doOnAlert($event)" 
+                (onFileDelete)="doOnFileDelete($event)"
+                (onFileClick)="doOnFileClick($event)">
+            </cc-thumbnail>
         </div>
     </div>
 </div>
