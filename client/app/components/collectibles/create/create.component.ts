@@ -41,8 +41,7 @@ export class CollectibleCreate implements OnInit {
             itemsPerPage: 1
         },
         thumbnail: {
-            width: "6em;",
-            height: "6em;"
+            style: "width: 6em; height: 6em;"
         }
     };
     constructor(private authService: AuthenticateService, private collectibleService: CollectibleService) { }

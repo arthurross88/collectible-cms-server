@@ -1,5 +1,6 @@
 import { Component, OnInit }             from '@angular/core';
 import { ActivatedRoute }                from '@angular/router';
+import { DomSanitizer, SafeStyle }       from '@angular/platform-browser';
 import { User, CurrentUser }             from '../../../models/user';
 import { AlertMessage }                  from '../../../models/alertMessage';
 import { File }                          from '../../../models/file';
@@ -34,13 +35,12 @@ export class RoutesUsersEditComponent implements OnInit {
     user: User;
     file: File;
     thumbnailOptions: ThumbnailOptions = {
-        width: '4em',
-        height: '4em'
+        style: this.sanitizer.bypassSecurityTrustStyle('width: 4em; height: 4em;')
     };
     collectibleOptions: CollectibleOptions = { };
     constructor(private route: ActivatedRoute, private userService: UserService, 
                 private authService: AuthenticateService, private configService: ConfigService,
-                private fileService: FileService) {
+                private fileService: FileService, private sanitizer: DomSanitizer) {
         this.userId = route.snapshot.params['id'];        
         this.currentUser = authService.getCurrentUser();
         this.configContainer = configService.configContainer;

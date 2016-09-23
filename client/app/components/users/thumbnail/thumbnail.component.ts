@@ -43,12 +43,6 @@ export class UsersThumbnail implements OnInit {
             }
         }
     }
-    getStyle() {
-        return this.sanitizer.bypassSecurityTrustStyle(
-            'width:' + this.options.width + ';' + 
-            'height:' + this.options.height + ';'
-        );
-    }    
     // Event listener for child component.
     doOnAlert(alert: AlertMessage) {
         this.onAlert.emit(alert);
