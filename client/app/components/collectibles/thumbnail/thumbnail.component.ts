@@ -47,26 +47,6 @@ export class CollectiblesThumbnail implements OnInit {
             this.authorized = (c.userId == this.currentUser.user._id) || this.currentUser.user.isAdmin();
         }
     }
-    ngAfterContentChecked() {
-        // Automatically load in the most efficiently sized image.
-        if (!this.resizedUrl.length) {
-            var self = this;
-            setTimeout(function() {
-                let sizePx: string = jQuery('.cc-collectibles-thumbnail.' + self.unique + ' > .inner').css('width');
-                if (sizePx !== undefined) {
-                    let size: number = +sizePx.replace(/[^-\d\.]/g, '');
-                    let f = self.collectible.files[0];
-                    if (size <= 320) {
-                        self.resizedUrl = f.baseUrl + '/thumb/' + f.name;
-                    } else if (size <= 1024) {
-                        self.resizedUrl = f.baseUrl + '/full/' + f.name;
-                    } else {
-                        self.resizedUrl = f.baseUrl + '/' + f.name;
-                    }
-                }
-            });
-        }
-    }
     doOnFileDelete() {
         this.onCollectibleDelete.emit(this.collectible);
     }
