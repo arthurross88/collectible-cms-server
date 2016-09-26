@@ -39,7 +39,6 @@ export class RoutesUsersEditComponent implements OnInit {
     user: User;
     file: File;
     iThumbOptions: IThumbOptions = {
-        style: this.sanitizer.bypassSecurityTrustStyle('width: 4em; height: 4em;'),
         modal: true
     };
     collectibleOptions: CollectibleOptions = { };

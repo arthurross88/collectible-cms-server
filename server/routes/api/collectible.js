@@ -8,7 +8,7 @@
  * only be obtained by associating the collectible with a record in a catalogue (such as the
  * StampistCatalogue or ScottCatalogue).
  *
- * This allows a user to quickly create several records of items thaty have collected without the
+ * This allows a user to quickly create several records of items that have collected without the
  * requirement to search for it's appropriate catalogue entry or classification.
  *
  * <h4 id="collectibleObject" class="object-anchor">Collectible Object</h4>
@@ -16,6 +16,8 @@
  * {<br />
  *     // User that owns the item.<br />
  *     userId: { type: Schema.Types.ObjectId, ref: 'User' },<br />
+ *     // When requesting details then the user object will also be returned.<br />
+ *     user: [ <a href="#userObject" class="object-link">User Object</a> ]<br />
  *     // Title or short name of item.<br />
  *     name: String,<br />
  *     // Description of item.<br />
@@ -282,9 +284,9 @@ module.exports = function(app, router) {
      * @apiPermission apiPermissionUser
      * @apiGroup apiGroupCollectible
      * @apiName Delete
-     * @apiDescription A role of <code>Admin</code> may delete any collectible.
-     *                 A role of <code>User</code> may only delete their own
-     *                 collectible.
+     * @apiDescription 
+     *     A role of <code>Admin</code> may delete any collectible.
+     *     A role of <code>User</code> may only delete their own collectible.
      * @apiUse apiHeaderAccessToken
      * @apiParam {Int} id The unique identifier of collectible to delete.
      * @apiUse apiSuccessStatus
@@ -322,10 +324,12 @@ module.exports = function(app, router) {
      * @apiPermission apiPermissionUser
      * @apiGroup apiGroupCollectible
      * @apiName Update
-     * @apiDescription A role of <code>Admin</code> may update any collectible object.
-     *                 A role of <code>User</code> may only update a collectible object
-     *                 that they own. Because this is a patch, and not a post, only
-     *                 the fields to change need to be included in json body.
+     * @apiDescription 
+     *     A role of <code>Admin</code> may update any collectible object.
+     *     A role of <code>User</code> may only update a collectible object
+     *     that they own. Because this is a patch, and not a post, only
+     *     the fields to change need to be included in json body. Any fileIds
+     *     that do not exist will be stripped before saving.
      * @apiUse apiHeaderAccessToken
      * @apiUse apiHeaderJson
      * @apiParam {Int} id The unique identifier for collectible to update.

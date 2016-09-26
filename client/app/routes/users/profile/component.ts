@@ -38,7 +38,6 @@ export class RoutesUsersProfileComponent implements OnInit {
                 itemsPerPage: 10
             },
             thumbnail: {
-                style: this.sanitizer.bypassSecurityTrustStyle('width: 8em;'),
                 modal: false
             }
         }
@@ -46,6 +45,7 @@ export class RoutesUsersProfileComponent implements OnInit {
     userImagesOptions: UserImagesOptions = {
         title: "",
         table: {
+            style: this.sanitizer.bypassSecurityTrustStyle('width: 8em;'),
             rows: 1,
             pagination: {
                 pageCurrent: 1,
@@ -53,7 +53,6 @@ export class RoutesUsersProfileComponent implements OnInit {
                 itemsPerPage: 2
             },
             thumbnail: {
-                style: this.sanitizer.bypassSecurityTrustStyle('width: 8em;'),
                 modal: false
             }
         }

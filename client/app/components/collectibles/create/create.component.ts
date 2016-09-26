@@ -41,6 +41,7 @@ export class CollectibleCreate implements OnInit {
     currentUser: CurrentUser;
     files: File[] = [];
     tableOptions: TableOptions = {
+        style: this.sanitizer.bypassSecurityTrustStyle('width: 6em; height: 6em;'),
         rows: 1,
         pagination: {
             pageCurrent: 1,
@@ -48,7 +49,6 @@ export class CollectibleCreate implements OnInit {
             itemsPerPage: 1
         },
         thumbnail: {
-            style: this.sanitizer.bypassSecurityTrustStyle('width: 6em; height: 6em;'),
             modal: false
         }
     };

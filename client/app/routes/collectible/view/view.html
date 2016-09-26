@@ -1,7 +1,7 @@
 <div class="cc-routes-collectible-view landing-page">
     <div class="inner landing-page-inner">
         <div class="container-fluid">
-            <div class="row alert">
+            <div *ngIf="alerts.length" class="row alert">
                 <div class="col-xs-12"><cc-site-alert [alerts]='alerts'></cc-site-alert></div>
             </div>
             <div *ngIf="working == true && loaded == false" class="loading">

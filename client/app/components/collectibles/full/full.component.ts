@@ -38,7 +38,7 @@ export class CollectibleFull implements OnInit {
     currentUser: CurrentUser;
     files: File[] = [];
     tableOptions: TableOptions = {
-        style: this.sanitizer.bypassSecurityTrustStyle('width: 100%;'),
+        style: this.sanitizer.bypassSecurityTrustStyle('width: 100%; border-radius: 30px;'),
         rows: 1,
         pagination: {
             pageCurrent: 1,

@@ -28,7 +28,6 @@ export class RoutesAdminHomeComponent implements OnInit {
             itemsPerPage: 10
         },
         thumbnail: {
-            style: this.sanitizer.bypassSecurityTrustStyle('width: 4em; height: 4em;'),
             modal: false
         }
     };
@@ -42,7 +41,6 @@ export class RoutesAdminHomeComponent implements OnInit {
                 itemsPerPage: 10
             },
             thumbnail: {
-                style: this.sanitizer.bypassSecurityTrustStyle('width: 10em; height: 10em;'),
                 modal: false
             }
         }

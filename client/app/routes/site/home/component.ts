@@ -29,7 +29,6 @@ export class RoutesSiteHomeComponent implements OnInit {
                 itemsPerPage: 10
             },
             thumbnail: {
-                style: this.sanitizer.bypassSecurityTrustStyle('width: 12em;'),
                 modal: false
             }
         }
