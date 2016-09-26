@@ -1,17 +1,21 @@
+// Core.
 import { Component, OnInit }             from '@angular/core';
 import { ActivatedRoute }                from '@angular/router';
 import { DomSanitizer, SafeStyle }       from '@angular/platform-browser';
+// Models.
 import { User, CurrentUser }             from '../../../models/user';
 import { AlertMessage }                  from '../../../models/alertMessage';
 import { File }                          from '../../../models/file';
 import { Config, ConfigContainer }       from '../../../models/config';
+// Services.
 import { ConfigService }                 from '../../../services/config/config.service';
 import { UserService }                   from '../../../services/user/user.service';
 import { FileService }                   from '../../../services/file/file.service';
 import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
+// Components.
 import { FilesUploadComponent }          from '../../../components/files/upload/upload.component';
 import { Thumbnail, 
-         Options as ThumbnailOptions }   from '../../../components/files/views/images/thumbnail/thumbnail.component';
+         Options as IThumbOptions }      from '../../../components/files/views/images/thumbnail/thumbnail.component';
 import { CollectibleCreate,
          Options as CollectibleOptions } from '../../../components/collectibles/create/create.component';
 import 'rxjs/add/operator/finally';
@@ -34,13 +38,18 @@ export class RoutesUsersEditComponent implements OnInit {
     userId: string;
     user: User;
     file: File;
-    thumbnailOptions: ThumbnailOptions = {
-        style: this.sanitizer.bypassSecurityTrustStyle('width: 4em; height: 4em;')
+    iThumbOptions: IThumbOptions = {
+        style: this.sanitizer.bypassSecurityTrustStyle('width: 4em; height: 4em;'),
+        modal: true
     };
     collectibleOptions: CollectibleOptions = { };
-    constructor(private route: ActivatedRoute, private userService: UserService, 
-                private authService: AuthenticateService, private configService: ConfigService,
-                private fileService: FileService, private sanitizer: DomSanitizer) {
+    constructor(private route: ActivatedRoute, 
+                private userService: UserService, 
+                private authService: AuthenticateService, 
+                private configService: ConfigService,
+                private fileService: FileService, 
+                private sanitizer: DomSanitizer) 
+    {
         this.userId = route.snapshot.params['id'];        
         this.currentUser = authService.getCurrentUser();
         this.configContainer = configService.configContainer;

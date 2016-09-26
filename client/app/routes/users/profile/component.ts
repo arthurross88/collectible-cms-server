@@ -38,7 +38,8 @@ export class RoutesUsersProfileComponent implements OnInit {
                 itemsPerPage: 10
             },
             thumbnail: {
-                style: this.sanitizer.bypassSecurityTrustStyle('width: 8em;')
+                style: this.sanitizer.bypassSecurityTrustStyle('width: 8em;'),
+                modal: false
             }
         }
     };
@@ -52,7 +53,8 @@ export class RoutesUsersProfileComponent implements OnInit {
                 itemsPerPage: 2
             },
             thumbnail: {
-                style: this.sanitizer.bypassSecurityTrustStyle('width: 8em;')
+                style: this.sanitizer.bypassSecurityTrustStyle('width: 8em;'),
+                modal: false
             }
         }
     };

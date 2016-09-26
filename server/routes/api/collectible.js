@@ -361,21 +361,24 @@ module.exports = function(app, router) {
      */
     router.patch('/collectible/:id', function(req, res) {
         Collectible.findById(req.params.id, function(err, collectible) {
+            var c = collectible;
             if (err) {
-                res.notFound();
+                res.notFound('No collectible found that matches id: ' + req.params.id + '.');
             } else {
                 if ((collectible.userId != req.user._id) && (!req.user.isAdmin())) {
                     res.notAuthorized();
                 } else {
-                    var collectiblePatch = req.body;
-                    collectible.name = (typeof(collectiblePatch.name) == 'undefined') ? collectible.name : collectiblePatch.name;
-                    collectible.save(function(err) {
+                    var cP = req.body;
+                    c.name        = (typeof(cP.name)        == 'undefined') ? c.name        : cP.name;
+                    c.description = (typeof(cP.description) == 'undefined') ? c.description : cP.description;
+                    c.fileIds     = (typeof(cP.fileIds)     == 'undefined') ? c.fileIds     : cP.fileIds;
+                    c.save(function(err) {
                         if (err) {
                             req.failure(err);
                         } else {
                             res.json({
                                 "status": true,
-                                "data": collectible
+                                "data": c
                             });
                         }
                     });

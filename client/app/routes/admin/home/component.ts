@@ -28,7 +28,8 @@ export class RoutesAdminHomeComponent implements OnInit {
             itemsPerPage: 10
         },
         thumbnail: {
-            style: this.sanitizer.bypassSecurityTrustStyle('width: 4em; height: 4em;')
+            style: this.sanitizer.bypassSecurityTrustStyle('width: 4em; height: 4em;'),
+            modal: false
         }
     };
     collectiblesOptions: SiteCollectiblesOptions = {
@@ -41,7 +42,8 @@ export class RoutesAdminHomeComponent implements OnInit {
                 itemsPerPage: 10
             },
             thumbnail: {
-                style: this.sanitizer.bypassSecurityTrustStyle('width: 10em; height: 10em;')
+                style: this.sanitizer.bypassSecurityTrustStyle('width: 10em; height: 10em;'),
+                modal: false
             }
         }
     }

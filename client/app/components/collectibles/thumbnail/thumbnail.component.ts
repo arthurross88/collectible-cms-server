@@ -1,21 +1,26 @@
+// Core.
 import { Component, Input, Output }     from '@angular/core';
 import { OnInit, EventEmitter }         from '@angular/core';
 import { Router }                       from '@angular/router';
-import { CurrentUser }                  from '../../../models/user';
 import { SafeStyle }                    from '@angular/platform-browser';
+// Models.
+import { CurrentUser }                  from '../../../models/user';
 import { Collectible }                  from '../../../models/collectible';
 import { AlertMessage }                 from '../../../models/alertMessage';
+// Services.
 import { AuthenticateService }          from '../../../services/authenticate/authenticate.service';
+// Components.
+import { Options as IThumbOptions}      from '../../../components/files/views/images/thumbnail/thumbnail.component';
 
 declare var jQuery;
 
 /**
- *  <cc-collectibles-thumbnail 
- *      [options]="cThumbOptions" 
+ *  <cc-collectible-thumbnail 
+ *      [options]="iThumbOptions" 
  *      [collectible]="collectible"
  *      (onAlert)="doOnAlert($event)" 
  *      (onCollectibleDelete)="doOnCollectibleDelete($event)">
- *  </cc-collectibles-thumbnail>
+ *  </cc-collectible-thumbnail>
  */
 @Component({
     moduleId: module.id,
@@ -24,7 +29,7 @@ declare var jQuery;
     styleUrls: ['thumbnail.css'],
 })
 export class CollectiblesThumbnail implements OnInit {
-    @Input() options: Options;
+    @Input() options: IThumbOptions;
     @Input() collectible: Collectible;
     @Output() onAlert = new EventEmitter<AlertMessage>();
     @Output() onCollectibleDelete = new EventEmitter<Collectible>();
@@ -35,7 +40,9 @@ export class CollectiblesThumbnail implements OnInit {
     loaded: boolean = false;
     resizedUrl: string = '';
     style: SafeStyle;
-    constructor(private authService: AuthenticateService, private router: Router) { 
+    constructor(private authService: AuthenticateService, 
+                private router: Router) 
+    { 
         this.currentUser = this.authService.getCurrentUser();
     }
     ngOnInit() { }
@@ -43,8 +50,8 @@ export class CollectiblesThumbnail implements OnInit {
         if (changes["collectible"] !== undefined && changes["collectible"].currentValue !== undefined) {
             let c = changes['collectible'].currentValue;
             let size: number = jQuery('.cc-collectibles-thumbnail.' + this.unique + ' > .inner').css('font-size');
-            this.loaded = true;
             this.authorized = (c.userId == this.currentUser.user._id) || this.currentUser.user.isAdmin();
+            this.loaded = true;
         }
     }
     doOnFileDelete() {
@@ -54,10 +61,3 @@ export class CollectiblesThumbnail implements OnInit {
         this.router.navigate(['/' + this.collectible.absoluteUrl]);
     }
 };
-
-/**
- * Support Classes.
- */
-export class Options {
-    style: SafeStyle;
-}

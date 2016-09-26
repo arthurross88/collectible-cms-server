@@ -9,10 +9,10 @@ import { HttpService }                   from '../../../services/http/http.servi
 import { FileService }                   from '../../../services/file/file.service';
 
 /**
- * <cc-files-upload
- *     (onFileUpload)="doFileUpload($event)"
- *     (onAlert)="doAlert($event)"
- * </cc-files-upload>
+ * <cc-file-upload
+ *     (onFileUpload)="doOnFileUpload($event)"
+ *     (onAlert)="doOnAlert($event)"
+ * </cc-file-upload>
  */
 @Component({
 	moduleId: module.id,
@@ -44,7 +44,6 @@ export class FilesUploadComponent implements OnInit {
         formData.append("file", this.file);
         this.fileService.create(this.currentUser.user, formData).subscribe(
             file => {
-                this.onAlert.emit({ type: 'success', message: 'File uploaded.' });              
                 this.onFileUpload.emit(file);
             },
             err => {

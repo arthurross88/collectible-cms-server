@@ -1,18 +1,27 @@
-import { Component, Input, Output, ViewChild, OnInit, EventEmitter } from '@angular/core';
-import { File }                         from '../../../../../models/file';
-import { AlertMessage }                 from '../../../../../models/alertMessage';
-import { FileService } from '../../../../../services/file/file.service';
-import { Pagination, Options as PaginationOptions } from '../../../../../components/site/pagination/pagination.component';
-import { Options as ThumbnailOptions }  from '../../../../../components/files/views/images/thumbnail/thumbnail.component';
+// Core.
+import { Component, Input, Output, 
+         ViewChild, OnInit, 
+         EventEmitter }                  from '@angular/core';
+import { SafeStyle }                     from '@angular/platform-browser';
+// Models.
+import { File }                          from '../../../../../models/file';
+import { AlertMessage }                  from '../../../../../models/alertMessage';
+// Services.
+import { FileService }                   from '../../../../../services/file/file.service';
+// Components.
+import { Pagination, 
+         Options as PaginationOptions }  from '../../../../../components/site/pagination/pagination.component';
+import { Options as IThumbnailOptions }  from '../../../../../components/files/views/images/thumbnail/thumbnail.component';
 
 declare var jQuery;
 
 /**
- *  <cc-images-table 
+ *  <cc-file-table 
  *      [files]="files" 
- *      [options]="tableOptions"
- *      (onAlert)="onDoAlert($event)">
- *  </cc-images-table>
+ *      [options]="fTableOptions"
+ *      (onFileDelete)="doOnFileDelete($event)"
+ *      (onAlert)="doOnAlert($event)">
+ *  </cc-file-table>
  */
 @Component({
     moduleId: module.id,
@@ -28,6 +37,7 @@ export class ImagesTable implements OnInit {
     @Input() files: File[];
     @Input() options: Options;
     @Output() onAlert = new EventEmitter<AlertMessage>();
+    @Output() onFileDelete = new EventEmitter<File>();
     working: boolean = false;
     loaded: boolean = false;
     unique: string = Math.floor(Math.random() * 10000).toString();
@@ -36,9 +46,9 @@ export class ImagesTable implements OnInit {
     constructor(private fileService: FileService) { }
     ngOnInit() { }
     ngOnChanges(changes: Map<string, any>): void {
-        if (changes["files"] !== undefined && changes["files"].currentValue !== undefined) {
-            this.loaded = true;
+        if (changes['files'] !== undefined && changes['files'].currentValue !== undefined) {
             var self = this;
+            this.loaded = true;
             setTimeout(function() { self.onResize(); });
         }
     }
@@ -54,31 +64,24 @@ export class ImagesTable implements OnInit {
         this.onAlert.emit(alert);
     }
     doOnFileDelete(file: File) {
-        for (var i = 0; i < this.files.length; i++) {
-            if (this.files[i]._id == file._id) {
-                this.working = true;
-                this.fileService.delete(file._id).subscribe(
-                    success => {
-                        this.files.splice(i, 1);
-                    },
-                    err => this.onAlert.emit({ type: 'error', message: err }),
-                    () => this.working = false
-                )
-                break;
-            }
-        }
+        this.onFileDelete.emit(file);
     }
     // Event listener for child component.
     doOnPageChange(page: number) {
+        var self = this;
         this.pageCurrent = page;
+        // Why?
+        setTimeout(function() {
+            self.onResize();
+        });
     }
     // Event listener.
     onResize() {
         if (this.options.rows != null) {
-            var total = jQuery(jQuery('.cc-images-table.unique-'+this.unique+' div.loaded')[0]).innerWidth();
-            var item  = jQuery(jQuery('.cc-images-table.unique-'+this.unique+' div.files')[0]).outerWidth(true);
+            var total = jQuery(jQuery('.cc-images-table.unique-' + this.unique + ' div.loaded')[0]).innerWidth();
+            var item  = jQuery(jQuery('.cc-images-table.unique-' + this.unique + ' div.files')[0]).outerWidth(true);
             var count = Math.floor(total / item);
-            if (isNaN(count)) { count = 1; }
+            if (isNaN(count) || count < 1) { count = 1; }
             this.options.pagination.itemsPerPage = count * this.options.rows;
             this.pagination.recalculate();
         }
@@ -89,7 +92,10 @@ export class ImagesTable implements OnInit {
  * Support classes.
  */
 export class Options {
+    // Apply style to inner container of component. I.E:
+    // this.sanitizer.bypassSecurityTrustStyle('width: 6em; height: 6em;'),
+    style: SafeStyle;
     rows: number;
     pagination: PaginationOptions;
-    thumbnail: ThumbnailOptions;
+    thumbnail: IThumbnailOptions;
 };

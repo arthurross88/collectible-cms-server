@@ -10,7 +10,7 @@
             <div *ngFor="let file of files | slice
                   :(pageCurrent - 1) * options.pagination.itemsPerPage
                   :(pageCurrent - 1) * options.pagination.itemsPerPage + options.pagination.itemsPerPage" 
-                 class="files">
+                 class="files" [style]="options.style">
                 <cc-thumbnail 
                     [file]="file"
                     [options]="options.thumbnail"

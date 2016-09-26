@@ -1,24 +1,25 @@
-import { Component, 
-         Input, 
-         Output, 
-         ViewChild, 
-         OnInit, 
-         EventEmitter, 
-         HostListener } from '@angular/core';
-import { File } from '../../../models/file';
-import { Collectible } from '../../../models/collectible';
-import { AlertMessage } from '../../../models/alertMessage';
-import { CollectibleService } from '../../../services/collectible/collectible.service';
-import { Pagination, Options as PaginationOptions } from '../../../components/site/pagination/pagination.component';
-import { CollectiblesThumbnail, Options as ThumbnailOptions }  from '../../../components/collectibles/thumbnail/thumbnail.component';
+// Core.
+import { Component, Input, Output, 
+         ViewChild, OnInit, 
+         EventEmitter, HostListener }    from '@angular/core';
+// Models.
+import { File }                          from '../../../models/file';
+import { Collectible }                   from '../../../models/collectible';
+import { AlertMessage }                  from '../../../models/alertMessage';
+// Services.
+import { CollectibleService }            from '../../../services/collectible/collectible.service';
+// Components.
+import { Pagination, 
+         Options as PaginationOptions }  from '../../../components/site/pagination/pagination.component';
+import { Options as iThumbOptions }      from '../../../components/files/views/images/thumbnail/thumbnail.component';
 
 declare var jQuery;
 
 /**
  *  <cc-collectibles-table 
  *      [collectibles]="collectibles" 
- *      [options]="tableOptions"
- *      (onAlert)="onDoAlert($event)">
+ *      [options]="cTableOptions"
+ *      (onAlert)="doOnAlert($event)">
  *  </cc-collectibles-table>
  */
 @Component({
@@ -99,5 +100,5 @@ export class CollectiblesTable implements OnInit {
 export class Options {
     rows: number;
     pagination: PaginationOptions;
-    thumbnail: ThumbnailOptions;
+    thumbnail: iThumbOptions;
 };

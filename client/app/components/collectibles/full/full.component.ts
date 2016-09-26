@@ -38,18 +38,21 @@ export class CollectibleFull implements OnInit {
     currentUser: CurrentUser;
     files: File[] = [];
     tableOptions: TableOptions = {
-        rows: null,
+        style: this.sanitizer.bypassSecurityTrustStyle('width: 100%;'),
+        rows: 1,
         pagination: {
             pageCurrent: 1,
             maxPageButtons: 1,
             itemsPerPage: 1
         },
         thumbnail: {
-            style: this.sanitizer.bypassSecurityTrustStyle('width: 100%;')
+            modal: true
         }
     };
-    constructor(private authService: AuthenticateService, private collectibleService: CollectibleService,
-                private fileService: FileService, private sanitizer: DomSanitizer) { }
+    constructor(private authService: AuthenticateService, 
+                private collectibleService: CollectibleService,
+                private fileService: FileService, 
+                private sanitizer: DomSanitizer) { }
     ngOnInit() {
         this.currentUser = this.authService.getCurrentUser();
     }
@@ -59,16 +62,8 @@ export class CollectibleFull implements OnInit {
         }
     }
     // Event listener for child component.
-    doAlert(alert: AlertMessage) {
+    doOnAlert(alert: AlertMessage) {
         this.onAlert.emit(alert);
-    }
-    // Event listener for child component.
-    doFileUpload(file: File) {
-        if (this.collectible.fileIds === undefined) {
-            this.collectible.fileIds = [];
-        }
-        this.files.push(file);
-        this.collectible.fileIds.push(file._id);
     }
     save() {
         this.working = true;

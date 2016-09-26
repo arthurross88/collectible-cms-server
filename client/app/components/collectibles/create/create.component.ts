@@ -1,13 +1,20 @@
-import { Component, Input, Output, ViewChild, OnInit, EventEmitter } from '@angular/core';
-import { Collectible } from '../../../models/collectible';
-import { User, CurrentUser } from '../../../models/user';
-import { File } from '../../../models/file';
-import { AlertMessage } from '../../../models/alertMessage';
-import { CollectibleService } from '../../../services/collectible/collectible.service';
-import { AuthenticateService } from '../../../services/authenticate/authenticate.service';
-import { Options as TableOptions } from '../../../components/files/views/images/table/table.component'
-import { Options as ImgThumbOptions } from '../../../components/files/views/images/thumbnail/thumbnail.component';
-import { Options as ThumbnailOptions } from '../../../components/files/views/images/thumbnail/thumbnail.component';
+// Core.
+import { Component, Input, Output, 
+         ViewChild, OnInit, 
+         EventEmitter }                  from '@angular/core';
+import { DomSanitizer, SafeStyle }       from '@angular/platform-browser';
+// Models.
+import { Collectible }                   from '../../../models/collectible';
+import { User, CurrentUser }             from '../../../models/user';
+import { File }                          from '../../../models/file';
+import { AlertMessage }                  from '../../../models/alertMessage';
+// Services.
+import { CollectibleService }            from '../../../services/collectible/collectible.service';
+import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
+// Components.
+import { Options as TableOptions }       from '../../../components/files/views/images/table/table.component'
+import { Options as ImgThumbOptions }    from '../../../components/files/views/images/thumbnail/thumbnail.component';
+import { Options as ThumbnailOptions }   from '../../../components/files/views/images/thumbnail/thumbnail.component';
 
 /**
  *  <cc-collectibles-create
@@ -41,10 +48,13 @@ export class CollectibleCreate implements OnInit {
             itemsPerPage: 1
         },
         thumbnail: {
-            style: "width: 6em; height: 6em;"
+            style: this.sanitizer.bypassSecurityTrustStyle('width: 6em; height: 6em;'),
+            modal: false
         }
     };
-    constructor(private authService: AuthenticateService, private collectibleService: CollectibleService) { }
+    constructor(private authService: AuthenticateService, 
+                private collectibleService: CollectibleService,
+                private sanitizer: DomSanitizer) { }
     ngOnInit() {
         this.loaded = true;
         this.currentUser = this.authService.getCurrentUser();

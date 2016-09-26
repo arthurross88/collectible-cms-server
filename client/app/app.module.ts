@@ -13,6 +13,7 @@ import { RoutesAdminHomeComponent }      from './routes/admin/home/component';
 import { RoutesUsersProfileComponent }   from './routes/users/profile/component';
 import { RoutesUsersEditComponent }      from './routes/users/edit/component';
 import { RoutesCollectibleView }         from './routes/collectible/view/view.component';
+import { RoutesCollectibleEdit }         from './routes/collectible/edit/edit.component';
 // Components / Directives.
 import { SiteAlertComponent }            from './components/site/alert/component';
 import { SiteMenuMainComponent }         from './components/site/menu/main/component';
@@ -50,6 +51,7 @@ import { Thumbnail as ImagesThumbnail }  from './components/files/views/images/t
         RoutesUsersEditComponent,
         RoutesUsersProfileComponent,
         RoutesCollectibleView,
+        RoutesCollectibleEdit,
         PasswordReset,
         SiteAlertComponent,
         SiteMenuMainComponent, 

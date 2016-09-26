@@ -1,5 +1,5 @@
 <div class="cc-collectibles-thumbnail component {{ unique }}">
-    <div class="inner component-inner" [style]="options.style">
+    <div class="inner component-inner">
         <div *ngIf="working == true && loaded == false" class="loading">
             <span class="fa fa-spinner fa-spin"></span>
         </div>
@@ -8,7 +8,7 @@
         </div>
         <div *ngIf="working == false && loaded == true" class="loaded">
             <cc-thumbnail 
-                [options]="options" 
+                [options]="options"
                 [file]="collectible.files[0]"
                 (onAlert)="doOnAlert($event)" 
                 (onFileDelete)="doOnFileDelete($event)"

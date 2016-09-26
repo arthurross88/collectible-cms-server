@@ -36,13 +36,25 @@ var collectibleSchema = new Schema({
     }
 });
 collectibleSchema.pre('save', function(next) {
-    var collectible = this;
+    var c = this;
     // Generate the collectible url.
-    if (collectible.isModified('name')) {
-        collectible.url = collectible.name.toLowerCase().replace(/[^0-9a-z-]/g, "-") + '-' +
-                          crypto.randomBytes(3).toString('hex')
+    if (c.isModified('name')) {
+        c.url = c.name.toLowerCase().replace(/[^0-9a-z-]/g, "-") + '-' +
+                crypto.randomBytes(3).toString('hex')
     }
-    next();
+    // Do not allow references to files that do not exist.
+    var find = { _id: { '$in': [] } };
+    for (var i = 0; i < c.fileIds.length; i++) {
+        find._id.$in.push(mongoose.Types.ObjectId(c.fileIds[i]));
+    }
+    File.find(find, function(err, files) {
+        var fileIdsClean = [];
+        for (var i = 0; i < files.length; i++) {
+            fileIdsClean.push(c.fileIds[i]);
+        }
+        c.fileIds = fileIdsClean;
+        next();
+    });
 });
 // Remove physical files assocaited with this object.
 collectibleSchema.pre('remove', function(next) {

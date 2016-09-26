@@ -1,10 +1,12 @@
-import { Component, Input, Output }     from '@angular/core';
-import { OnInit, EventEmitter }         from '@angular/core';
-import { SafeStyle }                    from '@angular/platform-browser';
-import { File }                         from '../../../../../models/file';
-import { AlertMessage }                 from '../../../../../models/alertMessage';
-import { CurrentUser }                  from '../../../../../models/user';
-import { AuthenticateService }          from '../../../../../services/authenticate/authenticate.service';
+// Core.
+import { Component, Input, Output }      from '@angular/core';
+import { OnInit, EventEmitter }          from '@angular/core';
+// Models.
+import { File }                          from '../../../../../models/file';
+import { AlertMessage }                  from '../../../../../models/alertMessage';
+import { CurrentUser }                   from '../../../../../models/user';
+// Services.
+import { AuthenticateService }           from '../../../../../services/authenticate/authenticate.service';
 
 declare var jQuery;
 
@@ -74,7 +76,11 @@ export class Thumbnail implements OnInit {
         this.onFileDelete.emit(this.file);
     }
     click() {
-        this.onFileClick.emit(this.file);
+        if (this.options.modal) {
+            this.showModal();
+        } else {
+            this.onFileClick.emit(this.file);
+        }
     }
 };
 
@@ -82,5 +88,6 @@ export class Thumbnail implements OnInit {
  * Support Classes.
  */
 export class Options {
-    style: SafeStyle;
+    // Show a modal of image instead of issue onFileClick event.
+    modal: boolean;
 }
