@@ -25,6 +25,7 @@ import { CollectibleFull }               from './components/collectibles/full/fu
 import { CollectiblesTable }             from './components/collectibles/table/table.component';
 import { CollectiblesThumbnail }         from './components/collectibles/thumbnail/thumbnail.component';
 import { CollectibleCreate }             from './components/collectibles/create/create.component';
+import { CollectibleEdit }               from './components/collectibles/edit/edit.component';
 import { UsersListsAllComponent }        from './components/users/lists/all/component';
 import { UsersCreateQuickComponent }     from './components/users/create/quick/component';
 import { UsersThumbnail }                from './components/users/thumbnail/thumbnail.component';
@@ -63,6 +64,7 @@ import { Thumbnail as ImagesThumbnail }  from './components/files/views/images/t
         CollectiblesTable,
         CollectiblesThumbnail,
         CollectibleCreate,
+        CollectibleEdit,
         UsersListsAllComponent,
         UsersCreateQuickComponent,
         UsersThumbnail,

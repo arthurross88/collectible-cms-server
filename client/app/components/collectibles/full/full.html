@@ -28,6 +28,9 @@
                             <div class="media-body">
                                 <h1 class="media-heading">{{ collectible.name }}</h1>
                                 {{ collectible.description }}
+                                <div *ngIf="(currentUser.user._id == collectible.userId) || currentUser.user.isAdmin()">
+                                    <a routerLink="{{ collectible.absoluteUrl }}/edit">Edit</a>
+                                </div>
                             </div>
                         </div>
                     </div>

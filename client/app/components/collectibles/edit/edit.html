@@ -1,0 +1,53 @@
+<div class="cc-collectible-edit component">
+    <div class="inner component-inner">
+        <div *ngIf="working == true && loaded == false" class="loading">
+            <span class="fa fa-spinner fa-spin"></span>
+        </div>
+        <div *ngIf="working == false && loaded == false" class="fail">
+            <span class="fa fa-picture-o"></span>
+        </div>
+        <div *ngIf="working == false && loaded == true" class="loaded">
+            <div *ngIf="success == true" class="success">
+                <div class="cc-table">
+                    <div class="cc-table-cell">
+                        <span class="fa fa-check" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-2">Name</div>
+                    <div class="col-xs-8 col-sm-10"><input [(ngModel)]="collectible.name" class="form-control" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 col-sm-2">Description</div>
+                    <div class="col-xs-8 col-sm-10"><textarea [(ngModel)]="collectible.description" class="form-control"></textarea></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-2">Images</div>
+                    <div class="col-xs-12 col-sm-4 upload">
+                        <cc-files-upload
+                            (onFileUpload)="doFileUpload($event)"
+                            (onAlert)="doAlert($event)">
+                        </cc-files-upload>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <cc-images-table 
+                            [files]="files" 
+                            [options]="tableOptions"
+                            (onAlert)="doAlert($event)">
+                        </cc-images-table>
+                    </div>
+                </div>
+                <div class="row save">
+                    <div class="col-xs-12">
+                        <button class="btn btn-success form-control" (click)="save()">
+                            <span *ngIf="!working">Save</span>
+                            <span *ngIf="working" class="fa fa-spinner fa-spin"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

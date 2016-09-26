@@ -1,0 +1,25 @@
+<div class="cc-routes-collectible-edit landing-page">
+    <div class="inner landing-page-inner">
+        <div class="container-fluid">
+            <div class="row alert">
+                <div class="col-xs-12"><cc-site-alert [alerts]='alerts'></cc-site-alert></div>
+            </div>
+            <div *ngIf="working == true && loaded == false" class="loading">
+                <span class="fa fa-spinner fa-spin"></span>
+            </div>
+            <div *ngIf="working == false && loaded == false" class="fail">
+                <span class="fa fa-picture-o"></span>
+            </div>
+            <div *ngIf="working == false && loaded == true" class="loaded">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <cc-collectible-edit
+                            [collectible]="collectible"
+                            (onAlert)="doOnAlert($event)">
+                        </cc-collectible-edit>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

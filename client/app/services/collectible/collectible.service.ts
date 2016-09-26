@@ -47,6 +47,18 @@ export class CollectibleService {
      */
     create(user: User, collectible: Collectible): Observable<Collectible> {
         let url: string = '/api/v1/u/' + user._id + '/collectible';
+        return this.httpService.patchSimple(url, collectible, this.authService.getToken())
+            .map( (json) => {
+                if (!json.status)
+                    throw json.message;
+                return new Collectible(json.data);
+            });
+    }
+    /**
+     * Create a new collectable.
+     */
+    update(user: User, collectible: Collectible): Observable<Collectible> {
+        let url: string = '/api/v1/collectible/' + collectible._id
         return this.httpService.postSimple(url, collectible, this.authService.getToken())
             .map( (json) => {
                 if (!json.status)
