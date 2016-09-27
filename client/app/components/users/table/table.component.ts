@@ -1,10 +1,17 @@
-import { Component, Input, Output, ViewChild, OnInit, EventEmitter } from '@angular/core';
-import { File } from '../../../models/file';
-import { User } from '../../../models/user';
-import { AlertMessage } from '../../../models/alertMessage';
-import { FileService } from '../../../services/file/file.service';
-import { Pagination, Options as PaginationOptions } from '../../../components/site/pagination/pagination.component';
-import { Options as ImgThumbOptions }  from '../../../components/files/views/images/thumbnail/thumbnail.component';
+// Core.
+import { Component, Input, Output, 
+         ViewChild, OnInit, 
+         EventEmitter }                  from '@angular/core';
+// Models.
+import { File }                          from '../../../models/file';
+import { User }                          from '../../../models/user';
+import { AlertMessage }                  from '../../../models/alertMessage';
+// Services.
+import { FileService }                   from '../../../services/file/file.service';
+// Components.
+import { Pagination, 
+         Options as PaginationOptions }  from '../../../components/site/pagination/pagination.component';
+import { Options as ImgThumbOptions }    from '../../../components/files/thumbnail/thumbnail.component';
 
 declare var jQuery;
 

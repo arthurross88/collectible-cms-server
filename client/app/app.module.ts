@@ -21,7 +21,7 @@ import { SiteConfigComponent }           from './components/site/config/componen
 import { SiteCollectibles }              from './components/site/collectibles/collectibles.component';
 import { LoginComponent }                from './components/login/component';
 import { Pagination }                    from './components/site/pagination/pagination.component';
-import { ImagesTable }                   from './components/files/views/images/table/table.component';
+import { ImagesTable }                   from './components/files/table/table.component';
 import { CollectibleFull }               from './components/collectibles/full/full.component';
 import { CollectiblesTable }             from './components/collectibles/table/table.component';
 import { CollectiblesThumbnail }         from './components/collectibles/thumbnail/thumbnail.component';
@@ -35,7 +35,7 @@ import { UsersTile }                     from './components/users/tile/tile.comp
 import { UserCollectibles }              from './components/users/collectibles/collectibles.component';
 import { UsersTable }                    from './components/users/table/table.component';
 import { FilesUploadComponent }          from './components/files/upload/upload.component';
-import { Thumbnail as ImagesThumbnail }  from './components/files/views/images/thumbnail/thumbnail.component';
+import { Thumbnail as ImagesThumbnail }  from './components/files/thumbnail/thumbnail.component';
 
 @NgModule({
 	imports: [

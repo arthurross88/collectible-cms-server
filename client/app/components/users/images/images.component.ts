@@ -1,11 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { User } from '../../../models/user';
-import { File } from '../../../models/file';
-import { AlertMessage } from '../../../models/alertMessage';
-import { FileService } from '../../../services/file/file.service';
-import { ImagesTable, Options as TableOptions } from '../../../components/files/views/images/table/table.component';
-import { Pagination, Options as PaginationOptions } from '../../../components/site/pagination/pagination.component';
-import { Options as ThumbnailOptions } from '../../../components/files/views/images/thumbnail/thumbnail.component';
+// Core.
+import { Component, OnInit, Input, 
+         Output, EventEmitter }          from '@angular/core';
+// Models.
+import { User }                          from '../../../models/user';
+import { File }                          from '../../../models/file';
+import { AlertMessage }                  from '../../../models/alertMessage';
+// Services.
+import { FileService }                   from '../../../services/file/file.service';
+// Components.
+import { ImagesTable, 
+         Options as TableOptions }       from '../../../components/files/table/table.component';
+import { Pagination, 
+         Options as PaginationOptions }  from '../../../components/site/pagination/pagination.component';
+import { Options as ThumbnailOptions }   from '../../../components/files/thumbnail/thumbnail.component';
 
 @Component({
     moduleId: module.id,

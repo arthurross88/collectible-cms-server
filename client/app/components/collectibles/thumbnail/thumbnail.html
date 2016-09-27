@@ -7,13 +7,13 @@
             <span class="fa fa-picture-o"></span>
         </div>
         <div *ngIf="working == false && loaded == true" class="loaded">
-            <cc-thumbnail 
+            <cc-file-thumbnail 
                 [options]="options"
                 [file]="collectible.files[0]"
                 (onAlert)="doOnAlert($event)" 
                 (onFileDelete)="doOnFileDelete($event)"
                 (onFileClick)="doOnFileClick($event)">
-            </cc-thumbnail>
+            </cc-file-thumbnail>
         </div>
     </div>
 </div>

@@ -12,7 +12,7 @@ import { CollectibleService }            from '../../../services/collectible/col
 import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
 import { FileService }                   from '../../../services/file/file.service';
 // Components.
-import { Options as ITableOptions }      from '../../../components/files/views/images/table/table.component';
+import { Options as ITableOptions }      from '../../../components/files/table/table.component';
 
 /**
  *  <cc-collectible-edit

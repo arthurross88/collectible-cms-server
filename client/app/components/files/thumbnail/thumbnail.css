@@ -1,34 +1,34 @@
-.cc-thumbnail {
+.cc-file-thumbnail {
 
 }
-.cc-thumbnail .inner {
+.cc-file-thumbnail .inner {
     overflow: hidden;
 }
-.cc-thumbnail .fail span {
+.cc-file-thumbnail .fail span {
     display: inline-block;
     padding-top: 0.05em;
     color: #000000;
     font-size: 6.9em;
     opacity: 0.05;
 }
-.cc-thumbnail .loaded {
+.cc-file-thumbnail .loaded {
     position: relative;
     /* height: 100%; */
     width: 100%;
 }
-.cc-thumbnail .loaded img {
+.cc-file-thumbnail .loaded img {
     cursor: pointer;
     border-radius: 5px;
     box-shadow: 2px 2px 6px #888888;
 }
-.cc-thumbnail .loaded .modal img {
+.cc-file-thumbnail .loaded .modal img {
     height: initial;
     width: initial;
 }
-.cc-thumbnail .loaded img:hover + .btn {
+.cc-file-thumbnail .loaded img:hover + .btn {
     opacity: 0.5;
 }
-.cc-thumbnail .loaded .btn {
+.cc-file-thumbnail .loaded .btn {
     padding: 0;
     font-size: 0.5em;
     line-height: 1.5em;
@@ -40,9 +40,9 @@
     opacity: 0.05;
     border-radius: 2px;
 }
-.cc-thumbnail .loaded .btn span {
+.cc-file-thumbnail .loaded .btn span {
     line-height: 1.5em;
 }
-.cc-thumbnail .loaded .btn:hover {
+.cc-file-thumbnail .loaded .btn:hover {
     opacity: 1;
 }

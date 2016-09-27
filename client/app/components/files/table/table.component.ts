@@ -4,14 +4,14 @@ import { Component, Input, Output,
          EventEmitter }                  from '@angular/core';
 import { SafeStyle }                     from '@angular/platform-browser';
 // Models.
-import { File }                          from '../../../../../models/file';
-import { AlertMessage }                  from '../../../../../models/alertMessage';
+import { File }                          from '../../../models/file';
+import { AlertMessage }                  from '../../../models/alertMessage';
 // Services.
-import { FileService }                   from '../../../../../services/file/file.service';
+import { FileService }                   from '../../../services/file/file.service';
 // Components.
 import { Pagination, 
-         Options as PaginationOptions }  from '../../../../../components/site/pagination/pagination.component';
-import { Options as IThumbnailOptions }  from '../../../../../components/files/views/images/thumbnail/thumbnail.component';
+         Options as PaginationOptions }  from '../../../components/site/pagination/pagination.component';
+import { Options as IThumbnailOptions }  from '../../../components/files/thumbnail/thumbnail.component';
 
 declare var jQuery;
 

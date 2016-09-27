@@ -15,7 +15,7 @@ import { AuthenticateService }           from '../../../services/authenticate/au
 // Components.
 import { FilesUploadComponent }          from '../../../components/files/upload/upload.component';
 import { Thumbnail, 
-         Options as IThumbOptions }      from '../../../components/files/views/images/thumbnail/thumbnail.component';
+         Options as IThumbOptions }      from '../../../components/files/thumbnail/thumbnail.component';
 import { CollectibleCreate,
          Options as CollectibleOptions } from '../../../components/collectibles/create/create.component';
 import 'rxjs/add/operator/finally';

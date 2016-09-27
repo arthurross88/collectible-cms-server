@@ -11,12 +11,12 @@
                   :(pageCurrent - 1) * options.pagination.itemsPerPage
                   :(pageCurrent - 1) * options.pagination.itemsPerPage + options.pagination.itemsPerPage" 
                  class="files" [style]="options.style">
-                <cc-thumbnail 
+                <cc-file-thumbnail 
                     [file]="file"
                     [options]="options.thumbnail"
                     (onFileDelete)="doOnFileDelete($event)"
                     (onAlert)="doOnAlert($event)">
-                </cc-thumbnail>
+                </cc-file-thumbnail>
             </div>
             <cc-pagination 
                 [items]="files"

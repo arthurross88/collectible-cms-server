@@ -2,26 +2,26 @@
 import { Component, Input, Output }      from '@angular/core';
 import { OnInit, EventEmitter }          from '@angular/core';
 // Models.
-import { File }                          from '../../../../../models/file';
-import { AlertMessage }                  from '../../../../../models/alertMessage';
-import { CurrentUser }                   from '../../../../../models/user';
+import { File }                          from '../../../models/file';
+import { AlertMessage }                  from '../../../models/alertMessage';
+import { CurrentUser }                   from '../../../models/user';
 // Services.
-import { AuthenticateService }           from '../../../../../services/authenticate/authenticate.service';
+import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
 
 declare var jQuery;
 
 /**
- *  <cc-image-thumbnail 
+ *  <cc-file-thumbnail 
  *      [options]="thumbnailOptions" 
  *      [file]="file"
  *      (onAlert)="doOnAlert($event)" 
  *      (onFileDelete)="doOnFileDelete($event)"
  *      (onFileClick)="doOnFileClick($event)">
- *  </cc-image-thumbnail>
+ *  </cc-file-thumbnail>
  */
 @Component({
     moduleId: module.id,
-    selector: 'cc-thumbnail',
+    selector: 'cc-file-thumbnail',
     templateUrl: 'thumbnail.html',
     styleUrls: ['thumbnail.css'],
 })
@@ -51,7 +51,7 @@ export class Thumbnail implements OnInit {
     ngAfterContentChecked() {
         // Automatically load in the most efficiently sized image.
         if (!this.resizedUrl.length) {
-            let sizePx: string = jQuery('.cc-thumbnail.' + this.unique + ' > .inner').css('width');
+            let sizePx: string = jQuery('.cc-file-thumbnail.' + this.unique + ' > .inner').css('width');
             if (sizePx !== undefined) {
                 let size: number = +sizePx.replace(/[^-\d\.]/g, '');
                 let f = this.file;

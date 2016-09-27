@@ -10,7 +10,7 @@ import { AlertMessage }                 from '../../../models/alertMessage';
 // Services.
 import { AuthenticateService }          from '../../../services/authenticate/authenticate.service';
 // Components.
-import { Options as IThumbOptions}      from '../../../components/files/views/images/thumbnail/thumbnail.component';
+import { Options as IThumbOptions}      from '../../../components/files/thumbnail/thumbnail.component';
 
 declare var jQuery;
 

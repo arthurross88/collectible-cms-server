@@ -11,7 +11,7 @@ import { CollectibleService }            from '../../../services/collectible/col
 // Components.
 import { Pagination, 
          Options as PaginationOptions }  from '../../../components/site/pagination/pagination.component';
-import { Options as iThumbOptions }      from '../../../components/files/views/images/thumbnail/thumbnail.component';
+import { Options as iThumbOptions }      from '../../../components/files/thumbnail/thumbnail.component';
 
 declare var jQuery;
 

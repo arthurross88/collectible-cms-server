@@ -12,9 +12,8 @@ import { AlertMessage }                  from '../../../models/alertMessage';
 import { CollectibleService }            from '../../../services/collectible/collectible.service';
 import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
 // Components.
-import { Options as TableOptions }       from '../../../components/files/views/images/table/table.component'
-import { Options as ImgThumbOptions }    from '../../../components/files/views/images/thumbnail/thumbnail.component';
-import { Options as ThumbnailOptions }   from '../../../components/files/views/images/thumbnail/thumbnail.component';
+import { Options as TableOptions }       from '../../../components/files/table/table.component'
+import { Options as ImgThumbOptions }    from '../../../components/files/thumbnail/thumbnail.component';
 
 /**
  *  <cc-collectibles-create

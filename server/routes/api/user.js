@@ -91,7 +91,7 @@ module.exports = function(app, router) {
     });
     /**
      * @api {get} /user/:id Read One
-     * @apiPermission apiPermissionAdmin
+     * @apiPermission apiPermissionPublic
      * @apiGroup apiGroupUser
      * @apiName ReadSingle
      * @apiDescription Read details for a single user account.
@@ -110,29 +110,25 @@ module.exports = function(app, router) {
      * @apiUse apiErrorExampleNotFound
      */
     router.get('/user/:id', function(req, res) {
-        if (!req.user.isAdmin()) {
-            res.notAuthorized();
-        } else {
-            var search = (req.params.id.length >= 24) ? { "_id": req.params.id } : { 'url': req.params.id };
-            User.find(search, function(err, users) {
-                var user;
-                if (users !== undefined && users.length) {
-                    user = users.pop();
-                }
-                if (err) {
-                    res.notFound(err);
-                } else {
-                    user.getDTO().loadAll().then(function(dto) {
-                        res.json({
-                            "status": true,
-                            "data": dto
-                        });
-                    }).catch(function(err) {
-                        res.failure(err);
+        var search = (req.params.id.length >= 24) ? { "_id": req.params.id } : { 'url': req.params.id };
+        User.find(search, function(err, users) {
+            var user;
+            if (users !== undefined && users.length) {
+                user = users.pop();
+            }
+            if (err) {
+                res.notFound(err);
+            } else {
+                user.getDTO().loadAll().then(function(dto) {
+                    res.json({
+                        "status": true,
+                        "data": dto
                     });
-                }
-            });
-        }
+                }).catch(function(err) {
+                    res.failure(err);
+                });
+            }
+        });
     });
     /**
      * @api {post} /user Create
