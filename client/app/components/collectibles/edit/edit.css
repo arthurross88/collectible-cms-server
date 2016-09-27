@@ -1,6 +1,9 @@
 .cc-collectible-edit {
     position: relative;
 }
+.cc-collectible-edit textarea {
+    height: 6em;
+}
 .cc-collectible-edit .col-xs-12.upload {
     margin-top: 0.5em;
 }
