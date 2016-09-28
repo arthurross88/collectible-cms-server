@@ -1,12 +1,13 @@
 // Import packages.
-var express    = require('express');
-var app        = express();
-var bodyParser = require('body-parser');
-var morgan     = require('morgan');
-var mongoose   = require('mongoose');
-var jwt        = require('jsonwebtoken');
-var	busboy     = require('connect-busboy');
-var config     = require('./config');
+var compression = require('compression');
+var express     = require('express');
+var app         = express();
+var bodyParser  = require('body-parser');
+var morgan      = require('morgan');
+var mongoose    = require('mongoose');
+var jwt         = require('jsonwebtoken');
+var busboy      = require('connect-busboy');
+var config      = require('./config');
 
 // Should we put these into app.set for a poor man's dependency injection?
 var User                = require('./server/models/user');
@@ -19,6 +20,9 @@ var ScottCatalogue      = require('./server/models/stamps/scottCatalogue');
 var port = config.port;
 mongoose.connect(config.database);
 app.set('tokenSignature', config.tokenSignature);
+
+// Compress (gzip) http responses.
+app.use(compression());
 
 // Use body parser so we can get info from POST and/or URL parameters
 app.use(busboy({
