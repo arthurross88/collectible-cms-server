@@ -2,6 +2,7 @@
 import { Component, Input, Output, 
          ViewChild, OnInit, 
          EventEmitter, HostListener }    from '@angular/core';
+import { SafeStyle }                     from '@angular/platform-browser';
 // Models.
 import { File }                          from '../../../models/file';
 import { Collectible }                   from '../../../models/collectible';
@@ -98,6 +99,9 @@ export class CollectiblesTable implements OnInit {
  * Support classes.
  */
 export class Options {
+    // Apply style to inner container of component. I.E:
+    // this.sanitizer.bypassSecurityTrustStyle('width: 6em; height: 6em;'),
+    style: SafeStyle;
     rows: number;
     pagination: PaginationOptions;
     thumbnail: iThumbOptions;

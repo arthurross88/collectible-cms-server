@@ -1,12 +1,16 @@
-import { Component }	                 from '@angular/core';
-import { OnInit }		                 from '@angular/core';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+// Core.
+import { Component, OnInit }	         from '@angular/core';
+import { DomSanitizer, SafeStyle }       from '@angular/platform-browser';
+// Models.
 import { AlertMessage }                  from '../../../models/alertMessage';
 import { User, CurrentUser }			 from '../../../models/user';
 import { Config, ConfigContainer }       from '../../../models/config';
+// Services.
 import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
 import { ConfigService }                 from '../../../services/config/config.service';
-import { SiteCollectibles, Options as SiteCollectiblesOptions } from '../../../components/site/collectibles/collectibles.component';
+// Components.
+import { SiteCollectibles, 
+         Options as SiteCollectiblesOptions } from '../../../components/site/collectibles/collectibles.component';
 
 @Component({
     moduleId: module.id,	
@@ -22,6 +26,7 @@ export class RoutesSiteHomeComponent implements OnInit {
     collectiblesOptions: SiteCollectiblesOptions = {
         title: "Recent Collectibles",
         table: {
+            style: this.sanitizer.bypassSecurityTrustStyle('width: 10em; border-radius: 8px;'),
             rows: 2,
             pagination: {
                 pageCurrent: 1,
@@ -33,7 +38,8 @@ export class RoutesSiteHomeComponent implements OnInit {
             }
         }
     }
-    constructor(private authService: AuthenticateService, private configService: ConfigService,
+    constructor(private authService: AuthenticateService, 
+                private configService: ConfigService,
                 private sanitizer: DomSanitizer) { }
     ngOnInit() {
     	this.currentUser = this.authService.getCurrentUser();

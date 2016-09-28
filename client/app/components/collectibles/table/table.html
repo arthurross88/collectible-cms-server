@@ -14,7 +14,7 @@
                 <div *ngFor="let collectible of collectibles | slice
                       :(pageCurrent - 1) * options.pagination.itemsPerPage
                       :(pageCurrent - 1) * options.pagination.itemsPerPage + options.pagination.itemsPerPage" 
-                     class="collectibles">
+                     class="collectibles" [style]="options.style">
                     <div class="cc-file-thumbnail">
                         <cc-collectibles-thumbnail 
                             [collectible]="collectible"

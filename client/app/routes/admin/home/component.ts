@@ -1,12 +1,17 @@
-import { Component }	                 from '@angular/core';
-import { OnInit }		                 from '@angular/core';
+// Core.
+import { Component,  OnInit }            from '@angular/core';
 import { DomSanitizer, SafeStyle }       from '@angular/platform-browser';
+// Models.
 import { AlertMessage }                  from '../../../models/alertMessage';
 import { User, CurrentUser }             from '../../../models/user';
+// Services.
 import { AuthenticateService }           from '../../../services/authenticate/authenticate.service';
-import { UserService } from '../../../services/user/user.service';
-import { UsersTable, Options as UserTableOptions } from '../../../components/users/table/table.component';
-import { SiteCollectibles, Options as SiteCollectiblesOptions } from '../../../components/site/collectibles/collectibles.component';
+import { UserService }                   from '../../../services/user/user.service';
+// Components.
+import { UsersTable, 
+         Options as UserTableOptions }   from '../../../components/users/table/table.component';
+import { SiteCollectibles, 
+         Options as SiteCollectiblesOptions } from '../../../components/site/collectibles/collectibles.component';
 
 @Component({
     moduleId: module.id,	
@@ -34,6 +39,7 @@ export class RoutesAdminHomeComponent implements OnInit {
     collectiblesOptions: SiteCollectiblesOptions = {
         title: "Recent Collectibles",
         table: {
+            style: this.sanitizer.bypassSecurityTrustStyle('width: 10em; border-radius: 8px;'),
             rows: 2,
             pagination: {
                 pageCurrent: 1,
@@ -46,7 +52,8 @@ export class RoutesAdminHomeComponent implements OnInit {
         }
     }
     users: User[];
-    constructor(private authService: AuthenticateService, private userService: UserService,
+    constructor(private authService: AuthenticateService, 
+                private userService: UserService,
                 private sanitizer: DomSanitizer) { }
     ngOnInit() {
     	this.currentUser = this.authService.getCurrentUser();

@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { Component, OnInit }             from '@angular/core';
+import { ActivatedRoute }                from '@angular/router';
+import { DomSanitizer, SafeStyle }       from '@angular/platform-browser';
 // Models.
-import { User } from '../../../models/user';
-import { File } from '../../../models/file';
-import { AlertMessage } from '../../../models/alertMessage';
+import { User }                          from '../../../models/user';
+import { File }                          from '../../../models/file';
+import { AlertMessage }                  from '../../../models/alertMessage';
 // Services.
-import { UserService } from '../../../services/user/user.service';
-import { FileService } from '../../../services/file/file.service';
+import { UserService }                   from '../../../services/user/user.service';
+import { FileService }                   from '../../../services/file/file.service';
 // Components.
-import { UserImages, Options as UserImagesOptions } from '../../../components/users/images/images.component';
-import { UsersTile, Options as UserTileOptions } from '../../../components/users/tile/tile.component';
-import { UserCollectibles, Options as CollectiblesOptions } from '../../../components/users/collectibles/collectibles.component';
+import { UserImages, 
+         Options as UserImagesOptions }  from '../../../components/users/images/images.component';
+import { UsersTile, 
+         Options as UserTileOptions }    from '../../../components/users/tile/tile.component';
+import { UserCollectibles, 
+         Options as CollectiblesOptions } from '../../../components/users/collectibles/collectibles.component';
 
 @Component({
     moduleId: module.id,
@@ -31,6 +34,7 @@ export class RoutesUsersProfileComponent implements OnInit {
     user : User;
     collectiblesOptions: CollectiblesOptions = {
         table: {
+            style: this.sanitizer.bypassSecurityTrustStyle('width: 10em; border-radius: 8px;'),
             rows: null,
             pagination: {
                 pageCurrent: 1,
@@ -59,8 +63,10 @@ export class RoutesUsersProfileComponent implements OnInit {
     };
     tileOptions: UserTileOptions = {
     };
-    constructor(private route: ActivatedRoute, private userService: UserService,
-                private fileService: FileService, private sanitizer: DomSanitizer) {
+    constructor(private route: ActivatedRoute, 
+                private userService: UserService,
+                private fileService: FileService, 
+                private sanitizer: DomSanitizer) {
         this.userId = route.snapshot.params['id'];        
     }
     ngOnInit() {
