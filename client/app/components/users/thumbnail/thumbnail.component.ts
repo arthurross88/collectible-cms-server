@@ -1,7 +1,7 @@
 // Core.
 import { Component, Input, Output, 
          ViewChild, OnInit, 
-         EventEmitter }                  from '@angular/core';
+         EventEmitter, SimpleChanges }   from '@angular/core';
 import { DomSanitizer }                  from '@angular/platform-browser';
 // Models.
 import { File }                          from '../../../models/file';
@@ -38,7 +38,7 @@ export class UsersThumbnail implements OnInit {
     constructor(private fileService: FileService, 
                 private sanitizer: DomSanitizer) { }
     ngOnInit() { }
-    ngOnChanges(changes: Map<string, any>): void {
+    ngOnChanges(changes: SimpleChanges): void {
         if (changes['user'] !== undefined && changes['user'].currentValue !== undefined) {
             if (this.user.imageId !== undefined){
                 this.working = true;

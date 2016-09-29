@@ -5,5 +5,8 @@ typings
 apidoc.json
 /client/app/**/*.js
 /client/app/**/*.map
+/client/app/**/*.ngfactory.ts
+/client/app/**/*.metadata.json
+/client/app/**/*.css.shim.ts
 *.log
 /uploads

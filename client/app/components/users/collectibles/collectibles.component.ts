@@ -1,10 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { User } from '../../../models/user';
-import { Collectible } from '../../../models/collectible';
-import { AlertMessage } from '../../../models/alertMessage';
-import { CollectibleService } from '../../../services/collectible/collectible.service';
-import { CollectiblesTable, Options as TableOptions } from '../../../components/collectibles/table/table.component';
-import { Pagination, Options as PaginationOptions } from '../../../components/site/pagination/pagination.component';
+// Core
+import { Component, OnInit, Input,
+         Output, EventEmitter,
+         SimpleChanges }                 from '@angular/core';
+// Models.
+import { User }                          from '../../../models/user';
+import { Collectible }                   from '../../../models/collectible';
+import { AlertMessage }                  from '../../../models/alertMessage';
+// Services.
+import { CollectibleService }            from '../../../services/collectible/collectible.service';
+// Components.
+import { CollectiblesTable, 
+         Options as TableOptions }       from '../../../components/collectibles/table/table.component';
+import { Pagination, 
+         Options as PaginationOptions }  from '../../../components/site/pagination/pagination.component';
 
 /**
  *  <cc-user-collectibles
@@ -31,7 +39,7 @@ export class UserCollectibles implements OnInit {
     collectibles: Collectible[];
     constructor(private collectibleService: CollectibleService) { }
     ngOnInit() { }
-    ngOnChanges(changes: Map<string, any>): void {
+    ngOnChanges(changes: SimpleChanges): void {
         if (changes["user"] !== undefined && changes["user"].currentValue !== undefined) {
             this.getCollectibles();
         }

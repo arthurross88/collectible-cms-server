@@ -1,8 +1,7 @@
-// The browser platform with a compiler
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { platformBrowserDynamic }        from '@angular/platform-browser-dynamic';
+import { AppModule }                     from './app.module';
+//import { platformBrowser }               from '@angular/platform-browser';
+//import { AppModuleNgFactory }            from './app.module.ngfactory';
 
-// The app module
-import { AppModule } from './app.module';
-
-// Compile and launch the module
 platformBrowserDynamic().bootstrapModule(AppModule);
+//platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);

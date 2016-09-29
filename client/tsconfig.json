@@ -2,6 +2,10 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "types": [
+      "node",
+      "core-js"
+    ],
     "moduleResolution": "node",
     "sourceMap": true,
     "emitDecoratorMetadata": true,

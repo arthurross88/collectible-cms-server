@@ -1,7 +1,7 @@
 // Core.
 import { Component, Input, Output, 
          ViewChild, OnInit, 
-         EventEmitter }                  from '@angular/core';
+         EventEmitter, SimpleChanges }   from '@angular/core';
 import { DomSanitizer, SafeStyle }       from '@angular/platform-browser';
 // Models.
 import { Collectible }                   from '../../../models/collectible';
@@ -61,7 +61,7 @@ export class CollectibleFull implements OnInit {
     ngOnInit() {
         this.currentUser = this.authService.getCurrentUser();
     }
-    ngOnChanges(changes: Map<string, any>): void {
+    ngOnChanges(changes: SimpleChanges): void {
         if (changes['collectible'] !== undefined && changes['collectible'].currentValue !== undefined) {
             this.loaded = true;
         }

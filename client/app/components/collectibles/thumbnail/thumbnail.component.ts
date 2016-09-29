@@ -1,6 +1,7 @@
 // Core.
-import { Component, Input, Output }     from '@angular/core';
-import { OnInit, EventEmitter }         from '@angular/core';
+import { Component, Input, Output,
+         OnInit, EventEmitter, 
+         SimpleChanges }                from '@angular/core';
 import { Router }                       from '@angular/router';
 import { SafeStyle }                    from '@angular/platform-browser';
 // Models.
@@ -46,7 +47,7 @@ export class CollectiblesThumbnail implements OnInit {
         this.currentUser = this.authService.getCurrentUser();
     }
     ngOnInit() { }
-    ngOnChanges(changes: Map<string, any>): void {
+    ngOnChanges(changes: SimpleChanges): void {
         if (changes["collectible"] !== undefined && changes["collectible"].currentValue !== undefined) {
             let c = changes['collectible'].currentValue;
             let size: number = jQuery('.cc-collectibles-thumbnail.' + this.unique + ' > .inner').css('font-size');

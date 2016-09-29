@@ -1,7 +1,8 @@
 // Core.
 import { Component, Input, Output, 
          ViewChild, OnInit, 
-         EventEmitter, HostListener }    from '@angular/core';
+         EventEmitter, HostListener, 
+         SimpleChanges }                 from '@angular/core';
 import { SafeStyle }                     from '@angular/platform-browser';
 // Models.
 import { File }                          from '../../../models/file';
@@ -44,7 +45,7 @@ export class CollectiblesTable implements OnInit {
     lastCollectibleCount = 0;
     constructor(private collectibleService: CollectibleService) { }
     ngOnInit() { }
-    ngOnChanges(changes: Map<string, any>): void {
+    ngOnChanges(changes: SimpleChanges): void {
         if (changes["collectibles"] !== undefined && changes["collectibles"].currentValue !== undefined) {
             this.loaded = true;
             var self = this;
@@ -81,8 +82,6 @@ export class CollectiblesTable implements OnInit {
     doOnPageChange(page: number) {
         this.pageCurrent = page;
     }
-    // Event listener. Calculate new number of items to be displayed by pagination.
-    @HostListener('window:resize', ['$event'])
     doOnResize() {
         if (this.options.rows != null) {
             var total = jQuery(jQuery('.cc-collectibles-table.unique-'+this.unique+' div.loaded')[0]).innerWidth();
@@ -92,6 +91,11 @@ export class CollectiblesTable implements OnInit {
             this.options.pagination.itemsPerPage = count * this.options.rows;
             this.pagination.recalculate();
         }
+    }
+    // Event listener. Calculate new number of items to be displayed by pagination.
+    @HostListener('window:resize', ['$event'])
+    onResize(event: any) {
+        this.doOnResize();
     }
 };
 

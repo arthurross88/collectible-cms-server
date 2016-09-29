@@ -1,7 +1,7 @@
 // Core.
 import { Component, Input, Output, 
          ViewChild, OnInit, 
-         EventEmitter }                  from '@angular/core';
+         EventEmitter, SimpleChanges }   from '@angular/core';
 // Models.
 import { File }                          from '../../../models/file';
 import { User }                          from '../../../models/user';
@@ -41,7 +41,7 @@ export class UsersTable implements OnInit {
     pageCurrent: number = 1;
     constructor(private fileService: FileService) { }
     ngOnInit() { }
-    ngOnChanges(changes: Map<string, any>): void {
+    ngOnChanges(changes: SimpleChanges): void {
         if (changes['users'] !== undefined && changes['users'].currentValue !== undefined) {
             this.loaded = true;
             // This can't be right...

@@ -12,7 +12,7 @@ import { ConfigService }                 from './services/config/config.service'
     template: `
         <div class="public-app">
             <cc-site-menu-main></cc-site-menu-main>
-            <div *ngIf="!working && configContainer.config.motd.length" class="motd">
+            <div *ngIf="!working && configContainer.config.motd.length > 0" class="motd">
                 {{ configContainer.config.motd }}
             </div>
             <router-outlet></router-outlet>
@@ -37,7 +37,6 @@ import { ConfigService }                 from './services/config/config.service'
         ConfigService
     ]
 })
-
 export class AppComponent implements OnInit {
     config: Config = null;
     working = false;

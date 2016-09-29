@@ -1,6 +1,7 @@
 // Core.
 import { Component, OnInit, Input, 
-         Output, EventEmitter }          from '@angular/core';
+         Output, EventEmitter, 
+         SimpleChanges }                 from '@angular/core';
 // Models.
 import { User }                          from '../../../models/user';
 import { File }                          from '../../../models/file';
@@ -32,7 +33,7 @@ export class UserImages implements OnInit {
     files: File[];
     constructor(private fileService: FileService) { }
     ngOnInit() { }
-    ngOnChanges(changes: Map<string, any>): void {
+    ngOnChanges(changes: SimpleChanges): void {
         if (changes["user"] !== undefined && changes["user"].currentValue !== undefined) {
             this.getImages();
         }

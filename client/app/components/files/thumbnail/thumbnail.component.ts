@@ -1,6 +1,7 @@
 // Core.
-import { Component, Input, Output }      from '@angular/core';
-import { OnInit, EventEmitter }          from '@angular/core';
+import { Component, Input, Output,
+         OnInit, EventEmitter, 
+         SimpleChanges }                 from '@angular/core';
 // Models.
 import { File }                          from '../../../models/file';
 import { AlertMessage }                  from '../../../models/alertMessage';
@@ -41,7 +42,7 @@ export class Thumbnail implements OnInit {
         this.currentUser = this.authService.getCurrentUser();
     }
     ngOnInit() { }
-    ngOnChanges(changes: Map<string, any>): void {
+    ngOnChanges(changes: SimpleChanges): void {
         if (changes['file'] !== undefined && changes['file'].currentValue !== undefined) {
             this.loaded = true;
             this.authorized = (changes['file'].currentValue.userId == this.currentUser.user._id) || 

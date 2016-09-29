@@ -1,6 +1,9 @@
-import { Component, Input, Output }     from '@angular/core';
-import { OnInit, EventEmitter }         from '@angular/core';
-import { AlertMessage }                 from '../../../models/alertMessage';
+// Core.
+import { Component, Input, Output,
+         OnInit, EventEmitter,
+         SimpleChanges }                 from '@angular/core';
+// Models.
+import { AlertMessage }                  from '../../../models/alertMessage';
 
 /**
  *  <cc-pagination 
@@ -27,7 +30,7 @@ export class Pagination implements OnInit {
     buttons: number[];
     constructor() { }
     ngOnInit() { }
-    ngOnChanges(changes: Map<string, any>): void {
+    ngOnChanges(changes: SimpleChanges): void {
         if (changes["items"] !== undefined && changes["items"].currentValue !== undefined) {
             this.loaded = true;
             this.recalculate();

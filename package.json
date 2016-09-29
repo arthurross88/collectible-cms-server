@@ -12,7 +12,7 @@
     "client_dev": "cd client && npm run dev",
     "server_dev": "nodemon server.js",
     "dev": "concurrent \"npm run client_dev\" \"npm run server_dev\" \"npm run doc_update\" ",
-    "prod": "cd client && npm run tsc && cd .. && npm run doc_update && node server.js"
+    "prod": "cd client && npm run aot && cd .. && npm run doc_update && node server.js"
   },
   "author": "Bryan Hazelbaker",
   "license": "MIT",

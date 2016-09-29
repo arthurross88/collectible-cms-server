@@ -7,7 +7,6 @@ import 'rxjs/add/operator/map';
 // Routes, Landing pages.
 import { routing, 
          appRoutingProviders }           from './app.routing';
-import { PasswordReset } 		         from './components/password-reset/password-reset.component';
 import { RoutesSiteHomeComponent }       from './routes/site/home/component';
 import { RoutesAdminHomeComponent }      from './routes/admin/home/component';
 import { RoutesUsersProfileComponent }   from './routes/users/profile/component';
@@ -52,7 +51,6 @@ import { Thumbnail as ImagesThumbnail }  from './components/files/thumbnail/thum
         RoutesUsersProfileComponent,
         RoutesCollectibleView,
         RoutesCollectibleEdit,
-        PasswordReset,
         SiteAlertComponent,
         SiteMenuMainComponent, 
         SiteConfigComponent,

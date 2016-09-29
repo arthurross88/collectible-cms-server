@@ -45,12 +45,17 @@ Visit http://localhost:8080/apidoc/v1 and issue test API requests as desired.
 
 * https://github.com/Microsoft/TypeScript-Sublime-Plugin
 
-#### Hide .js and .map Files
+#### Hide .js, .map and Other Files
 
 In preferences -> Settings -> User
 
     {
-        "file_exclude_patterns": ["collectible-cms/client/**/*.js", "collectible-cms/**/*.map"]
+        "file_exclude_patterns": [
+            "collectible-cms/client/**/*.js", 
+            "collectible-cms/client/*.ngfactory.ts",
+            "collectible-cms/client/*.css.shim.ts",
+            "collectible-cms/**/*.map"
+        ]
     }
 
 ## License

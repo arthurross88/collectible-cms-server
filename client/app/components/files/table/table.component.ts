@@ -1,7 +1,7 @@
 // Core.
 import { Component, Input, Output, 
          ViewChild, OnInit, 
-         EventEmitter }                  from '@angular/core';
+         EventEmitter, SimpleChanges }   from '@angular/core';
 import { SafeStyle }                     from '@angular/platform-browser';
 // Models.
 import { File }                          from '../../../models/file';
@@ -45,7 +45,7 @@ export class ImagesTable implements OnInit {
     lastFileCount = 0;
     constructor(private fileService: FileService) { }
     ngOnInit() { }
-    ngOnChanges(changes: Map<string, any>): void {
+    ngOnChanges(changes: SimpleChanges): void {
         if (changes['files'] !== undefined && changes['files'].currentValue !== undefined) {
             var self = this;
             this.loaded = true;
