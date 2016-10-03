@@ -1,8 +1,12 @@
 .cc-file-thumbnail {
-
+    padding: 6px;
 }
 .cc-file-thumbnail .inner {
     overflow: hidden;
+    background-color: #000000;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 6px #888888;
 }
 .cc-file-thumbnail .fail span {
     display: inline-block;
@@ -18,15 +22,13 @@
 }
 .cc-file-thumbnail .loaded img {
     cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 2px 2px 6px #888888;
+}
+.cc-file-thumbnail .loaded img:hover + .btn {
+    opacity: 0.5;
 }
 .cc-file-thumbnail .loaded .modal img {
     height: initial;
     width: initial;
-}
-.cc-file-thumbnail .loaded img:hover + .btn {
-    opacity: 0.5;
 }
 .cc-file-thumbnail .loaded .btn {
     padding: 0;

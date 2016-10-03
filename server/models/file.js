@@ -123,6 +123,7 @@ fileSchema.methods.saveResize = function(width, height, quality, outputPath) {
             if (err) reject(err)
             fs.mkdir(f.getPathBase() + '/thumb', 0777, function(err) { });
             fs.mkdir(f.getPathBase() + '/full', 0777, function(err) { });
+//            image.scaleToFit(width, height)
             image.contain(width, height, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE)
                  .quality(quality)
                  .write(outputPath, function(err) {
