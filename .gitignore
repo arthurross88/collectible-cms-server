@@ -8,5 +8,6 @@ apidoc.json
 /client/app/**/*.ngfactory.ts
 /client/app/**/*.metadata.json
 /client/app/**/*.css.shim.ts
+/client/dist
 *.log
 /uploads

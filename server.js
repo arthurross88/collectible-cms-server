@@ -44,9 +44,9 @@ app.use('/api/v1', router);
 // Static Routes.
 app.use('/apidoc', express.static('apidoc'));
 app.use('/uploads', express.static('uploads'));
-app.use('/client', express.static('client'));
-app.use('/', express.static('client'));
-app.use('*', express.static('client'));
+app.use('/client', express.static('client/dist'));
+app.use('/', express.static('client/dist'));
+app.use('*', express.static('client/dist'));
 
 // Start the server
 app.listen(port);
