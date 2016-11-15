@@ -3,11 +3,5 @@ node_modules
 typings
 /apidoc
 apidoc.json
-/client/app/**/*.js
-/client/app/**/*.map
-/client/app/**/*.ngfactory.ts
-/client/app/**/*.metadata.json
-/client/app/**/*.css.shim.ts
-/client/dist
 *.log
 /uploads
