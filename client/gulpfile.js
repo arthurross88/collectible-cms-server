@@ -1,21 +1,16 @@
-var gulp  = require('gulp');
-var clean = require('gulp-clean');
-var exec  = require('child_process').exec;
+var gulp    = require('gulp');
+var clean   = require('gulp-clean');
+var webpack = require('gulp-webpack');
 
-gulp.task('clean', function(){
-    return exec('rimraf dist', function(err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
-    });
+gulp.task('clean', function(cb) {
+    return gulp.src('dist', {read: false})
+        .pipe(clean());
 });
 
 gulp.task('build', ['clean'], function(cb) {
-    return exec('webpack --config config/webpack.prod.js --progress --profile --bail', function(err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
-    });
+    return gulp.src('src/main.js')
+        .pipe(webpack( require('./config/webpack.prod.js') ))
+        .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('default', ['clean', 'build']);
