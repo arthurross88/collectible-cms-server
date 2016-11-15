@@ -6,6 +6,7 @@ declare var jwt_decode: any;
 
 @Injectable()
 export class AuthenticateService {
+    jwt_decode: any = jwt_decode;    
     currentUser: CurrentUser = new CurrentUser();
     constructor(private httpService: HttpService) { 
         if (typeof(this.currentUser.user) == 'undefined' || this.currentUser.user == null) {
@@ -49,7 +50,7 @@ export class AuthenticateService {
         var token: string = this.getToken();
         var user: User = new User();
         if (typeof(token) != 'undefined' && token != null) {
-            var decoded = jwt_decode(token);
+            var decoded = this.jwt_decode(token);
             // Remove token and current user is token is expired.
             if (Math.floor(Date.now() / 1000) <= decoded.exp) {
                 user.map(decoded);

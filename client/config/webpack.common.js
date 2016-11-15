@@ -1,7 +1,8 @@
-var webpack = require('webpack');
+var webpack           = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var helpers = require('./helpers');
+var helpers           = require('./helpers');
+var path              = require('path');
 
 module.exports = {
   entry: {
@@ -9,7 +10,6 @@ module.exports = {
     'vendor': './src/vendor.ts',
     'app': './src/main.ts'
   },
-
   resolve: {
     extensions: ['', '.ts', '.js']
   },
@@ -54,6 +54,6 @@ module.exports = {
         jquery: 'jquery',
         'window.jQuery': 'jquery',
         'window.$': 'jquery'
-    })  
+    }) 
   ]
 };
