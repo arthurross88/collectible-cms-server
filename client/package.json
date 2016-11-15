@@ -5,15 +5,14 @@
   "main": "server.js",
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 8080",
-    "test": "karma start",
-    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
+    "test": "karma start"
   },
   "author": "Bryan Hazelbaker",
   "license": "MIT",
   "dependencies": {
     "@angular/common": "2.1.1",
     "@angular/compiler": "2.1.1",
-    "@angular/compiler-cli": "0.6.3",
+    "@angular/compiler-cli": "2.1.1",
     "@angular/core": "2.1.1",
     "@angular/forms": "2.1.1",
     "@angular/http": "2.1.1",
@@ -32,16 +31,17 @@
     "zone.js": "^0.6.25"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
     "@types/core-js": "^0.9.34",
-    "@types/node": "^6.0.45",
     "@types/jasmine": "^2.5.35",
+    "@types/node": "^6.0.45",
     "angular2-template-loader": "^0.4.0",
     "awesome-typescript-loader": "^2.2.4",
+    "child_process": "^1.0.2",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.15.0",
     "jasmine-core": "^2.4.1",
