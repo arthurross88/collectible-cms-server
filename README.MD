@@ -46,4 +46,4 @@ Visit http://localhost:8080/apidoc/v1 and issue test API requests as desired.
 
 ## License
 
-[MIT License](../blob/master/LICENSE.md)
+[MIT License](../master/LICENSE.md)
