@@ -1,4 +1,4 @@
-# Collectible CMS
+# Collectible CMS Server
 
 A Content Management System for stamps, coins, comic books, and other collectibles. This repository contains the server portion of the CMS which is responsible for the database, storing uploaded files, and providing the API for clients.
 
@@ -46,4 +46,4 @@ Visit http://localhost:8080/apidoc/v1 and issue test API requests as desired.
 
 ## License
 
-[https://github.com/delphian/collectible-cms-server/blob/master/LICENSE.md][MIT License]
+[MIT License](../blob/master/LICENSE.md)
