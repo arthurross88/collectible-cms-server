@@ -46,4 +46,4 @@ Visit http://localhost:8080/apidoc/v1 and issue test API requests as desired.
 
 ## License
 
-[MIT License][https://github.com/delphian/collectible-cms-server/LICENSE.md]
+[https://github.com/delphian/collectible-cms-server/blob/master/LICENSE.md][MIT License]
