@@ -1,37 +1,36 @@
 # Collectible CMS
 
-A Content Management System for stamps, coins, comic books, and other collectibles.
+A Content Management System for stamps, coins, comic books, and other collectibles. This repository contains the server portion of the CMS which is responsible for the database, storing uploaded files, and providing the API for clients.
 
 ## Requirements
 
-* Install MondoDB from https://docs.mongodb.com/manual/administration/install-community/
+* nodejs (>7.1.0) and npm (3.10.9). https://nodejs.org/en/download/
+* MondoDB. https://docs.mongodb.com/manual/administration/install-community/
 * A bash shell. Using windows? Try Cygwin.
 
 ## Installation
 
-Make sure you are running the lastest version of npm.
+#### Install global node packages:
+* 'forever' will be used to run the server in the background. `npm install forever -g`
+* 'gulp' will be used to build the project.``npm install gulp -g` 
 
-* `npm install npm -g`
-
-Clone repository and install packages.
-
-* `git clone https://github.com/delphian/collectible-cms.git`
-* `cd collectible-cms`
+#### Clone repository and install packages:
+* `git clone https://github.com/delphian/collectible-cms-server.git`
+* `cd collectible-cms-server`
 * `npm install`
 
-Customize token secret, port, and site domain.
-
+#### Customize the configuration files
 * `cp templates/config.js.sample ./config.js`
 * `cp templates/apidoc.json.sample ./apidoc.json`
-
-Edit config.js and apidoc.js, replacing the default values with more appropriate domain specific ones. _tokenSignature in config.js must be replaced or the site will NOT be secure_.
+Set token seccret, port and site domain. **tokenSignature in config.js must be
+replaced or the site will NOT be secure**..
 
 ## Usage
 
-* `npm run prod` or to launch in development mode: `npm run dev`
+* `forever start server.js` to launch the server in daemon mode (background process).
 
 By visiting http://localhost:8080 for the first time the default admin user
-will be created. Remember these credentials.
+will be created. Remember the credentials presented to you on screen.
 
 ## Create and view the documentation
 
@@ -45,19 +44,6 @@ Visit http://localhost:8080/apidoc/v1 and issue test API requests as desired.
 
 * https://github.com/Microsoft/TypeScript-Sublime-Plugin
 
-#### Hide .js, .map and Other Files
-
-In preferences -> Settings -> User
-
-    {
-        "file_exclude_patterns": [
-            "collectible-cms/client/**/*.js", 
-            "collectible-cms/client/*.ngfactory.ts",
-            "collectible-cms/client/*.css.shim.ts",
-            "collectible-cms/**/*.map"
-        ]
-    }
-
 ## License
 
-[MIT License][LICENSE.md]
+[MIT License][https://github.com/delphian/collectible-cms-server/LICENSE.md]
