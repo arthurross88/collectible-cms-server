@@ -1,6 +1,6 @@
 # Collectible CMS Server
 
-A Content Management System for stamps, coins, comic books, and other collectibles. This repository contains the server portion of the CMS which is responsible for the database, storing uploaded files, and providing the API for clients.
+A Content Management System for stamps, coins, comic books, and other collectibles. This repository contains the server portion of the CMS which is responsible for the database, storing uploaded files, and providing the API for clients. A seperate client, such as [Collectible CMS Web Client](https://www.github.com/delphian/collectible-cms-web-client), must be used to provide the user interface.
 
 ## Requirements
 
