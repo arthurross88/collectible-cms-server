@@ -34,7 +34,8 @@ replaced or the site will NOT be secure**..
 * `forever start server.js` to launch the server in daemon mode (background process).
 
 By visiting http://localhost:8080 for the first time the default admin user
-will be created. Remember the credentials presented to you on screen.
+will be created. Remember the credentials presented to you on screen. __'forever'
+should only be used as a temporary solution to running the server as a service__.
 
 ## API Documentation
 
