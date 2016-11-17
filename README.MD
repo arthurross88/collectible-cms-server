@@ -10,11 +10,11 @@ A Content Management System for stamps, coins, comic books, and other collectibl
 
 ## Installation
 
-#### Install global node packages:
+#### Install global node packages
 * 'forever' will be used to run the server in the background. `npm install forever -g`
-* 'gulp' will be used to build the project.``npm install gulp -g` 
+* 'gulp' will be used to build the project. `npm install gulp -g` 
 
-#### Clone repository and install packages:
+#### Clone repository and install packages
 * `git clone https://github.com/delphian/collectible-cms-server.git`
 * `cd collectible-cms-server`
 * `npm install`
@@ -25,6 +25,9 @@ A Content Management System for stamps, coins, comic books, and other collectibl
 Set token seccret, port and site domain. **tokenSignature in config.js must be
 replaced or the site will NOT be secure**..
 
+#### Build/Rebuild the project
+* `gulp build`
+
 ## Usage
 
 * `forever start server.js` to launch the server in daemon mode (background process).
@@ -32,11 +35,11 @@ replaced or the site will NOT be secure**..
 By visiting http://localhost:8080 for the first time the default admin user
 will be created. Remember the credentials presented to you on screen.
 
-## Create and view the documentation
+## API Documentation
 
-* `npm run doc_update`
+* Visit http://localhost:8080/apidoc/v1 and issue test API requests as desired.
 
-Visit http://localhost:8080/apidoc/v1 and issue test API requests as desired.
+Remember to rebuild the project with `gulp build` after updating the documentation.
 
 ## Sublime Text 3 Support
 
