@@ -1,5 +1,5 @@
 {
-  "name": "collectible-cms",
+  "name": "collectible-cms-server",
   "version": "0.0.1",
   "description": "API backend for the Collectible Content Management System",
   "main": "server.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "doc_install": "apidoc -i server/ -o apidoc/v1/",
     "doc_update": "apidoc -i server/ -o apidoc/v1/ -t templates/apidoc",
-    "client_install": "cd client && npm install"
+    "postinstall": "npm run doc_install && npm run doc_update"
   },
   "author": "Bryan Hazelbaker",
   "license": "MIT",
@@ -28,6 +28,9 @@
   },
   "devDependencies": {
     "concurrently": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-express": "^0.3.5",
     "nodemon": "^1.10.2"
   }
 }
