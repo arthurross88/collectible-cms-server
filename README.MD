@@ -30,6 +30,7 @@ replaced or the site will NOT be secure**..
 
 ## Usage
 
+* `gulp start` to lanch as a foreground process, or:
 * `forever start server.js` to launch the server in daemon mode (background process).
 
 By visiting http://localhost:8080 for the first time the default admin user
