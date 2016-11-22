@@ -7,6 +7,7 @@ var morgan      = require('morgan');
 var mongoose    = require('mongoose');
 var jwt         = require('jsonwebtoken');
 var busboy      = require('connect-busboy');
+var cors        = require('cors');
 var config      = require('./config');
 
 // Should we put these into app.set for a poor man's dependency injection?
@@ -23,6 +24,9 @@ app.set('tokenSignature', config.tokenSignature);
 
 // Compress (gzip) http responses.
 app.use(compression());
+
+// Access-Control-Allow-Origin
+app.use(cors());
 
 // Use body parser so we can get info from POST and/or URL parameters
 app.use(busboy({
