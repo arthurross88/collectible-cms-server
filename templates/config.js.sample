@@ -5,8 +5,8 @@ module.exports = {
     'tokenSignature': 'secret',
     'database': 'mongodb://localhost/CollectibleCMS',
     // Local port that express should serve CollectibleCMS on.
-    'port': 8080,
-    'domain': 'http://www.collectiblecms.com',
+    'port': 8081,
+    'domain': 'http://localhost',
     'rootPath': path.dirname(process.mainModule.filename),
     'uploadPath': 'uploads'    
 };
