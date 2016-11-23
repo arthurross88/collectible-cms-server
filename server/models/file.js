@@ -41,7 +41,7 @@ fileSchema.methods.getUser = function() {
     return promise;
 }
 fileSchema.methods.getUrlBase = function() {
-    return '/uploads/' + this.userId;
+    return Config.domain + ':' + Config.port + '/uploads/' + this.userId;
 }
 /**
  * Get the absolute path of directory where original file is located.

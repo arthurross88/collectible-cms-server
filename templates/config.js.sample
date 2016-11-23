@@ -4,9 +4,9 @@ module.exports = {
     // You must change the token signature.
     'tokenSignature': 'secret',
     'database': 'mongodb://localhost/CollectibleCMS',
+    'domain': 'http://localhost',
     // Local port that express should serve CollectibleCMS on.
     'port': 8081,
-    'domain': 'http://localhost',
     'rootPath': path.dirname(process.mainModule.filename),
     'uploadPath': 'uploads'    
 };
